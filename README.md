@@ -1,2 +1,2 @@
-# Swiftiness
+# Swiftness
 Awesome Swift helpers
