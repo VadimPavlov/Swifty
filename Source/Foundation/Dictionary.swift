@@ -5,7 +5,7 @@
 import Foundation
 
 public extension CollectionType {
-    func find(@noescape predicate: (Self.Generator.Element) throws -> Bool) rethrows -> Self.Generator.Element? {
+    public func find(@noescape predicate: (Self.Generator.Element) throws -> Bool) rethrows -> Self.Generator.Element? {
         return try indexOf(predicate).map({self[$0]})
     }
 }
@@ -18,11 +18,11 @@ public extension Dictionary {
         }
     }
     
-    func mapPairs<OutKey: Hashable, OutValue>(@noescape transform: Element throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
+    public func mapPairs<OutKey: Hashable, OutValue>(@noescape transform: Element throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
         return Dictionary<OutKey, OutValue>(try map(transform))
     }
     
-    func filterPairs(@noescape includeElement: Element throws -> Bool) rethrows -> [Key: Value] {
+    public func filterPairs(@noescape includeElement: Element throws -> Bool) rethrows -> [Key: Value] {
         return Dictionary(try filter(includeElement))
     }
 }

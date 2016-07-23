@@ -6,17 +6,17 @@ import UIKit
 
 public extension UIScrollView {
     
-    func subscribeForKeyboardNotifications() {
+    public func subscribeForKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIScrollView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIScrollView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    func unsubscribeFromKeyboardNotifications() {
+    public func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    public func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardFrame = keyboardFrameValue.CGRectValue()
             if let scrollRect = self.window?.convertRect(self.frame, fromView: self.superview) {
@@ -30,7 +30,7 @@ public extension UIScrollView {
             }
         }
     }
-    func keyboardWillHide(notification: NSNotification) {
+    public func keyboardWillHide(notification: NSNotification) {
         var inset = self.contentInset
         inset.bottom = 0
         self.contentInset = inset

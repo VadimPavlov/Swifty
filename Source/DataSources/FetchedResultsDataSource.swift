@@ -18,15 +18,15 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
         self.configuration = configuration
     }
     
-    func numberOfSections() -> Int {
+    public func numberOfSections() -> Int {
         return self.frc.sections?.count ?? 0
     }
     
-    func sectionInfoForSection(section: Int) -> NSFetchedResultsSectionInfo? {
+    public func sectionInfoForSection(section: Int) -> NSFetchedResultsSectionInfo? {
         return self.frc.sections?[section]
     }
     
-    func objectAtIndexPath(indexPath: NSIndexPath) -> Object? {
+    public func objectAtIndexPath(indexPath: NSIndexPath) -> Object? {
         return self.frc.objectAtIndexPath(indexPath) as? Object
     }
 }
@@ -38,15 +38,15 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
     }
 
     // MARK: - UICollectionViewDataSource
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.numberOfSections()
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
         self.configuration(cell: cell, object: object)
@@ -65,15 +65,15 @@ public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: Fetc
     }
     
     // MARK: - UITableViewDataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.numberOfSections()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCellWithIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
         self.configuration(cell: cell, object: object)
@@ -81,15 +81,15 @@ public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: Fetc
     }
 
     // MARK: - NSFetchedResultsControllerDelegate
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView?.beginUpdates()
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    public func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView?.endUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
         
         let sections = NSIndexSet(index: sectionIndex)
         switch type {
@@ -99,7 +99,7 @@ public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: Fetc
         }
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Insert:
             if let indexPath = newIndexPath { self.tableView?.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic) }
