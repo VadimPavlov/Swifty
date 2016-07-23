@@ -1,0 +1,2 @@
+# Swiftiness
+Awesome Swift helpers
