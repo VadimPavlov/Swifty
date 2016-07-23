@@ -4,14 +4,8 @@
 
 import Foundation
 
-public extension CollectionType {
-    public func find(@noescape predicate: (Self.Generator.Element) throws -> Bool) rethrows -> Self.Generator.Element? {
-        return try indexOf(predicate).map({self[$0]})
-    }
-}
-
 public extension Dictionary {
-    init(_ pairs: [Element]) {
+    init(pairs: [Element]) {
         self.init()
         for (k, v) in pairs {
             self[k] = v
