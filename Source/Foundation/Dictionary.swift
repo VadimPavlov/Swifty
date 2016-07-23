@@ -5,7 +5,7 @@
 import Foundation
 
 public extension Dictionary {
-    init(pairs: [Element]) {
+    init(_ pairs: [Element]) {
         self.init()
         for (k, v) in pairs {
             self[k] = v
