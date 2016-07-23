@@ -4,7 +4,7 @@
 
 import UIKit
 
-extension UIAlertController {
+public extension UIAlertController {
     
     // Attempting to load the view of a view controller while it is deallocating is not allowed and may result in undefined behavior
     // http://stackoverflow.com/a/33944376

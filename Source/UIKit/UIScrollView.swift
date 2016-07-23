@@ -4,7 +4,7 @@
 
 import UIKit
 
-extension UIScrollView {
+public extension UIScrollView {
     
     func subscribeForKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIScrollView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)

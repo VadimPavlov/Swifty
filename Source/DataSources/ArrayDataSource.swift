@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ArrayDataSource<Cell, Object>: NSObject {
+public class ArrayDataSource<Cell, Object>: NSObject {
     let array: Array<Object>
     let identifier: String
     let configuration: Configuration
@@ -21,7 +21,7 @@ class ArrayDataSource<Cell, Object>: NSObject {
     }
 }
 
-class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource {
+public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -38,7 +38,7 @@ class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataS
     }
 }
 
-class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource {
+public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

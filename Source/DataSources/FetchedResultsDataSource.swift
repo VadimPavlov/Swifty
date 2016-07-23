@@ -5,7 +5,7 @@
 import UIKit
 import CoreData
 
-class FetchedResultsDataSource<Cell, Object>: NSObject {
+public class FetchedResultsDataSource<Cell, Object>: NSObject {
     
     let identifier: String
     let frc: NSFetchedResultsController
@@ -31,7 +31,7 @@ class FetchedResultsDataSource<Cell, Object>: NSObject {
     }
 }
 
-class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource {
+public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource {
     
     override init(frc: NSFetchedResultsController, identifier: String = String(Cell), configuration: Configuration) {
         super.init(frc: frc, identifier: identifier, configuration: configuration)
@@ -55,7 +55,7 @@ class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: F
     // TODO: NSFetchedResultsControllerDelegate
 }
 
-class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     weak var tableView: UITableView?
     init(tableView: UITableView, frc: NSFetchedResultsController, identifier: String = String(Cell), configuration: Configuration) {
