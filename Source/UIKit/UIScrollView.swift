@@ -1,10 +1,6 @@
 //
 //  UIScrollView.swift
-//  SwiftCourse
-//
 //  Created by Vadim Pavlov on 5/6/16.
-//  Copyright © 2016 DataArt. All rights reserved.
-//
 
 import UIKit
 

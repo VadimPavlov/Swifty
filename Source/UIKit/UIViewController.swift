@@ -1,10 +1,6 @@
 //
 //  UIViewController.swift
-//  SwiftCourse
-//
 //  Created by Vadim Pavlov on 4/12/16.
-//  Copyright © 2016 DataArt. All rights reserved.
-//
 
 import UIKit
 

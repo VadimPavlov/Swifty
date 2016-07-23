@@ -1,10 +1,6 @@
 //
 //  UIAlertController.swift
-//  SwiftCourse
-//
 //  Created by Vadim Pavlov on 4/15/16.
-//  Copyright © 2016 DataArt. All rights reserved.
-//
 
 import UIKit
 

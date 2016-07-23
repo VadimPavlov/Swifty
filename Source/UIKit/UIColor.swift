@@ -1,10 +1,6 @@
 //
 //  UIColor.swift
-//  Poketools
-//
 //  Created by Vadim Pavlov on 23.07.16.
-//  Copyright © 2016 Puzzles. All rights reserved.
-//
 
 import UIKit
 

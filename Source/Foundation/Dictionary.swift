@@ -1,10 +1,6 @@
 //
 //  Collection.swift
-//  SwiftCourse
-//
 //  Created by Vadim Pavlov on 4/27/16.
-//  Copyright © 2016 DataArt. All rights reserved.
-//
 
 import Foundation
 
