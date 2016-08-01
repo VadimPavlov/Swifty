@@ -5,13 +5,12 @@
 import UIKit
 
 public class ArrayDataSource<Cell, Object>: NSObject {
-    let array: Array<Object>
+	var array: [Object] = []
     let identifier: String
     let configuration: Configuration
     typealias Configuration = (cell: Cell, object: Object) -> Void
     
-    init(array: Array<Object>, identifier: String = String(Cell), configuration: Configuration) {
-        self.array = array
+    init(identifier: String = String(Cell), configuration: Configuration) {
         self.identifier = identifier
         self.configuration = configuration
     }
@@ -19,27 +18,29 @@ public class ArrayDataSource<Cell, Object>: NSObject {
     public func objectAtIndexPath(indexPath: NSIndexPath) -> Object {
         return self.array[indexPath.row]
     }
-}
-
-public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource {
-    
-    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.array.count
-    }
-    
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
-        let object = self.objectAtIndexPath(indexPath)
-        self.configuration(cell: cell, object: object)
-        return cell
-    }
+	
+	public func clear() {
+		array.removeAll()
+	}
 }
 
 public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource {
-    
+	
+	weak var tableView: UITableView?
+	init(_ tableView: UITableView, identifier: String = String(Cell), configuration: Configuration) {
+		self.tableView = tableView
+		super.init(identifier: identifier, configuration: configuration)
+		tableView.dataSource = self
+	}
+	override var array: [Object] {
+		didSet { tableView?.reloadData() }
+	}
+	
+	public override func clear() {
+		super.clear()
+		tableView?.reloadData()
+	}
+	
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -54,4 +55,38 @@ public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSour
         self.configuration(cell: cell, object: object)
         return cell
     }
+}
+
+public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource {
+	
+	weak var collectionView: UICollectionView?
+	init(_ collectionView: UICollectionView, identifier: String = String(Cell), configuration: Configuration) {
+		self.collectionView = collectionView
+		super.init(identifier: identifier, configuration: configuration)
+		collectionView.dataSource = self
+	}
+	
+	override var array: [Object] {
+		didSet { collectionView?.reloadData() }
+	}
+	
+	public override func clear() {
+		super.clear()
+		collectionView?.reloadData()
+	}
+
+	
+	public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+		return 1
+	}
+	public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return self.array.count
+	}
+	
+	public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+		let object = self.objectAtIndexPath(indexPath)
+		self.configuration(cell: cell, object: object)
+		return cell
+	}
 }

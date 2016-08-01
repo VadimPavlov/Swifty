@@ -8,34 +8,55 @@ import CoreData
 public class FetchedResultsDataSource<Cell, Object>: NSObject {
     
     let identifier: String
-    let frc: NSFetchedResultsController
+    var frc: NSFetchedResultsController?
     let configuration: Configuration
+	
     typealias Configuration = (cell: Cell, object: Object) -> Void
-
-    init(frc: NSFetchedResultsController, identifier: String = String(Cell), configuration: Configuration) {
-        self.frc = frc
+	
+    init(frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), configuration: Configuration) {
+		self.frc = frc
         self.identifier = identifier
         self.configuration = configuration
     }
     
     public func numberOfSections() -> Int {
-        return self.frc.sections?.count ?? 0
+        return self.frc?.sections?.count ?? 0
     }
     
     public func sectionInfoForSection(section: Int) -> NSFetchedResultsSectionInfo? {
-        return self.frc.sections?[section]
+        return self.frc?.sections?[section]
     }
     
     public func objectAtIndexPath(indexPath: NSIndexPath) -> Object? {
-        return self.frc.objectAtIndexPath(indexPath) as? Object
+        return self.frc?.objectAtIndexPath(indexPath) as? Object
     }
 }
 
-public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource {
-    
-    override init(frc: NSFetchedResultsController, identifier: String = String(Cell), configuration: Configuration) {
-        super.init(frc: frc, identifier: identifier, configuration: configuration)
+public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
+	
+	weak var collectionView: UICollectionView?
+	
+	init(_ collectionView: UICollectionView, frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
+		self.collectionView = collectionView
+		super.init(frc: frc, identifier: identifier, configuration: configuration)
+		collectionView.dataSource = self
+		if registerNib {
+			let nib = UINib(nibName: identifier, bundle: nil)
+			collectionView.registerNib(nib, forCellWithReuseIdentifier: identifier)
+		}
+
     }
+	
+	var didSelectObject: ((Object, NSIndexPath) -> Void)? {
+		willSet { collectionView?.delegate = newValue != nil ? self : nil }
+	}
+
+	// MARK: - UICollectionViewDelegate
+	public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		if let object = objectAtIndexPath(indexPath) {
+			didSelectObject?(object, indexPath)
+		}
+	}
 
     // MARK: - UICollectionViewDataSource
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -55,15 +76,26 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
     // TODO: NSFetchedResultsControllerDelegate
 }
 
-public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
     weak var tableView: UITableView?
-    init(tableView: UITableView, frc: NSFetchedResultsController, identifier: String = String(Cell), configuration: Configuration) {
+    init(_ tableView: UITableView, frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), configuration: Configuration) {
         self.tableView = tableView
         super.init(frc: frc, identifier: identifier, configuration: configuration)
         tableView.dataSource = self
     }
-    
+	
+	var didSelectObject: ((Object, NSIndexPath) -> Void)? {
+		willSet { tableView?.delegate = newValue != nil ? self : nil }
+	}
+	
+	// MARK: - UITableViewDelegate
+	public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if let object = objectAtIndexPath(indexPath) {
+			didSelectObject?(object, indexPath)
+		}
+	}
+	
     // MARK: - UITableViewDataSource
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.numberOfSections()
