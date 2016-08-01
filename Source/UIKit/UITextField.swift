@@ -4,7 +4,7 @@
 
 import UIKit
 
-extension UITextField {
+public extension UITextField {
 	func setPlaceholderColor(color: UIColor) {
 		if let placeholder = self.placeholder {
 			self.attributedPlaceholder = placeholder.foregroundColorString(color)

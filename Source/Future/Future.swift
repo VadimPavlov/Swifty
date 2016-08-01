@@ -4,13 +4,13 @@
 
 import Foundation
 
-enum Result<T, E: ErrorType> {
+public enum Result<T, E: ErrorType> {
 	case Success(T)
 	case Error(E)
 }
-enum NoError: ErrorType { }
+public enum NoError: ErrorType { }
 
-struct Future<T, E: ErrorType> {
+public struct Future<T, E: ErrorType> {
 	typealias ResultType = Result<T, E>
 
 	typealias Operation = Completion -> Cancellation?

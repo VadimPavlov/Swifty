@@ -11,9 +11,9 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
     var frc: NSFetchedResultsController?
     let configuration: Configuration
 	
-    typealias Configuration = (cell: Cell, object: Object) -> Void
+    public typealias Configuration = (cell: Cell, object: Object) -> Void
 	
-    init(frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), configuration: Configuration) {
+    public init(frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), configuration: Configuration) {
 		self.frc = frc
         self.identifier = identifier
         self.configuration = configuration
@@ -36,7 +36,7 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
 	
 	weak var collectionView: UICollectionView?
 	
-	init(_ collectionView: UICollectionView, frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
+	public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
 		self.collectionView = collectionView
 		super.init(frc: frc, identifier: identifier, configuration: configuration)
 		collectionView.dataSource = self
@@ -47,7 +47,7 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
 
     }
 	
-	var didSelectObject: ((Object, NSIndexPath) -> Void)? {
+	public var didSelectObject: ((Object, NSIndexPath) -> Void)? {
 		willSet { collectionView?.delegate = newValue != nil ? self : nil }
 	}
 

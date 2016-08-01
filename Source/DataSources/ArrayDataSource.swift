@@ -5,10 +5,10 @@
 import UIKit
 
 public class ArrayDataSource<Cell, Object>: NSObject {
-	var array: [Object] = []
+	public var array: [Object] = []
     let identifier: String
     let configuration: Configuration
-    typealias Configuration = (cell: Cell, object: Object) -> Void
+    public typealias Configuration = (cell: Cell, object: Object) -> Void
     
     init(identifier: String = String(Cell), configuration: Configuration) {
         self.identifier = identifier
@@ -27,12 +27,12 @@ public class ArrayDataSource<Cell, Object>: NSObject {
 public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource {
 	
 	weak var tableView: UITableView?
-	init(_ tableView: UITableView, identifier: String = String(Cell), configuration: Configuration) {
+	public init(_ tableView: UITableView, identifier: String = String(Cell), configuration: Configuration) {
 		self.tableView = tableView
 		super.init(identifier: identifier, configuration: configuration)
 		tableView.dataSource = self
 	}
-	override var array: [Object] {
+	override public var array: [Object] {
 		didSet { tableView?.reloadData() }
 	}
 	
@@ -66,7 +66,7 @@ public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: Arr
 		collectionView.dataSource = self
 	}
 	
-	override var array: [Object] {
+	override public var array: [Object] {
 		didSet { collectionView?.reloadData() }
 	}
 	
