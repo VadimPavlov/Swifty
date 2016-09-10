@@ -7,16 +7,15 @@ import CoreData
 
 public class FetchedResultsDataSource<Cell, Object>: NSObject {
     
-    let identifier: String
-    var frc: NSFetchedResultsController?
-    let configuration: Configuration
-	
-    public typealias Configuration = (cell: Cell, object: Object) -> Void
-	
-    public init(frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), configuration: Configuration) {
+    public var frc: NSFetchedResultsController?
+    public let cellIdentifier: String
+    public let cellConfiguration: CellConfiguration
+    public typealias CellConfiguration = (cell: Cell, object: Object) -> Void
+    
+    public init(frc: NSFetchedResultsController? = nil, cellIdentifier: String = String(Cell), cellConfiguration: CellConfiguration) {
 		self.frc = frc
-        self.identifier = identifier
-        self.configuration = configuration
+        self.cellIdentifier = cellIdentifier
+        self.cellConfiguration = cellConfiguration
     }
     
     public func numberOfSections() -> Int {
@@ -32,25 +31,34 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
     }
 }
 
+
+
+protocol SupplementaryElementType {
+    associatedtype View
+    var identifier: String { get }
+    func configuration(view: View, sectionInfo: NSFetchedResultsSectionInfo)
+}
+
 public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	weak var collectionView: UICollectionView?
-	
-	public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
+
+    
+	public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController? = nil, cellIdentifier: String = String(Cell), registerNib: Bool = false, cellConfiguration: CellConfiguration) {
 		self.collectionView = collectionView
-		super.init(frc: frc, identifier: identifier, configuration: configuration)
+		super.init(frc: frc, cellIdentifier: cellIdentifier, cellConfiguration: cellConfiguration)
 		collectionView.dataSource = self
 		if registerNib {
-			let nib = UINib(nibName: identifier, bundle: nil)
-			collectionView.registerNib(nib, forCellWithReuseIdentifier: identifier)
+			let nib = UINib(nibName: cellIdentifier, bundle: nil)
+			collectionView.registerNib(nib, forCellWithReuseIdentifier: cellIdentifier)
 		}
-
-    }
-	
+    }	
+    
 	public var didSelectObject: ((Object, NSIndexPath) -> Void)? {
 		willSet { collectionView?.delegate = newValue != nil ? self : nil }
 	}
-
+    
+    
 	// MARK: - UICollectionViewDelegate
 	public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 		if let object = objectAtIndexPath(indexPath) {
@@ -68,24 +76,41 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.cellIdentifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
-        self.configuration(cell: cell, object: object)
+        self.cellConfiguration(cell: cell, object: object)
         return cell
     }
+    
+    
+//    public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//        var view: UIView?
+//        if let identifier = self.elementType?.identifier {
+//            view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: identifier, forIndexPath: indexPath) as! CollectionElementType.Element
+//            let info = self.sectionInfoForSection(indexPath.section)!
+//            self.elementConfiguration?(element: view, sectionInfo: info)
+//        }
+//        return view
+//    }
+    
     // TODO: NSFetchedResultsControllerDelegate
 }
 
 public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
     weak var tableView: UITableView?
-    init(_ tableView: UITableView, frc: NSFetchedResultsController? = nil, identifier: String = String(Cell), configuration: Configuration) {
+    
+    public var animationInsert: UITableViewRowAnimation = .Automatic
+    public var animationDelete: UITableViewRowAnimation = .Automatic
+    public var animationUpdate: UITableViewRowAnimation = .Automatic
+    
+    public init(_ tableView: UITableView, frc: NSFetchedResultsController? = nil, cellIdentifier: String = String(Cell), cellConfiguration: CellConfiguration) {
         self.tableView = tableView
-        super.init(frc: frc, identifier: identifier, configuration: configuration)
+        super.init(frc: frc, cellIdentifier: cellIdentifier, cellConfiguration: cellConfiguration)
         tableView.dataSource = self
     }
 	
-	var didSelectObject: ((Object, NSIndexPath) -> Void)? {
+	public var didSelectObject: ((Object, NSIndexPath) -> Void)? {
 		willSet { tableView?.delegate = newValue != nil ? self : nil }
 	}
 	
@@ -106,9 +131,12 @@ public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: Fetc
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+        let s = self.numberOfSections()
+        let rws = self.tableView(tableView, numberOfRowsInSection: 0)
+        
+        guard let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
-        self.configuration(cell: cell, object: object)
+        self.cellConfiguration(cell: cell, object: object)
         return cell
     }
 
@@ -134,21 +162,21 @@ public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: Fetc
     public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Insert:
-            if let indexPath = newIndexPath { self.tableView?.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic) }
+            if let indexPath = newIndexPath { self.tableView?.insertRowsAtIndexPaths([indexPath], withRowAnimation: animationInsert) }
         case .Delete:
-            if let indexPath = indexPath { self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic) }
+            if let indexPath = indexPath { self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animationDelete) }
         case .Update:
-            if let indexPath = indexPath { self.tableView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic) }
+            if let indexPath = indexPath { self.tableView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: animationUpdate) }
         case .Move:
             if  let indexPath = indexPath, let newIndexPath = newIndexPath {
                 // https://forums.developer.apple.com/thread/4999
                 if indexPath == newIndexPath {
-                    self.tableView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                    self.tableView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: animationUpdate)
                 } else {
                     self.tableView?.moveRowAtIndexPath(indexPath, toIndexPath: newIndexPath)
                     dispatch_async(dispatch_get_main_queue()) {
                         [weak self] in
-                        self?.tableView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                        self?.tableView?.reloadRowsAtIndexPaths([newIndexPath], withRowAnimation: self?.animationUpdate ?? .Automatic)
                     }
                 }
             }

@@ -11,24 +11,24 @@ public enum Result<T, E: ErrorType> {
 public enum NoError: ErrorType { }
 
 public struct Future<T, E: ErrorType> {
-	typealias ResultType = Result<T, E>
+	public typealias ResultType = Result<T, E>
 
-	typealias Operation = Completion -> Cancellation?
-	typealias Completion = ResultType -> Void
-	typealias Cancellation = Void -> Void
+	public typealias Operation = Completion -> Cancellation?
+	public typealias Completion = ResultType -> Void
+	public typealias Cancellation = Void -> Void
 	
-	private let operation: Operation
+	public let operation: Operation
 	
-	init(_ operation: Operation) {
+	public init(_ operation: Operation) {
 		self.operation = operation
 	}
 	
-	func start(completion: Completion) -> Cancellation? {
+	public func start(completion: Completion) -> Cancellation? {
 		return self.operation() { result in
 			completion(result)
 		}
 	}
-	func map<U>(f: T -> U) -> Future<U, E> {
+	public func map<U>(f: T -> U) -> Future<U, E> {
 		return Future<U, E> ({ completion in
 			return self.start { result in
 				switch result {
@@ -39,7 +39,7 @@ public struct Future<T, E: ErrorType> {
 		})
 	}
 	
-	func flatMap<U>(f: T -> Future<U, E>) -> Future<U, E> {
+	public func flatMap<U>(f: T -> Future<U, E>) -> Future<U, E> {
 		return Future<U, E>({ completion in
 			return self.start { firstFutureResult in
 				switch firstFutureResult {

@@ -6,8 +6,8 @@ import UIKit
 
 public class ArrayDataSource<Cell, Object>: NSObject {
 	public var array: [Object] = []
-    let identifier: String
-    let configuration: Configuration
+    public let identifier: String
+    public let configuration: Configuration
     public typealias Configuration = (cell: Cell, object: Object) -> Void
     
     init(identifier: String = String(Cell), configuration: Configuration) {
@@ -60,16 +60,19 @@ public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSour
 public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource {
 	
 	weak var collectionView: UICollectionView?
-	init(_ collectionView: UICollectionView, identifier: String = String(Cell), configuration: Configuration) {
+	public init(_ collectionView: UICollectionView, identifier: String = String(Cell), configuration: Configuration) {
 		self.collectionView = collectionView
 		super.init(identifier: identifier, configuration: configuration)
 		collectionView.dataSource = self
 	}
 	
-	override public var array: [Object] {
-		didSet { collectionView?.reloadData() }
-	}
-	
+    public func setArray(reload: Bool = true) {
+        self.array = array
+        if reload {
+            collectionView?.reloadData()
+        }
+    }
+    
 	public override func clear() {
 		super.clear()
 		collectionView?.reloadData()

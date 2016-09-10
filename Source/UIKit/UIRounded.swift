@@ -5,6 +5,66 @@
 import UIKit
 
 @IBDesignable
+public class UIRoundedView: UIView {
+    
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+        didSet {
+            self.layer.borderColor = borderColor.CGColor
+        }
+    }
+    
+    @IBInspectable public var borderWidth : CGFloat = 0.0 {
+        didSet {
+            self.layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable public var cornerRadius : CGFloat = 0.0 {
+        didSet {
+            self.layer.cornerRadius = cornerRadius
+        }
+    }
+}
+
+@IBDesignable
+public class UIRoundedImageView: UIImageView {
+    
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+        didSet {
+            self.layer.borderColor = borderColor.CGColor
+        }
+    }
+    
+    @IBInspectable public var borderWidth : CGFloat = 0.0 {
+        didSet {
+            self.layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable public var cornerRadius : CGFloat = 0.0 {
+        didSet {
+            self.layer.cornerRadius = cornerRadius
+        }
+    }
+}
+
+@IBDesignable
 public class UIRoundedButton: UIButton {
     
 	override public init(frame: CGRect) {
@@ -34,35 +94,6 @@ public class UIRoundedButton: UIButton {
 	}
 }
 
-@IBDesignable
-public class UIRoundedView: UIView {
-	
-	override public init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	required public init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	@IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
-		didSet {
-			self.layer.borderColor = borderColor.CGColor
-		}
-	}
-	
-	@IBInspectable public var borderWidth : CGFloat = 0.0 {
-		didSet {
-			self.layer.borderWidth = borderWidth
-		}
-	}
-	
-	@IBInspectable public var cornerRadius : CGFloat = 0.0 {
-		didSet {
-			self.layer.cornerRadius = cornerRadius
-		}
-	}
-}
 @IBDesignable
 public class UIRoundedTextField: UITextField {
 	
