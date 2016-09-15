@@ -24,23 +24,29 @@ public class ArrayDataSource<Cell, Object>: NSObject {
 	}
 }
 
-public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource {
+public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate {
 	
-	weak var tableView: UITableView?
-	public init(_ tableView: UITableView, identifier: String = String(Cell), configuration: Configuration) {
+	unowned var tableView: UITableView
+    var delegate: UITableViewDelegate?
+    
+	public init(_ tableView: UITableView, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
 		self.tableView = tableView
 		super.init(identifier: identifier, configuration: configuration)
 		tableView.dataSource = self
+        
 	}
+    
 	override public var array: [Object] {
-		didSet { tableView?.reloadData() }
+		didSet { tableView.reloadData() }
 	}
 	
-	public override func clear() {
-		super.clear()
-		tableView?.reloadData()
-	}
+//	public override func clear() {
+//		super.clear()
+//		tableView.reloadData()
+//	}
 	
+    // MARK: - UITableViewDataSource
+
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -55,30 +61,57 @@ public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSour
         self.configuration(cell: cell, object: object)
         return cell
     }
-}
-
-public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource {
-	
-	weak var collectionView: UICollectionView?
-	public init(_ collectionView: UICollectionView, identifier: String = String(Cell), configuration: Configuration) {
-		self.collectionView = collectionView
-		super.init(identifier: identifier, configuration: configuration)
-		collectionView.dataSource = self
-	}
-	
-    public func setArray(reload: Bool = true) {
-        self.array = array
-        if reload {
-            collectionView?.reloadData()
+    
+    // MARK: - UITableViewDelegate
+    public typealias SelectedObject = (Object, NSIndexPath)
+    public var didSelectObject: (SelectedObject -> Void)? {
+        didSet {
+            delegate = tableView.delegate
+            tableView.delegate = self
         }
     }
     
-	public override func clear() {
-		super.clear()
-		collectionView?.reloadData()
-	}
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        delegate?.tableView?(tableView, didSelectRowAtIndexPath: indexPath)
+        let object = objectAtIndexPath(indexPath)
+        didSelectObject?(object, indexPath)
+    }
+}
 
+public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
 	
+	unowned var collectionView: UICollectionView
+    weak var delegate: UICollectionViewDelegate?
+    
+	public init(_ collectionView: UICollectionView, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
+		self.collectionView = collectionView
+		super.init(identifier: identifier, configuration: configuration)
+		collectionView.dataSource = self
+        
+        if registerNib {
+            let nib = UINib(nibName: identifier, bundle: nil)
+            collectionView.registerNib(nib, forCellWithReuseIdentifier: identifier)
+        }
+
+	}
+	
+    override public var array: [Object] {
+        didSet { collectionView.reloadData() }
+    }
+
+//    public func setArray(reload: Bool = true) {
+//        self.array = array
+//        if reload {
+//            collectionView.reloadData()
+//        }
+//    }
+    
+//	public override func clear() {
+//		super.clear()
+//		collectionView.reloadData()
+//	}
+
+    // MARK: - UICollectionViewDataSource
 	public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
 		return 1
 	}
@@ -92,4 +125,21 @@ public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: Arr
 		self.configuration(cell: cell, object: object)
 		return cell
 	}
+    
+    // MARK: - UICollectionViewDelegate
+    public typealias SelectedObject = (Object, NSIndexPath)
+    public var didSelectObject: (SelectedObject -> Void)? {
+        didSet {
+            delegate = collectionView.delegate
+            collectionView.delegate = self
+        }
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        delegate?.collectionView?(collectionView, didSelectItemAtIndexPath: indexPath)
+        
+        let object = objectAtIndexPath(indexPath)
+        didSelectObject?(object, indexPath)
+        
+    }
 }
