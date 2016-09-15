@@ -1,15 +1,15 @@
-//  CollectionBatch.swift//
+//  BatchSizable.swift
 //  Created by Vadim Pavlov on 28.07.16.
 
 import UIKit
 
-protocol BatchSizable {
+public protocol BatchSizable {
     var batchSize: Int { get }
 }
 
 extension UITableView: BatchSizable {
     
-    var batchSize: Int {
+    public var batchSize: Int {
         let height = frame.height
         let rowHeight = self.batchRowHeight
         
@@ -25,7 +25,7 @@ extension UITableView: BatchSizable {
 }
 
 extension UICollectionView: BatchSizable {
-    var batchSize: Int {
+    public var batchSize: Int {
 
         guard let flow = collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
         
@@ -50,7 +50,7 @@ extension UICollectionView: BatchSizable {
         return estimated
     }
     
-    func itemWidthThatFits(count: CGFloat) -> CGFloat {
+    public func itemWidthThatFits(count: CGFloat) -> CGFloat {
         let width: CGFloat
         let inset = contentInset.left + contentInset.right
         if let flow = collectionViewLayout as? UICollectionViewFlowLayout {
@@ -67,13 +67,13 @@ extension UICollectionView: BatchSizable {
 }
 
 extension UITableViewController: BatchSizable {
-    var batchSize: Int {
+    public var batchSize: Int {
         return self.tableView.batchSize
     }
 }
 
 extension UICollectionViewController: BatchSizable {
-    var batchSize: Int {
+    public var batchSize: Int {
         return self.collectionView?.batchSize ?? 0
     }
 }
