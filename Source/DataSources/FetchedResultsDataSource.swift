@@ -17,6 +17,9 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
 		self.frc = frc
         self.cellIdentifier = cellIdentifier
         self.cellConfiguration = cellConfiguration
+        
+        _ = try? frc.performFetch()
+
     }
     
     public func numberOfSections() -> Int {
@@ -53,7 +56,7 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
 			let nib = UINib(nibName: cellIdentifier, bundle: nil)
 			collectionView.registerNib(nib, forCellWithReuseIdentifier: cellIdentifier)
 		}
-    }	
+    }
     
     // MARK: - UICollectionViewDataSource
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
