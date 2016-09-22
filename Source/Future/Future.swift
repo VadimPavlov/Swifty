@@ -4,48 +4,48 @@
 
 import Foundation
 
-public enum Result<T, E: ErrorType> {
-	case Success(T)
-	case Error(E)
+public enum Result<T, E: Error> {
+	case success(T)
+	case error(E)
 }
-public enum NoError: ErrorType { }
+public enum NoError: Error { }
 
-public struct Future<T, E: ErrorType> {
+public struct Future<T, E: Error> {
 	public typealias ResultType = Result<T, E>
 
-	public typealias Operation = Completion -> Cancellation?
-	public typealias Completion = ResultType -> Void
-	public typealias Cancellation = Void -> Void
+	public typealias Operation = (Completion) -> Cancellation?
+	public typealias Completion = (ResultType) -> Void
+	public typealias Cancellation = (Void) -> Void
 	
 	public let operation: Operation
 	
-	public init(_ operation: Operation) {
+	public init(_ operation: @escaping Operation) {
 		self.operation = operation
 	}
 	
-	public func start(completion: Completion) -> Cancellation? {
+	public func start(_ completion: @escaping Completion) -> Cancellation? {
 		return self.operation() { result in
 			completion(result)
 		}
 	}
-	public func map<U>(f: T -> U) -> Future<U, E> {
+	public func map<U>(_ f: @escaping (T) -> U) -> Future<U, E> {
 		return Future<U, E> ({ completion in
 			return self.start { result in
 				switch result {
-				case .Success(let value): completion(Result.Success(f(value)))
-				case .Error(let error): completion(Result.Error(error))
+				case .success(let value): completion(Result.success(f(value)))
+				case .error(let error): completion(Result.error(error))
 				}
 			}
 		})
 	}
 	
-	public func flatMap<U>(f: T -> Future<U, E>) -> Future<U, E> {
+	public func flatMap<U>(_ f: @escaping (T) -> Future<U, E>) -> Future<U, E> {
 		return Future<U, E>({ completion in
 			return self.start { firstFutureResult in
-				switch firstFutureResult {
-				case .Success(let value): f(value).start(completion)
-				case .Error(let error): completion(Result.Error(error))
-				}
+//				switch firstFutureResult {
+//				case .success(let value): f(value).start(completion)
+//				case .error(let error): completion(Result.error(error))
+//				}
 			}
 		})
 	}

@@ -12,9 +12,9 @@ public extension UIAlertController {
     convenience init(errorMessage: String, errorTitle: String? = nil) {
         let title = errorTitle ?? NSLocalizedString("Error", comment: "")
         let button = NSLocalizedString("Ok", comment: "")
-        let cancel = UIAlertAction(title: button, style: .Cancel, handler: nil)
+        let cancel = UIAlertAction(title: button, style: .cancel, handler: nil)
         
-        self.init(title: title, message: errorMessage, preferredStyle: .Alert)
+        self.init(title: title, message: errorMessage, preferredStyle: .alert)
         self.addAction(cancel)
     }
     

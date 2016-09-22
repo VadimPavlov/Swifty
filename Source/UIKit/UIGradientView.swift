@@ -5,12 +5,12 @@
 import UIKit
 
 @IBDesignable class UIGradientView: UIView {
-    @IBInspectable var startColor: UIColor = UIColor.blackColor() {
+    @IBInspectable var startColor: UIColor = UIColor.black {
         didSet {
             self.updateColors()
         }
     }
-    @IBInspectable var endColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable var endColor: UIColor = UIColor.white {
         didSet {
             self.updateColors()
         }
@@ -28,9 +28,11 @@ import UIKit
     }
 
     // initialization
-    override class func layerClass() -> AnyClass {
+    
+    override open class var layerClass: Swift.AnyClass {
         return CAGradientLayer.self
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,7 +45,7 @@ import UIKit
     
     // private
     private func updateColors() {
-        self.gradientLayer.colors = [self.startColor.CGColor, self.endColor.CGColor]
+        self.gradientLayer.colors = [self.startColor.cgColor, self.endColor.cgColor]
         self.setNeedsDisplay()
     }
 

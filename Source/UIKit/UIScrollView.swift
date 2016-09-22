@@ -7,20 +7,20 @@ import UIKit
 public extension UIScrollView {
     
     public func subscribeForKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIScrollView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIScrollView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIScrollView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIScrollView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     public func unsubscribeFromKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    public func keyboardWillShow(notification: NSNotification) {
-        if let keyboardFrameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardFrame = keyboardFrameValue.CGRectValue()
-            if let scrollRect = self.window?.convertRect(self.frame, fromView: self.superview) {
-                let intersection = CGRectIntersection(keyboardFrame, scrollRect)
+    public func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrameValue = (notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardFrame = keyboardFrameValue.cgRectValue
+            if let scrollRect = self.window?.convert(self.frame, from: self.superview) {
+                let intersection = keyboardFrame.intersection(scrollRect)
                 let intersectionInset = keyboardFrame.origin.x == 0 ? intersection.height : intersection.width // orientation checking
                 
                 var inset = self.contentInset
@@ -30,7 +30,7 @@ public extension UIScrollView {
             }
         }
     }
-    public func keyboardWillHide(notification: NSNotification) {
+    public func keyboardWillHide(_ notification: Notification) {
         var inset = self.contentInset
         inset.bottom = 0
         self.contentInset = inset

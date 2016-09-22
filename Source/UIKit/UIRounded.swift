@@ -5,7 +5,7 @@
 import UIKit
 
 @IBDesignable
-public class UIRoundedView: UIView {
+open class UIRoundedView: UIView {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -15,19 +15,19 @@ public class UIRoundedView: UIView {
         super.init(coder: aDecoder)
     }
     
-    @IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+    @IBInspectable open var borderColor : UIColor = UIColor.clear {
         didSet {
-            self.layer.borderColor = borderColor.CGColor
+            self.layer.borderColor = borderColor.cgColor
         }
     }
     
-    @IBInspectable public var borderWidth : CGFloat = 0.0 {
+    @IBInspectable open var borderWidth : CGFloat = 0.0 {
         didSet {
             self.layer.borderWidth = borderWidth
         }
     }
     
-    @IBInspectable public var cornerRadius : CGFloat = 0.0 {
+    @IBInspectable open var cornerRadius : CGFloat = 0.0 {
         didSet {
             self.layer.cornerRadius = cornerRadius
         }
@@ -35,7 +35,7 @@ public class UIRoundedView: UIView {
 }
 
 @IBDesignable
-public class UIRoundedImageView: UIImageView {
+open class UIRoundedImageView: UIImageView {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,19 +45,19 @@ public class UIRoundedImageView: UIImageView {
         super.init(coder: aDecoder)
     }
     
-    @IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+    @IBInspectable open var borderColor : UIColor = UIColor.clear {
         didSet {
-            self.layer.borderColor = borderColor.CGColor
+            self.layer.borderColor = borderColor.cgColor
         }
     }
     
-    @IBInspectable public var borderWidth : CGFloat = 0.0 {
+    @IBInspectable open var borderWidth : CGFloat = 0.0 {
         didSet {
             self.layer.borderWidth = borderWidth
         }
     }
     
-    @IBInspectable public var cornerRadius : CGFloat = 0.0 {
+    @IBInspectable open var cornerRadius : CGFloat = 0.0 {
         didSet {
             self.layer.cornerRadius = cornerRadius
         }
@@ -65,7 +65,7 @@ public class UIRoundedImageView: UIImageView {
 }
 
 @IBDesignable
-public class UIRoundedButton: UIButton {
+open class UIRoundedButton: UIButton {
     
 	override public init(frame: CGRect) {
 		super.init(frame: frame)
@@ -75,19 +75,19 @@ public class UIRoundedButton: UIButton {
 		super.init(coder: aDecoder)
 	}
 	
-	@IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+	@IBInspectable open var borderColor : UIColor = UIColor.clear {
 		didSet {
-			self.layer.borderColor = borderColor.CGColor
+			self.layer.borderColor = borderColor.cgColor
 		}
 	}
 	
-	@IBInspectable public var borderWidth : CGFloat = 0.0 {
+	@IBInspectable open var borderWidth : CGFloat = 0.0 {
 		didSet {
 			self.layer.borderWidth = borderWidth
 		}
 	}
 	
-	@IBInspectable public var cornerRadius : CGFloat = 0.0 {
+	@IBInspectable open var cornerRadius : CGFloat = 0.0 {
 		didSet {
 			self.layer.cornerRadius = cornerRadius
 		}
@@ -95,7 +95,7 @@ public class UIRoundedButton: UIButton {
 }
 
 @IBDesignable
-public class UIRoundedTextField: UITextField {
+open class UIRoundedTextField: UITextField {
 	
 	override public init(frame: CGRect) {
 		super.init(frame: frame)
@@ -105,19 +105,19 @@ public class UIRoundedTextField: UITextField {
 		super.init(coder: aDecoder)
 	}
 	
-	@IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+	@IBInspectable open var borderColor : UIColor = UIColor.clear {
 		didSet {
-			self.layer.borderColor = borderColor.CGColor
+			self.layer.borderColor = borderColor.cgColor
 		}
 	}
 	
-	@IBInspectable public var borderWidth : CGFloat = 0.0 {
+	@IBInspectable open var borderWidth : CGFloat = 0.0 {
 		didSet {
 			self.layer.borderWidth = borderWidth
 		}
 	}
 	
-	@IBInspectable public var cornerRadius : CGFloat = 0.0 {
+	@IBInspectable open var cornerRadius : CGFloat = 0.0 {
 		didSet {
 			self.layer.cornerRadius = cornerRadius
 		}

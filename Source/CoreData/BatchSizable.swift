@@ -41,16 +41,16 @@ extension UICollectionView: BatchSizable {
     }
     
     var batchItemSize: CGSize {
-        guard let flow =  self.collectionViewLayout as? UICollectionViewFlowLayout else { return CGSizeZero }
+        guard let flow =  self.collectionViewLayout as? UICollectionViewFlowLayout else { return CGSize.zero }
         let estimated = flow.estimatedItemSize
         
-        if CGSizeEqualToSize(estimated, CGSizeZero) {
+        if estimated.equalTo(CGSize.zero) {
             return flow.itemSize
         }
         return estimated
     }
     
-    public func itemWidthThatFits(count: CGFloat) -> CGFloat {
+    public func itemWidthThatFits(_ count: CGFloat) -> CGFloat {
         let width: CGFloat
         let inset = contentInset.left + contentInset.right
         if let flow = collectionViewLayout as? UICollectionViewFlowLayout {

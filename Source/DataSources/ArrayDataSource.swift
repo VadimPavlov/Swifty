@@ -4,39 +4,39 @@
 
 import UIKit
 
-public class ArrayDataSource<Cell, Object>: NSObject {
-	public var array: [Object] = []
-    public let identifier: String
-    public let configuration: Configuration
-    public typealias Configuration = (cell: Cell, object: Object) -> Void
+open class ArrayDataSource<Cell, Object>: NSObject {
+	open var array: [Object] = []
+    open let identifier: String
+    open let configuration: Configuration
+    public typealias Configuration = (_ cell: Cell, _ object: Object) -> Void
     
-    init(identifier: String = String(Cell), configuration: Configuration) {
+    init(identifier: String = String(describing: Cell.self), configuration: @escaping Configuration) {
         self.identifier = identifier
         self.configuration = configuration
     }
     
-    public func objectAtIndexPath(indexPath: NSIndexPath) -> Object {
-        return self.array[indexPath.row]
+    open func objectAtIndexPath(_ indexPath: IndexPath) -> Object {
+        return self.array[(indexPath as NSIndexPath).row]
     }
 	
-	public func clear() {
+	open func clear() {
 		array.removeAll()
 	}
 }
 
-public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate {
+open class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate {
 	
 	unowned var tableView: UITableView
     var delegate: UITableViewDelegate?
     
-	public init(_ tableView: UITableView, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
+	public init(_ tableView: UITableView, identifier: String = String(describing: Cell.self), registerNib: Bool = false, configuration: @escaping Configuration) {
 		self.tableView = tableView
 		super.init(identifier: identifier, configuration: configuration)
 		tableView.dataSource = self
         
 	}
     
-	override public var array: [Object] {
+	override open var array: [Object] {
 		didSet { tableView.reloadData() }
 	}
 	
@@ -47,55 +47,54 @@ public class TableArrayDataSource <Cell: UITableViewCell, Object>: ArrayDataSour
 	
     // MARK: - UITableViewDataSource
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.array.count
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.identifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         let object = self.objectAtIndexPath(indexPath)
-        self.configuration(cell: cell, object: object)
+        self.configuration(cell, object)
         return cell
     }
     
     // MARK: - UITableViewDelegate
-    public typealias SelectedObject = (Object, NSIndexPath)
-    public var didSelectObject: (SelectedObject -> Void)? {
+    open var didSelectObject: ((Object, IndexPath) -> Void)? {
         didSet {
             delegate = tableView.delegate
             tableView.delegate = self
         }
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.tableView?(tableView, didSelectRowAtIndexPath: indexPath)
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.tableView?(tableView, didSelectRowAt: indexPath)
         let object = objectAtIndexPath(indexPath)
         didSelectObject?(object, indexPath)
     }
 }
 
-public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
+open class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: ArrayDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	unowned var collectionView: UICollectionView
     weak var delegate: UICollectionViewDelegate?
     
-	public init(_ collectionView: UICollectionView, identifier: String = String(Cell), registerNib: Bool = false, configuration: Configuration) {
+	public init(_ collectionView: UICollectionView, identifier: String = String(describing: Cell.self), registerNib: Bool = false, configuration: @escaping Configuration) {
 		self.collectionView = collectionView
 		super.init(identifier: identifier, configuration: configuration)
 		collectionView.dataSource = self
         
         if registerNib {
             let nib = UINib(nibName: identifier, bundle: nil)
-            collectionView.registerNib(nib, forCellWithReuseIdentifier: identifier)
+            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         }
 
 	}
 	
-    override public var array: [Object] {
+    override open var array: [Object] {
         didSet { collectionView.reloadData() }
     }
 
@@ -112,31 +111,30 @@ public class CollectionArrayDataSource <Cell: UICollectionViewCell, Object>: Arr
 //	}
 
     // MARK: - UICollectionViewDataSource
-	public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+	open func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return 1
 	}
-	public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return self.array.count
 	}
 	
-	public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.identifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+	open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
 		let object = self.objectAtIndexPath(indexPath)
-		self.configuration(cell: cell, object: object)
+		self.configuration(cell, object)
 		return cell
 	}
     
     // MARK: - UICollectionViewDelegate
-    public typealias SelectedObject = (Object, NSIndexPath)
-    public var didSelectObject: (SelectedObject -> Void)? {
+    open var didSelectObject: ((Object, IndexPath) -> Void)? {
         didSet {
             delegate = collectionView.delegate
             collectionView.delegate = self
         }
     }
     
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.collectionView?(collectionView, didSelectItemAtIndexPath: indexPath)
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
         
         let object = objectAtIndexPath(indexPath)
         didSelectObject?(object, indexPath)

@@ -12,11 +12,11 @@ public extension Dictionary {
         }
     }
     
-    public func mapPairs<OutKey: Hashable, OutValue>(@noescape transform: Element throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
+    public func mapPairs<OutKey: Hashable, OutValue>(transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
         return Dictionary<OutKey, OutValue>(try map(transform))
     }
     
-    public func filterPairs(@noescape includeElement: Element throws -> Bool) rethrows -> [Key: Value] {
+    public func filterPairs(includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
         return Dictionary(try filter(includeElement))
     }
 }

@@ -5,7 +5,7 @@
 import UIKit
 
 public extension String {
-	func foregroundColorString(color: UIColor) -> NSAttributedString {
+	func foregroundColorString(_ color: UIColor) -> NSAttributedString {
 		return NSAttributedString(string: self, attributes: [NSForegroundColorAttributeName : color])
 	}
 }

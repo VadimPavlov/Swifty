@@ -5,15 +5,15 @@
 import UIKit
 import CoreData
 
-public class FetchedResultsDataSource<Cell, Object>: NSObject {
+open class FetchedResultsDataSource<Cell, Object: NSFetchRequestResult>: NSObject {
     
-    public var frc: NSFetchedResultsController
+    open var frc: NSFetchedResultsController<Object>
     
-    public let cellIdentifier: String
-    public let cellConfiguration: CellConfiguration
-    public typealias CellConfiguration = (cell: Cell, object: Object) -> Void
+    open let cellIdentifier: String
+    open let cellConfiguration: CellConfiguration
+    public typealias CellConfiguration = (_ cell: Cell, _ object: Object) -> Void
     
-    public init(frc: NSFetchedResultsController, cellIdentifier: String = String(Cell), cellConfiguration: CellConfiguration) {
+    public init(frc: NSFetchedResultsController<Object>, cellIdentifier: String = String(describing: Cell.self), cellConfiguration: @escaping CellConfiguration) {
 		self.frc = frc
         self.cellIdentifier = cellIdentifier
         self.cellConfiguration = cellConfiguration
@@ -22,16 +22,16 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
 
     }
     
-    public func numberOfSections() -> Int {
+    open func numberOfSections() -> Int {
         return self.frc.sections?.count ?? 0
     }
     
-    public func sectionInfoForSection(section: Int) -> NSFetchedResultsSectionInfo? {
+    open func sectionInfoForSection(_ section: Int) -> NSFetchedResultsSectionInfo? {
         return self.frc.sections?[section]
     }
     
-    public func objectAtIndexPath(indexPath: NSIndexPath) -> Object? {
-        return self.frc.objectAtIndexPath(indexPath) as? Object
+    open func objectAtIndexPath(_ indexPath: IndexPath) -> Object? {
+        return self.frc.object(at: indexPath) as? Object
     }
 }
 
@@ -40,51 +40,50 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
 protocol SupplementaryElementType {
     associatedtype View
     var identifier: String { get }
-    func configuration(view: View, sectionInfo: NSFetchedResultsSectionInfo)
+    func configuration(_ view: View, sectionInfo: NSFetchedResultsSectionInfo)
 }
 
-public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
+open class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object: NSFetchRequestResult>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	unowned var collectionView: UICollectionView
     weak var delegate: UICollectionViewDelegate?
     
-	public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController, cellIdentifier: String = String(Cell), registerNib: Bool = false, cellConfiguration: CellConfiguration) {
+    public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, cellIdentifier: String = String(describing: Cell.self), registerNib: Bool = false, cellConfiguration: @escaping CellConfiguration) {
 		self.collectionView = collectionView
 		super.init(frc: frc, cellIdentifier: cellIdentifier, cellConfiguration: cellConfiguration)
 		collectionView.dataSource = self
 		if registerNib {
 			let nib = UINib(nibName: cellIdentifier, bundle: nil)
-			collectionView.registerNib(nib, forCellWithReuseIdentifier: cellIdentifier)
+			collectionView.register(nib, forCellWithReuseIdentifier: cellIdentifier)
 		}
     }
     
     // MARK: - UICollectionViewDataSource
-    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.numberOfSections()
     }
     
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
     }
     
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.cellIdentifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
-        self.cellConfiguration(cell: cell, object: object)
+        self.cellConfiguration(cell, object)
         return cell
     }
    
     // MARK: - UICollectionViewDelegate
-    public typealias SelectedObject = (Object, NSIndexPath)
-    public var didSelectObject: (SelectedObject -> Void)? {
+    open var didSelectObject: ((Object, IndexPath) -> Void)? {
         didSet {
             delegate = collectionView.delegate
             collectionView.delegate = self
         }
     }
     
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.collectionView?(collectionView, didSelectItemAtIndexPath: indexPath)
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
         
         if let object = objectAtIndexPath(indexPath) {
             didSelectObject?(object, indexPath)
@@ -104,100 +103,99 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
     // TODO: NSFetchedResultsControllerDelegate
 }
 
-public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+open class TableFetchedResultsDataSource <Cell: UITableViewCell, Object: NSFetchRequestResult>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
     unowned var tableView: UITableView
     weak var delegate: UITableViewDelegate?
     
-    public var animationInsert: UITableViewRowAnimation = .Automatic
-    public var animationDelete: UITableViewRowAnimation = .Automatic
-    public var animationUpdate: UITableViewRowAnimation = .Automatic
+    open var animationInsert: UITableViewRowAnimation = .automatic
+    open var animationDelete: UITableViewRowAnimation = .automatic
+    open var animationUpdate: UITableViewRowAnimation = .automatic
     
-    public init(_ tableView: UITableView, frc: NSFetchedResultsController, cellIdentifier: String = String(Cell), registerNib: Bool = false, cellConfiguration: CellConfiguration) {
+    public init(_ tableView: UITableView, frc: NSFetchedResultsController<Object>, cellIdentifier: String = String(describing: Cell.self), registerNib: Bool = false, cellConfiguration: @escaping CellConfiguration) {
         self.tableView = tableView
         super.init(frc: frc, cellIdentifier: cellIdentifier, cellConfiguration: cellConfiguration)
         tableView.dataSource = self
 
         if registerNib {
             let nib = UINib(nibName: cellIdentifier, bundle: nil)
-            tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
+            tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
         }
 
     }
 		
     // MARK: - UITableViewDataSource
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return self.numberOfSections()
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let s = self.numberOfSections()
         let rws = self.tableView(tableView, numberOfRowsInSection: 0)
         
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
-        self.cellConfiguration(cell: cell, object: object)
+        self.cellConfiguration(cell, object)
         return cell
     }
     
     // MARK: - UITableViewDelegate
-    public typealias SelectedObject = (Object, NSIndexPath)
-    public var didSelectObject: (SelectedObject -> Void)? {
+    open var didSelectObject: ((Object, IndexPath) -> Void)? {
         didSet {
             delegate = tableView.delegate
             tableView.delegate = self
         }
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.tableView?(tableView, didSelectRowAtIndexPath: indexPath)
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.tableView?(tableView, didSelectRowAt: indexPath)
         if let object = objectAtIndexPath(indexPath) {
             didSelectObject?(object, indexPath)
         }
     }
 
     // MARK: - NSFetchedResultsControllerDelegate
-    public func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.beginUpdates()
     }
     
-    public func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
     }
     
-    public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         
-        let sections = NSIndexSet(index: sectionIndex)
+        let sections = IndexSet(integer: sectionIndex)
         switch type {
-        case .Insert: self.tableView.insertSections(sections, withRowAnimation: animationInsert)
-        case .Delete: self.tableView.deleteSections(sections, withRowAnimation: animationDelete)
-        case .Update, .Move: fatalError("Not supported cases")
+        case .insert: self.tableView.insertSections(sections, with: animationInsert)
+        case .delete: self.tableView.deleteSections(sections, with: animationDelete)
+        case .update, .move: fatalError("Not supported cases")
         }
     }
     
-    public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
-        case .Insert:
-            if let indexPath = newIndexPath { self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animationInsert) }
-        case .Delete:
-            if let indexPath = indexPath { self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animationDelete) }
-        case .Update:
-            if let indexPath = indexPath { self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: animationUpdate) }
-        case .Move:
+        case .insert:
+            if let indexPath = newIndexPath { self.tableView.insertRows(at: [indexPath], with: animationInsert) }
+        case .delete:
+            if let indexPath = indexPath { self.tableView.deleteRows(at: [indexPath], with: animationDelete) }
+        case .update:
+            if let indexPath = indexPath { self.tableView.reloadRows(at: [indexPath], with: animationUpdate) }
+        case .move:
             if  let indexPath = indexPath,
                 let newIndexPath = newIndexPath {
                 // https://forums.developer.apple.com/thread/4999
                 if indexPath == newIndexPath {
-                    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: animationUpdate)
+                    self.tableView.reloadRows(at: [indexPath], with: animationUpdate)
                 } else {
-                    self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: newIndexPath)
-                    dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.moveRow(at: indexPath, to: newIndexPath)
+                    DispatchQueue.main.async {
                         [weak self] in
-                        self?.tableView.reloadRowsAtIndexPaths([newIndexPath], withRowAnimation: self?.animationUpdate ?? .Automatic)
+                        self?.tableView.reloadRows(at: [newIndexPath], with: self?.animationUpdate ?? .automatic)
                     }
                 }
             }
