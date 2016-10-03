@@ -49,4 +49,56 @@ public struct Future<T, E: ErrorType> {
 			}
 		})
 	}
+    
+    static public func merge(futures:[Future]) -> Future<[T], E> {
+        return Future<[T], E> { completion in
+            
+            var values:[T] = []
+            var tokens: [Cancellation?] = []
+            
+            func startNext(var generator: IndexingGenerator<[Future]>) {
+                if let next = generator.next() {
+                    let token = next.start { result in
+                        switch result {
+                        case .Success(let value):
+                            values.append(value)
+                            startNext(generator)
+                        case .Error(let error):
+                            completion(Result.Error(error))
+                        }
+                    }
+                    tokens.append(token)
+                } else {
+                    completion(Result.Success(values))
+                }
+
+            }
+            
+            let generator = futures.generate()
+            startNext(generator)
+            
+            return { tokens.forEach{ $0?() }}
+        }
+    }
+    
+//    static func combine(futures: [Future]) -> Future<[T], E> {
+//        return Future<[T], E> { completion in
+//            var values:[T] = []
+//            var tokens: [Cancellation] = []
+//            for f in futures {
+//                f.start { result in
+//                    switch result {
+//                    case .Success(let value): values.append(value)
+//                    case .Error(let error): completion(Result.Error(error))
+//                    }
+//
+//                    if values.count == futures.count {
+//                        completion(Result.Success(values))
+//                    }
+//                }
+//            }
+//            return { for t in tokens { t() }  }
+//        }
+//        
+//    }
 }

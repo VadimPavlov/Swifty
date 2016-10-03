@@ -25,6 +25,9 @@ public class FetchedResultsDataSource<Cell, Object>: NSObject {
     public func numberOfSections() -> Int {
         return self.frc.sections?.count ?? 0
     }
+    public func numberOfRowsInSection(section: Int) -> Int {
+        return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
+    }
     
     public func sectionInfoForSection(section: Int) -> NSFetchedResultsSectionInfo? {
         return self.frc.sections?[section]
@@ -43,7 +46,7 @@ protocol SupplementaryElementType {
     func configuration(view: View, sectionInfo: NSFetchedResultsSectionInfo)
 }
 
-public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
+public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate {
 	
 	unowned var collectionView: UICollectionView
     weak var delegate: UICollectionViewDelegate?
@@ -64,7 +67,7 @@ public class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Obj
     }
     
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
+        return self.numberOfRowsInSection(section)
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -131,13 +134,10 @@ public class TableFetchedResultsDataSource <Cell: UITableViewCell, Object>: Fetc
     }
     
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.sectionInfoForSection(section)?.numberOfObjects ?? 0
+        return self.numberOfRowsInSection(section)
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let s = self.numberOfSections()
-        let rws = self.tableView(tableView, numberOfRowsInSection: 0)
-        
         guard let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
         self.cellConfiguration(cell: cell, object: object)
