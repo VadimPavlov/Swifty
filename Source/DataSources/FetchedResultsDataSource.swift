@@ -9,14 +9,14 @@ open class FetchedResultsDataSource<Cell, Object: NSFetchRequestResult>: NSObjec
     
     open var frc: NSFetchedResultsController<Object>
     
-    open let cellIdentifier: String
-    open let cellConfiguration: CellConfiguration
-    public typealias CellConfiguration = (_ cell: Cell, _ object: Object) -> Void
+    open let identifier: String
+    open let configuration: Configuration
+    public typealias Configuration = (_ cell: Cell, _ object: Object) -> Void
     
-    public init(frc: NSFetchedResultsController<Object>, cellIdentifier: String = String(describing: Cell.self), cellConfiguration: @escaping CellConfiguration) {
+    public init(frc: NSFetchedResultsController<Object>, identifier: String = String(describing: Cell.self), configuration: @escaping Configuration) {
 		self.frc = frc
-        self.cellIdentifier = cellIdentifier
-        self.cellConfiguration = cellConfiguration
+        self.identifier = identifier
+        self.configuration = configuration
         
         _ = try? frc.performFetch()
 
@@ -36,25 +36,18 @@ open class FetchedResultsDataSource<Cell, Object: NSFetchRequestResult>: NSObjec
 }
 
 
-
-protocol SupplementaryElementType {
-    associatedtype View
-    var identifier: String { get }
-    func configuration(_ view: View, sectionInfo: NSFetchedResultsSectionInfo)
-}
-
 open class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Object: NSFetchRequestResult>: FetchedResultsDataSource<Cell, Object>, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	unowned var collectionView: UICollectionView
     weak var delegate: UICollectionViewDelegate?
     
-    public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, cellIdentifier: String = String(describing: Cell.self), registerNib: Bool = false, cellConfiguration: @escaping CellConfiguration) {
+    public init(_ collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, identifier: String = String(describing: Cell.self), registerNib: Bool = false, configuration: @escaping Configuration) {
 		self.collectionView = collectionView
-		super.init(frc: frc, cellIdentifier: cellIdentifier, cellConfiguration: cellConfiguration)
+		super.init(frc: frc, identifier: identifier, configuration: configuration)
 		collectionView.dataSource = self
 		if registerNib {
-			let nib = UINib(nibName: cellIdentifier, bundle: nil)
-			collectionView.register(nib, forCellWithReuseIdentifier: cellIdentifier)
+			let nib = UINib(nibName: identifier, bundle: nil)
+			collectionView.register(nib, forCellWithReuseIdentifier: identifier)
 		}
     }
     
@@ -68,9 +61,9 @@ open class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Objec
     }
     
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
-        self.cellConfiguration(cell, object)
+        self.configuration(cell, object)
         return cell
     }
    
@@ -89,18 +82,6 @@ open class CollectionFetchedResultsDataSource <Cell: UICollectionViewCell, Objec
             didSelectObject?(object, indexPath)
         }
     }
-    
-//    public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-//        var view: UIView?
-//        if let identifier = self.elementType?.identifier {
-//            view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: identifier, forIndexPath: indexPath) as! CollectionElementType.Element
-//            let info = self.sectionInfoForSection(indexPath.section)!
-//            self.elementConfiguration?(element: view, sectionInfo: info)
-//        }
-//        return view
-//    }
-    
-    // TODO: NSFetchedResultsControllerDelegate
 }
 
 open class TableFetchedResultsDataSource <Cell: UITableViewCell, Object: NSFetchRequestResult>: FetchedResultsDataSource<Cell, Object>, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
@@ -112,14 +93,14 @@ open class TableFetchedResultsDataSource <Cell: UITableViewCell, Object: NSFetch
     open var animationDelete: UITableViewRowAnimation = .automatic
     open var animationUpdate: UITableViewRowAnimation = .automatic
     
-    public init(_ tableView: UITableView, frc: NSFetchedResultsController<Object>, cellIdentifier: String = String(describing: Cell.self), registerNib: Bool = false, cellConfiguration: @escaping CellConfiguration) {
+    public init(_ tableView: UITableView, frc: NSFetchedResultsController<Object>, identifier: String = String(describing: Cell.self), registerNib: Bool = false, configuration: @escaping Configuration) {
         self.tableView = tableView
-        super.init(frc: frc, cellIdentifier: cellIdentifier, cellConfiguration: cellConfiguration)
+        super.init(frc: frc, identifier: identifier, configuration: configuration)
         tableView.dataSource = self
 
         if registerNib {
-            let nib = UINib(nibName: cellIdentifier, bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
+            let nib = UINib(nibName: identifier, bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: identifier)
         }
 
     }
@@ -137,9 +118,9 @@ open class TableFetchedResultsDataSource <Cell: UITableViewCell, Object: NSFetch
         let s = self.numberOfSections()
         let rws = self.tableView(tableView, numberOfRowsInSection: 0)
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.identifier, for: indexPath) as? Cell else { fatalError("Incorrect cell at \(indexPath)") }
         guard let object = self.objectAtIndexPath(indexPath) else { fatalError("Missing object at \(indexPath)") }
-        self.cellConfiguration(cell, object)
+        self.configuration(cell, object)
         return cell
     }
     

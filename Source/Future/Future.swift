@@ -13,7 +13,7 @@ public enum NoError: Error { }
 public struct Future<T, E: Error> {
 	public typealias ResultType = Result<T, E>
 
-	public typealias Operation = (Completion) -> Cancellation?
+	public typealias Operation = (@escaping Completion) -> Cancellation?
 	public typealias Completion = (ResultType) -> Void
 	public typealias Cancellation = (Void) -> Void
 	
@@ -33,7 +33,7 @@ public struct Future<T, E: Error> {
 			return self.start { result in
 				switch result {
 				case .success(let value): completion(Result.success(f(value)))
-				case .error(let error): completion(Result.error(error))
+                case .error(let error): completion(Result.error(error))
 				}
 			}
 		})
@@ -42,10 +42,10 @@ public struct Future<T, E: Error> {
 	public func flatMap<U>(_ f: @escaping (T) -> Future<U, E>) -> Future<U, E> {
 		return Future<U, E>({ completion in
 			return self.start { firstFutureResult in
-//				switch firstFutureResult {
-//				case .success(let value): f(value).start(completion)
-//				case .error(let error): completion(Result.error(error))
-//				}
+				switch firstFutureResult {
+				case .success(let value): f(value).start(completion)
+                case .error(let error): completion(Result.error(error))
+				}
 			}
 		})
 	}
