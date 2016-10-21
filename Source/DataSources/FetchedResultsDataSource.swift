@@ -23,7 +23,7 @@ open class FetchedResultsDataSource<Cell, Object: NSFetchRequestResult>: NSObjec
     }
     
     open func numberOfSections() -> Int {
-        return self.frc.sections?.count ?? 0
+        return self.frc.sections?.count ?? 1
     }
     
     open func sectionInfoForSection(_ section: Int) -> NSFetchedResultsSectionInfo? {

@@ -22,7 +22,8 @@ public struct Future<T, E: Error> {
 	public init(_ operation: @escaping Operation) {
 		self.operation = operation
 	}
-	
+
+    @discardableResult
 	public func start(_ completion: @escaping Completion) -> Cancellation? {
 		return self.operation() { result in
 			completion(result)
