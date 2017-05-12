@@ -15,9 +15,9 @@ public class UIRoundedView: UIView {
         super.init(coder: aDecoder)
     }
     
-    @IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+    @IBInspectable public var borderColor : UIColor = .clear {
         didSet {
-            self.layer.borderColor = borderColor.CGColor
+            self.layer.borderColor = borderColor.cgColor
         }
     }
     
@@ -45,9 +45,9 @@ public class UIRoundedImageView: UIImageView {
         super.init(coder: aDecoder)
     }
     
-    @IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+    @IBInspectable public var borderColor : UIColor = .clear {
         didSet {
-            self.layer.borderColor = borderColor.CGColor
+            self.layer.borderColor = borderColor.cgColor
         }
     }
     
@@ -75,9 +75,9 @@ public class UIRoundedButton: UIButton {
 		super.init(coder: aDecoder)
 	}
 	
-	@IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+	@IBInspectable public var borderColor : UIColor = .clear {
 		didSet {
-			self.layer.borderColor = borderColor.CGColor
+			self.layer.borderColor = borderColor.cgColor
 		}
 	}
 	
@@ -105,9 +105,9 @@ public class UIRoundedTextField: UITextField {
 		super.init(coder: aDecoder)
 	}
 	
-	@IBInspectable public var borderColor : UIColor = UIColor.clearColor() {
+	@IBInspectable public var borderColor : UIColor = .clear {
 		didSet {
-			self.layer.borderColor = borderColor.CGColor
+			self.layer.borderColor = borderColor.cgColor
 		}
 	}
 	
