@@ -8,11 +8,12 @@
 
 import UIKit
 
-let KeyboardWillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
-let KeyboardDidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
-let KeyboardWillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
-let KeyboardDidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
-
+enum Keyboard {
+    static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
+    static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
+    static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
+    static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
+}
 
 public struct KeyboardUserInfo {
     let isLocalUser: Bool
@@ -50,7 +51,7 @@ public extension UIScrollView {
         
         var bottomInset: CGFloat = 0
         
-        let showToken = center.addObserver(descriptor: KeyboardWillShowNotification) { info in
+        let showToken = center.addObserver(descriptor: Keyboard.WillShowNotification) { info in
             guard let scrollRect = self.window?.convert(self.frame, from: self.superview) else { return }
             let keyboardFrame = info.frameEndUser
             let overlaped = keyboardFrame.intersection(scrollRect)
@@ -67,7 +68,7 @@ public extension UIScrollView {
             }
         }
         
-        let hideToken = center.addObserver(descriptor: KeyboardWillHideNotification) { info in
+        let hideToken = center.addObserver(descriptor: Keyboard.WillHideNotification) { info in
             self.contentInset.bottom = bottomInset
             self.scrollIndicatorInsets.bottom = bottomInset
             
