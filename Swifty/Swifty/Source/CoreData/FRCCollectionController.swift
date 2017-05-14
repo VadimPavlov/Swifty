@@ -5,13 +5,13 @@
 import UIKit
 import CoreData
 
-public class FRCCollectionController<Cell: UICollectionViewCell, Object: NSFetchRequestResult>: CollectionController<Cell, Object>, NSFetchedResultsControllerDelegate {
+public class FRCCollectionController<Object: NSFetchRequestResult>: CollectionController<Object>, NSFetchedResultsControllerDelegate {
     
-    init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, config: Config<Cell, Object>) {
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         let dataSource = DataSource(frc: frc)
-        super.init(collectionView: collectionView, dataSource: dataSource, config: config)
+        super.init(collectionView: collectionView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
-    }    
+    }
     
     // MARK: - NSFetchedResultsControllerDelegate
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -35,9 +35,13 @@ public class FRCCollectionController<Cell: UICollectionViewCell, Object: NSFetch
     }
 }
 
-public extension FRCCollectionController {
-    public convenience init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, setup: @escaping Config<Cell, Object>.Setup) {
-        let config = Config(setup: setup)
-        self.init(collectionView: collectionView, frc: frc, config: config)
+public class SimpleFRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCollectionController<Object>  {
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, frc: frc) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
+                configure(cell, object)
+            })
+            return descriptor
+        }
     }
 }

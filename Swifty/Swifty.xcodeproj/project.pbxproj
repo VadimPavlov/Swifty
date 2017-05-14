@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		146ACD3E1EC61FE900E7D549 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146ACD3D1EC61FE900E7D549 /* SortDescriptor.swift */; };
 		149AEAAD1EC5F8CD00F16858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149AEAAC1EC5F8CD00F16858 /* AppDelegate.swift */; };
 		149AEAB21EC5F8CD00F16858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB01EC5F8CD00F16858 /* Main.storyboard */; };
 		149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB31EC5F8CD00F16858 /* Assets.xcassets */; };
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
 		14DD7AD31EC6167400B0B28C /* CollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AA71EC6167300B0B28C /* CollectionController.swift */; };
 		14DD7AD41EC6167400B0B28C /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AA91EC6167300B0B28C /* BatchUpdate.swift */; };
-		14DD7AD51EC6167400B0B28C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AAA1EC6167300B0B28C /* Config.swift */; };
+		14DD7AD51EC6167400B0B28C /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AAA1EC6167300B0B28C /* CellDescriptor.swift */; };
 		14DD7AD61EC6167400B0B28C /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AAB1EC6167300B0B28C /* DataSource.swift */; };
 		14DD7AD71EC6167400B0B28C /* ViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AAC1EC6167300B0B28C /* ViewType.swift */; };
 		14DD7AD81EC6167400B0B28C /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DD7AAE1EC6167300B0B28C /* ListController.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		146ACD3D1EC61FE900E7D549 /* SortDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptor.swift; sourceTree = "<group>"; };
 		149AEAA91EC5F8CD00F16858 /* Swifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149AEAAC1EC5F8CD00F16858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149AEAB11EC5F8CD00F16858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,7 +60,7 @@
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14DD7AA71EC6167300B0B28C /* CollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionController.swift; sourceTree = "<group>"; };
 		14DD7AA91EC6167300B0B28C /* BatchUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchUpdate.swift; sourceTree = "<group>"; };
-		14DD7AAA1EC6167300B0B28C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		14DD7AAA1EC6167300B0B28C /* CellDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellDescriptor.swift; sourceTree = "<group>"; };
 		14DD7AAB1EC6167300B0B28C /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		14DD7AAC1EC6167300B0B28C /* ViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewType.swift; sourceTree = "<group>"; };
 		14DD7AAE1EC6167300B0B28C /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		146ACD3C1EC61FDD00E7D549 /* SortDescriptors */ = {
+			isa = PBXGroup;
+			children = (
+				146ACD3D1EC61FE900E7D549 /* SortDescriptor.swift */,
+			);
+			path = SortDescriptors;
+			sourceTree = "<group>";
+		};
 		149AEAA01EC5F8CD00F16858 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +152,7 @@
 				14DD7ABA1EC6167400B0B28C /* Foundation */,
 				14DD7AC01EC6167400B0B28C /* Future */,
 				14DD7AC31EC6167400B0B28C /* IBDesignable */,
+				146ACD3C1EC61FDD00E7D549 /* SortDescriptors */,
 				14DD7AC61EC6167400B0B28C /* Notifications */,
 				14DD7ACA1EC6167400B0B28C /* Router */,
 				14DD7ACD1EC6167400B0B28C /* UIKit */,
@@ -166,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				14DD7AA91EC6167300B0B28C /* BatchUpdate.swift */,
-				14DD7AAA1EC6167300B0B28C /* Config.swift */,
+				14DD7AAA1EC6167300B0B28C /* CellDescriptor.swift */,
 				14DD7AAB1EC6167300B0B28C /* DataSource.swift */,
 				14DD7AAC1EC6167300B0B28C /* ViewType.swift */,
 			);
@@ -189,8 +200,8 @@
 			isa = PBXGroup;
 			children = (
 				14DD7AB71EC6167300B0B28C /* BatchSizable.swift */,
-				14DD7AB81EC6167300B0B28C /* FRCCollectionController.swift */,
 				14DD7AB91EC6167300B0B28C /* FRCTableController.swift */,
+				14DD7AB81EC6167300B0B28C /* FRCCollectionController.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -346,7 +357,7 @@
 				14DD7ADF1EC6167400B0B28C /* ViewController.swift in Sources */,
 				14DD7AE81EC6167400B0B28C /* Future.swift in Sources */,
 				14DD7AF11EC6167400B0B28C /* UIAlertController.swift in Sources */,
-				14DD7AD51EC6167400B0B28C /* Config.swift in Sources */,
+				14DD7AD51EC6167400B0B28C /* CellDescriptor.swift in Sources */,
 				14DD7AF31EC6167400B0B28C /* UITextField.swift in Sources */,
 				14DD7AD31EC6167400B0B28C /* CollectionController.swift in Sources */,
 				14DD7AEC1EC6167400B0B28C /* Keyboard.swift in Sources */,
@@ -354,6 +365,7 @@
 				14DD7AE31EC6167400B0B28C /* Array.swift in Sources */,
 				14DD7AE71EC6167400B0B28C /* String.swift in Sources */,
 				14DD7AD41EC6167400B0B28C /* BatchUpdate.swift in Sources */,
+				146ACD3E1EC61FE900E7D549 /* SortDescriptor.swift in Sources */,
 				14DD7ADE1EC6167400B0B28C /* TableController.swift in Sources */,
 				14DD7ADB1EC6167400B0B28C /* ListState.swift in Sources */,
 				14DD7ADC1EC6167400B0B28C /* ListViewType.swift in Sources */,

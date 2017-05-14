@@ -4,34 +4,25 @@
 
 import UIKit
 
-public class CollectionController<Cell: UICollectionViewCell, Object>: NSObject, UICollectionViewDataSource {
+public class CollectionController<Object>: NSObject, UICollectionViewDataSource {
     
     private var dataSource: DataSource<Object>
-    private let config: Config<Cell, Object>
-    weak var collectionView: UICollectionView? {
+    private let cellDescriptor: (Object) -> CellDescriptor
+    
+    internal weak var collectionView: UICollectionView? {
         didSet { self.adapt(collectionView)}
     }
-    
-    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], config: Config<Cell, Object>) {
+
+    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.collectionView = collectionView
         self.dataSource = dataSource
-        self.config = config
+        self.cellDescriptor = cellDescriptor
         super.init()
         self.adapt(collectionView)
     }
     
     private func adapt(_ collectionView: UICollectionView?) {
-        guard let collectionView = collectionView else { return }
-        collectionView.dataSource = self
-        
-        switch config.register {
-        case .cellClass(let cls)?:
-            collectionView.register(cls, forCellWithReuseIdentifier: config.identifier)
-        case .nibName(let name)?:
-            let nib = UINib(nibName: name, bundle: nil)
-            collectionView.register(nib, forCellWithReuseIdentifier: config.identifier)
-        default: break
-        }
+        collectionView?.dataSource = self
     }
     
     // MARK: - DataSource
@@ -46,8 +37,21 @@ public class CollectionController<Cell: UICollectionViewCell, Object>: NSObject,
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let object = self.object(at: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: config.identifier, for: indexPath) as! Cell
-        config.setup(cell, object)
+        let descriptor = self.cellDescriptor(object)
+        let identifier = descriptor.identifier
+        
+        switch descriptor.register {
+        case .cellClass?:
+            let cls = descriptor.cellClass as! UICollectionViewCell.Type
+            collectionView.register(cls, forCellWithReuseIdentifier: identifier)
+        case .nibName(let name)?:
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
+        default: break
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        descriptor.configure(cell)
         return cell
     }
     
@@ -117,9 +121,13 @@ public class CollectionController<Cell: UICollectionViewCell, Object>: NSObject,
     }
 }
 
-public extension CollectionController {
-    public convenience init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], setup: @escaping Config<Cell, Object>.Setup) {
-        let config = Config(setup: setup)
-        self.init(collectionView: collectionView, dataSource: dataSource, config: config)
+public class SimpleCollectionController<Object, Cell: UICollectionViewCell>: CollectionController<Object> {
+    public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, dataSource: dataSource) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
+                configure(cell, object)
+            })
+            return descriptor
+        }
     }
 }

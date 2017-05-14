@@ -5,13 +5,13 @@
 import UIKit
 import CoreData
 
-public class FRCTableController<Cell: UITableViewCell, Object: NSFetchRequestResult>: TableController<Cell, Object>, NSFetchedResultsControllerDelegate {
+public class FRCTableController<Object: NSFetchRequestResult>: TableController<Object>, NSFetchedResultsControllerDelegate {
 
     var animation: UITableViewRowAnimation = .automatic
     
-    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, config: Config<Cell, Object>) {
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         let dataSource = DataSource(frc: frc)
-        super.init(tableView: tableView, dataSource: dataSource, config: config)
+        super.init(tableView: tableView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
     }    
     
@@ -37,9 +37,13 @@ public class FRCTableController<Cell: UITableViewCell, Object: NSFetchRequestRes
     }
 }
 
-public extension FRCTableController {
-    public convenience init(tableView: UITableView, frc: NSFetchedResultsController<Object>, setup: @escaping Config<Cell, Object>.Setup) {
-        let config = Config(setup: setup)
-        self.init(tableView: tableView, frc: frc, config: config)
+public class SimpleFRCTableController<Object: NSFetchRequestResult, Cell: UITableViewCell>: FRCTableController<Object> {
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(tableView: tableView, frc: frc) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
+                configure(cell, object)
+            })
+            return descriptor
+        }
     }
 }
