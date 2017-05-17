@@ -47,7 +47,8 @@ public class TableController<Object>: NSObject, UITableViewDataSource {
                 let cls = descriptor.cellClass as! UITableViewCell.Type
                 tableView.register(cls, forCellReuseIdentifier: identifier)
             case .nibName(let name):
-                let nib = UINib(nibName: name, bundle: nil)
+                let nibName = name ?? String(describing: descriptor.cellClass)
+                let nib = UINib(nibName: nibName, bundle: nil)
                 tableView.register(nib, forCellReuseIdentifier: identifier)
             }
             registeredIdentifiers.insert(identifier)

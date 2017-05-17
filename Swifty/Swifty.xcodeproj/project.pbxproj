@@ -150,12 +150,12 @@
 		1499DB731ECC7BE90080B5AB /* CollectionControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1499DB811ECC7BE90080B5AB /* TableController.swift */,
 				1499DB741ECC7BE90080B5AB /* CollectionController.swift */,
-				1499DB751ECC7BE90080B5AB /* Entities */,
 				1499DB791ECC7BE90080B5AB /* FRCCollectionController.swift */,
 				1499DB7A1ECC7BE90080B5AB /* FRCTableController.swift */,
+				1499DB751ECC7BE90080B5AB /* Entities */,
 				1499DB7B1ECC7BE90080B5AB /* List */,
-				1499DB811ECC7BE90080B5AB /* TableController.swift */,
 			);
 			path = CollectionControllers;
 			sourceTree = "<group>";
