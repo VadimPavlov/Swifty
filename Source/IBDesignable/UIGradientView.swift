@@ -4,7 +4,9 @@
 
 import UIKit
 
-@IBDesignable class UIGradientView: UIView {
+@IBDesignable
+public class UIGradientView: UIView {
+    
     @IBInspectable var startColor: UIColor = .black {
         didSet {
             self.updateColors()
@@ -28,11 +30,11 @@ import UIKit
     }
 
     // initialization
-    override class var layerClass: AnyClass {
+    override public class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.updateColors()
     }

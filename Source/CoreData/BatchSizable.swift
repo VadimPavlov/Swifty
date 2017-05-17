@@ -3,6 +3,7 @@
 
 import UIKit
 
+let BatchVisibleMultiplier = 2
 public protocol BatchSizable {
     var batchSize: Int { get }
 }
@@ -15,10 +16,10 @@ extension UITableView: BatchSizable {
         
         let visibleRows = ceil(height / rowHeight)
         
-        return Int(visibleRows) * 2
+        return Int(visibleRows) * BatchVisibleMultiplier
     }
     
-    var batchRowHeight: CGFloat {
+    private var batchRowHeight: CGFloat {
         return estimatedRowHeight > 0 ? estimatedRowHeight : rowHeight
     }
 
@@ -37,10 +38,10 @@ extension UICollectionView: BatchSizable {
         let itemsPerRow = ceil(width / (itemSize.width + flow.minimumInteritemSpacing))
         let visibleLines = ceil(height / (itemSize.height + flow.minimumLineSpacing))
         let visibleItems = visibleLines * itemsPerRow
-        return Int(visibleItems) * 2
+        return Int(visibleItems) * BatchVisibleMultiplier
     }
     
-    var batchItemSize: CGSize {
+    private var batchItemSize: CGSize {
         guard let flow =  self.collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
         let estimated = flow.estimatedItemSize
         
@@ -48,21 +49,6 @@ extension UICollectionView: BatchSizable {
             return flow.itemSize
         }
         return estimated
-    }
-    
-    public func itemWidthThatFits(count: CGFloat) -> CGFloat {
-        let width: CGFloat
-        let inset = contentInset.left + contentInset.right
-        if let flow = collectionViewLayout as? UICollectionViewFlowLayout {
-            let sectionInset = flow.sectionInset.left + flow.sectionInset.right
-            let spacing = flow.minimumInteritemSpacing * (count - 1)
-            width = frame.width - inset - sectionInset - spacing
-
-        } else {
-            width = frame.width - inset
-        }
-        
-        return floor(width / count)
     }
 }
 
