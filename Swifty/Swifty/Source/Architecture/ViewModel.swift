@@ -1,5 +1,5 @@
 //
-//  UIView.swift
+//  ViewModel.swift
 //  Swifty
 //
 //  Created by Vadym Pavlov on 12.05.17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class ViewController<View: ViewType> {
+open class ViewModel<View: ViewType> {
     
     public typealias State = View.State
 
