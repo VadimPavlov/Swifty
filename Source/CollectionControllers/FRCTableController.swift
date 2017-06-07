@@ -7,7 +7,7 @@ import CoreData
 
 public class FRCTableController<Object: NSFetchRequestResult>: TableController<Object>, NSFetchedResultsControllerDelegate {
 
-    var animation: UITableViewRowAnimation = .automatic
+    public var animation: UITableViewRowAnimation = .automatic
     
     public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         let dataSource = DataSource(frc: frc)

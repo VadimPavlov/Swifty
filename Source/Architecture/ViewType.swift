@@ -16,7 +16,7 @@ public protocol ViewType: class {
     
 }
 
-extension ViewType where Self: UIViewController {
+public extension ViewType where Self: UIViewController {
     
     func showError(_ error: Error) {
         self.showAlert(errorMessage: error.localizedDescription)

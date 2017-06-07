@@ -57,15 +57,15 @@ public class CollectionController<Object>: NSObject, UICollectionViewDataSource 
     }
     
     // MARK: - Objects
-    func object(at indexPath: IndexPath) -> Object {
+    public func object(at indexPath: IndexPath) -> Object {
         return dataSource.objectAtIndexPath(indexPath)
     }
-    var selectedObject: Object? {
+    public var selectedObject: Object? {
         let indexPath = self.collectionView?.indexPathsForSelectedItems?.first
         return indexPath.map { self.object(at: $0) }
     }
     
-    var selectedObjects: [Object] {
+    public var selectedObjects: [Object] {
         let indexPaths = self.collectionView?.indexPathsForSelectedItems ?? []
         return indexPaths.map { self.object(at: $0) }
     }
