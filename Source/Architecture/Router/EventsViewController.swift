@@ -13,15 +13,15 @@ public struct ViewEvents {
     public let onPrepareSegue: (UIStoryboardSegue, Any?) -> Void
 }
 
-public class EventsViewController: UIViewController {
+open class EventsViewController: UIViewController {
     public var viewEvents: ViewEvents?
     
-    override public func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         self.viewEvents?.onDidLoad()
     }
     
-    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         self.viewEvents?.onPrepareSegue(segue, sender)
     }
