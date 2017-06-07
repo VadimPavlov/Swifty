@@ -10,7 +10,12 @@ import UIKit
 
 public struct ViewEvents {
     public let onDidLoad: () -> Void
-    public let onPrepareSegue: (UIStoryboardSegue, Any?) -> Void
+    public let onSegue: (UIStoryboardSegue, Any?) -> Void
+    
+    public init(onDidLoad: @escaping () -> Void, onSegue: @escaping (UIStoryboardSegue, Any?) -> Void) {
+        self.onDidLoad = onDidLoad
+        self.onSegue = onSegue
+    }
 }
 
 open class EventsViewController: UIViewController {
@@ -23,6 +28,6 @@ open class EventsViewController: UIViewController {
     
     open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        self.viewEvents?.onPrepareSegue(segue, sender)
+        self.viewEvents?.onSegue(segue, sender)
     }
 }
