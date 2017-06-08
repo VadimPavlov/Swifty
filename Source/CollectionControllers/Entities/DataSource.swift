@@ -18,10 +18,10 @@ public struct DataSource<Object>: ExpressibleByArrayLiteral, Equatable {
     
     private let id = UUID()
     
-    let numberOfSection: () -> Int
-    let numberOfObjectsInSection: (Int) -> Int
-    let objectAtIndexPath: (IndexPath) -> Object
-    let titleInSection: (Int) -> String?
+    public let numberOfSection: () -> Int
+    public let numberOfObjectsInSection: (Int) -> Int
+    public let objectAtIndexPath: (IndexPath) -> Object
+    public let titleInSection: (Int) -> String?
 
     public init(arrayLiteral elements: Object...) {
         self.init(elements)
@@ -49,7 +49,7 @@ public struct DataSource<Object>: ExpressibleByArrayLiteral, Equatable {
 
 public extension DataSource where Object: NSFetchRequestResult {
 
-    init(frc: NSFetchedResultsController<Object>, emptySectionsCount: Int = 0) {
+    public init(frc: NSFetchedResultsController<Object>, emptySectionsCount: Int = 0) {
         self.numberOfSection = { frc.sections?.count ?? emptySectionsCount }
         self.numberOfObjectsInSection = { frc.sections?[$0].numberOfObjects ?? 0 }
         self.titleInSection = { frc.sections?[$0].name }
