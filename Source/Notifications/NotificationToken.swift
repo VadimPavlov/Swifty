@@ -8,11 +8,11 @@
 
 import Foundation
 
-class NotificationToken {
-    let token: NSObjectProtocol
-    let center: NotificationCenter
+public class NotificationToken {
+    public let token: NSObjectProtocol
+    public let center: NotificationCenter
     
-    init(token: NSObjectProtocol, center: NotificationCenter) {
+    public init(token: NSObjectProtocol, center: NotificationCenter) {
         self.token = token
         self.center = center
         

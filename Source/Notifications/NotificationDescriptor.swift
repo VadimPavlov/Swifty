@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct NotificationDescriptor<A> {
+public struct NotificationDescriptor<A> {
     let name: Notification.Name
     let convert: (Notification) -> A
 }
 
-struct CustomNotificationDescriptor<A> {
+public struct CustomNotificationDescriptor<A> {
     let name: Notification.Name
 }
 
-extension NotificationCenter {
+public extension NotificationCenter {
     func addObserver<A>(descriptor: NotificationDescriptor<A>, queue: OperationQueue? = nil, using block: @escaping (A) -> Void) -> NotificationToken {
         let token = self.addObserver(forName: descriptor.name, object: nil, queue: queue) { notification in
             block(descriptor.convert(notification))
