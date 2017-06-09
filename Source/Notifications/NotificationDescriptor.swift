@@ -11,10 +11,19 @@ import Foundation
 public struct NotificationDescriptor<A> {
     let name: Notification.Name
     let convert: (Notification) -> A
+    
+    public init(name: Notification.Name, convert: @escaping (Notification) -> A) {
+        self.name = name
+        self.convert = convert
+    }
 }
 
 public struct CustomNotificationDescriptor<A> {
     let name: Notification.Name
+    
+    public init(name: Notification.Name) {
+        self.name = name
+    }
 }
 
 public extension NotificationCenter {
