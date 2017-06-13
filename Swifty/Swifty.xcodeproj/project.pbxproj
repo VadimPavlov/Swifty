@@ -205,8 +205,8 @@
 		1499DB8A1ECC7BE90080B5AB /* Future */ = {
 			isa = PBXGroup;
 			children = (
-				1499DB8B1ECC7BE90080B5AB /* Future.swift */,
 				1499DB8C1ECC7BE90080B5AB /* Result.swift */,
+				1499DB8B1ECC7BE90080B5AB /* Future.swift */,
 			);
 			path = Future;
 			sourceTree = "<group>";
