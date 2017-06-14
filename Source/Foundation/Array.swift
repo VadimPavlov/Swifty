@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Array where Element: Equatable {
+public extension Array where Element: Equatable {
     
     mutating func remove(_ object: Element) {
         if let index = index(of: object) {

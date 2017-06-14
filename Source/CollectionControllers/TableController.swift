@@ -32,8 +32,7 @@ public class TableController<Object>: NSObject, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let number = dataSource.numberOfObjectsInSection(section)
-        return number
+        return dataSource.numberOfObjectsInSection(section)
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
