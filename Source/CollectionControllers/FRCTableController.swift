@@ -9,7 +9,7 @@ public class FRCTableController<Object: NSFetchRequestResult>: TableController<O
 
     public var animation: UITableViewRowAnimation = .automatic
     
-    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         let dataSource = DataSource(frc: frc)
         super.init(tableView: tableView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
@@ -38,7 +38,7 @@ public class FRCTableController<Object: NSFetchRequestResult>: TableController<O
 }
 
 public class SimpleFRCTableController<Object: NSFetchRequestResult, Cell: UITableViewCell>: FRCTableController<Object> {
-    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, frc: frc) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

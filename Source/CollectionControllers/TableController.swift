@@ -14,7 +14,7 @@ public class TableController<Object>: NSObject, UITableViewDataSource {
         didSet { self.adapt(tableView: tableView) }
     }
 
-    public init(tableView: UITableView, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.tableView = tableView
         self.dataSource = dataSource
         self.cellDescriptor = cellDescriptor
@@ -129,7 +129,7 @@ public class TableController<Object>: NSObject, UITableViewDataSource {
 
 public class SimpleTableController <Object, Cell: UITableViewCell>: TableController<Object> {
     
-    public init(tableView: UITableView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

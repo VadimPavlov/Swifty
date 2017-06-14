@@ -7,7 +7,7 @@ import CoreData
 
 public class FRCCollectionController<Object: NSFetchRequestResult>: CollectionController<Object>, NSFetchedResultsControllerDelegate {
     
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         let dataSource = DataSource(frc: frc)
         super.init(collectionView: collectionView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
@@ -36,7 +36,7 @@ public class FRCCollectionController<Object: NSFetchRequestResult>: CollectionCo
 }
 
 public class SimpleFRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCollectionController<Object>  {
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, frc: frc) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
