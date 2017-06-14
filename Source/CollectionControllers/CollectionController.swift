@@ -44,9 +44,12 @@ public class CollectionController<Object>: NSObject, UICollectionViewDataSource 
         case .cellClass?:
             let cls = descriptor.cellClass as! UICollectionViewCell.Type
             collectionView.register(cls, forCellWithReuseIdentifier: identifier)
+        case .nib?:
+            let name = String(describing: descriptor.cellClass)
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         case .nibName(let name)?:
-            let nibName = name ?? String(describing: descriptor.cellClass)
-            let nib = UINib(nibName: nibName, bundle: nil)
+            let nib = UINib(nibName: name, bundle: nil)
             collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         default: break
         }
