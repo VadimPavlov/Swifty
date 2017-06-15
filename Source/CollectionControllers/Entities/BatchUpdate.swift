@@ -44,7 +44,7 @@ public struct BatchUpdate {
 
 // FRC Helpers
 public extension BatchUpdate {
-    public init(sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    public init(type: NSFetchedResultsChangeType, sectionIndex: Int) {
         let sections = IndexSet(integer: sectionIndex)
         
         switch type {
@@ -54,35 +54,24 @@ public extension BatchUpdate {
         }
     }
     
-    public static func perform(at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?, perform: @escaping (BatchUpdate) -> Void) {
-        
-        guard let ip = newIndexPath ?? indexPath else { return }
-        
-        let update: BatchUpdate
+    public init?(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
+        guard let ip = newIndexPath ?? indexPath else { return nil }
         
         switch type {
         case .insert:
-            update = BatchUpdate(insertRows: [ip])
+            self.init(insertRows: [ip])
         case .delete:
-            update = BatchUpdate(deleteRows: [ip])
+            self.init(deleteRows: [ip])
         case .update:
-            update = BatchUpdate(reloadRows: [ip])
-            
+            self.init(reloadRows: [ip])
         case .move:
-            // https://forums.developer.apple.com/thread/4999
-            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return nil }
             if indexPath == newIndexPath {
-                update = BatchUpdate(reloadRows: [ip])
+                self.init(reloadRows: [ip])
             } else {
                 let move = Move(at: indexPath, to: newIndexPath)
-                update = BatchUpdate(moveRow: move)
-
-                DispatchQueue.main.async {
-                    let reload = BatchUpdate(reloadRows: [newIndexPath])
-                    perform(reload)
-                }
+                self.init(moveRow: move)
             }
         }
-        perform(update)        
     }
 }

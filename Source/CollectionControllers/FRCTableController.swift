@@ -42,14 +42,14 @@ public class FRCTableController<Object: NSFetchRequestResult>: TableController<O
     }
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        let update = BatchUpdate(sectionIndex: sectionIndex, for: type)
+        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
         self.performBatch(update, animation: animation)
     }
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     
-        BatchUpdate.perform(at: indexPath, for: type, newIndexPath: newIndexPath) {
-            self.performBatch($0, animation: self.animation)
+        if let update = BatchUpdate(type: type, indexPath: indexPath, newIndexPath: newIndexPath) {
+            self.performBatch(update, animation: self.animation)
         }
     }
     

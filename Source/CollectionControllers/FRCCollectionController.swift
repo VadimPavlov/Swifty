@@ -9,7 +9,8 @@ public class FRCCollectionController<Object: NSFetchRequestResult>: CollectionCo
     
     private let frc: NSFetchedResultsController<Object>
     private let observingPredicate: Bool
-    
+    private var updates: [BatchUpdate] = []
+
     public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
 
         self.frc = frc
@@ -33,18 +34,21 @@ public class FRCCollectionController<Object: NSFetchRequestResult>: CollectionCo
     // MARK: - NSFetchedResultsControllerDelegate
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {}
     
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {}
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.performBatch(updates: updates)
+        updates.removeAll()
+    }
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         
-        let update =  BatchUpdate(sectionIndex: sectionIndex, for: type)
-        self.performBatch(update)
+        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
+        updates.append(update)
     }
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        BatchUpdate.perform(at: indexPath, for: type, newIndexPath: newIndexPath) {
-            self.performBatch($0)
+        if let update = BatchUpdate(type: type, indexPath: indexPath, newIndexPath: newIndexPath) {
+            updates.append(update)
         }
     }
 }
