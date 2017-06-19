@@ -7,37 +7,55 @@ import CoreData
 
 open class FRCCollectionController<Object: NSFetchRequestResult>: CollectionController<Object>, NSFetchedResultsControllerDelegate {
     
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    private let frc: NSFetchedResultsController<Object>
+    private let observingPredicate: Bool
+    private var updates: [BatchUpdate] = []
+
+    public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+
+        self.frc = frc
+        self.observingPredicate = observeRequestPredicate
+
         let dataSource = DataSource(frc: frc)
         super.init(collectionView: collectionView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
+        
+        if observeRequestPredicate {
+            frc.fetchRequest.addObserver(self, forKeyPath: "predicate", options: .new, context: nil)
+        }
+    }
+    
+    deinit {
+        if observingPredicate {
+            frc.fetchRequest.removeObserver(self, forKeyPath: "predicate")
+        }
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
-    open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    }
+    open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {}
     
     open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.performBatch(updates: updates)
+        updates.removeAll()
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         
-        let update =  BatchUpdate(sectionIndex: sectionIndex, for: type)
-        self.performBatch(update)
+        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
+        updates.append(update)
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        BatchUpdate.perform(at: indexPath, for: type, newIndexPath: newIndexPath) {
-            self.performBatch($0)
+        if let update = BatchUpdate(type: type, indexPath: indexPath, newIndexPath: newIndexPath) {
+            updates.append(update)
         }
-        
     }
 }
 
 open class SimpleFRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCollectionController<Object>  {
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
-        super.init(collectionView: collectionView, frc: frc) { object in
+    public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, frc: frc, observeRequestPredicate: observeRequestPredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
             })

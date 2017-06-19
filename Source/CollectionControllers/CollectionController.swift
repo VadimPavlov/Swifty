@@ -44,9 +44,12 @@ open class CollectionController<Object>: NSObject, UICollectionViewDataSource {
         case .cellClass?:
             let cls = descriptor.cellClass as! UICollectionViewCell.Type
             collectionView.register(cls, forCellWithReuseIdentifier: identifier)
+        case .nib?:
+            let name = String(describing: descriptor.cellClass)
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         case .nibName(let name)?:
-            let nibName = name ?? String(describing: descriptor.cellClass)
-            let nib = UINib(nibName: nibName, bundle: nil)
+            let nib = UINib(nibName: name, bundle: nil)
             collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         default: break
         }
@@ -83,47 +86,50 @@ open class CollectionController<Object>: NSObject, UICollectionViewDataSource {
     public func update(dataSource: DataSource<Object>, batch: BatchUpdate, completion: UpdateCompletion? = nil) {
         if self.dataSource != dataSource {
             self.dataSource = dataSource
-            self.performBatch(batch, completion: completion)
+            self.performBatch(updates: [batch], completion: completion)
         }
     }
     
-    internal func performBatch(_ batch: BatchUpdate, completion: UpdateCompletion? = nil) {
+    internal func performBatch(updates: [BatchUpdate], completion: UpdateCompletion? = nil) {
         // TODO: handle known issues
         // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
         
         collectionView?.performBatchUpdates({
-            if let sections = batch.insertSections {
-                self.collectionView?.insertSections(sections)
-            }
-            if let sections = batch.reloadSections {
-                self.collectionView?.reloadSections(sections)
-            }
-            if let sections = batch.deleteSections {
-                self.collectionView?.deleteSections(sections)
-            }
-            if let indexes = batch.insertRows {
-                self.collectionView?.insertItems(at: indexes)
-            }
-            if let indexes = batch.reloadRows {
-                self.collectionView?.reloadItems(at: indexes)
-            }
-            if let indexes = batch.deleteRows {
-                self.collectionView?.deleteItems(at: indexes)
-            }
-            if let move = batch.moveSection {
-                self.collectionView?.moveSection(move.at, toSection: move.to)
-            }
-            
-            if let move = batch.moveRow {
-                self.collectionView?.moveItem(at: move.at, to: move.to)
+            updates.forEach { update in
+                if let sections = update.insertSections {
+                    self.collectionView?.insertSections(sections)
+                }
+                if let sections = update.reloadSections {
+                    self.collectionView?.reloadSections(sections)
+                }
+                if let sections = update.deleteSections {
+                    self.collectionView?.deleteSections(sections)
+                }
+                if let indexes = update.insertRows {
+                    self.collectionView?.insertItems(at: indexes)
+                }
+                if let indexes = update.reloadRows {
+                    self.collectionView?.reloadItems(at: indexes)
+                }
+                if let indexes = update.deleteRows {
+                    self.collectionView?.deleteItems(at: indexes)
+                }
+                if let move = update.moveSection {
+                    self.collectionView?.moveSection(move.at, toSection: move.to)
+                }
+                
+                if let move = update.moveRow {
+                    self.collectionView?.moveItem(at: move.at, to: move.to)
+                }
             }
             
         }, completion: completion)
     }
 }
 
+
 open class SimpleCollectionController<Object, Cell: UICollectionViewCell>: CollectionController<Object> {
-    public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

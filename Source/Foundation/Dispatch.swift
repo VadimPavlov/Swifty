@@ -8,6 +8,6 @@
 
 import Foundation
 
-func after(_ interval: TimeInterval, block: @escaping () -> Void) {
+public func after(_ interval: TimeInterval, block: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + interval, execute: block)
 }

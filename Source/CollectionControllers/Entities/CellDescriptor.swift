@@ -16,7 +16,8 @@ public struct CellDescriptor {
     
     public enum Register {
         case cellClass
-        case nibName(String?)
+        case nib
+        case nibName(String)
     }
     
     public let identifier: String

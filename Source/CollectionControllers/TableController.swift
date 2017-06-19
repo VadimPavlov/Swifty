@@ -14,7 +14,7 @@ open class TableController<Object>: NSObject, UITableViewDataSource {
         didSet { self.adapt(tableView: tableView) }
     }
 
-    public init(tableView: UITableView, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.tableView = tableView
         self.dataSource = dataSource
         self.cellDescriptor = cellDescriptor
@@ -32,8 +32,7 @@ open class TableController<Object>: NSObject, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let number = dataSource.numberOfObjectsInSection(section)
-        return number
+        return dataSource.numberOfObjectsInSection(section)
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,9 +45,12 @@ open class TableController<Object>: NSObject, UITableViewDataSource {
             case .cellClass:
                 let cls = descriptor.cellClass as! UITableViewCell.Type
                 tableView.register(cls, forCellReuseIdentifier: identifier)
-            case .nibName(let name):
-                let nibName = name ?? String(describing: descriptor.cellClass)
+            case .nib:
+                let nibName = String(describing: descriptor.cellClass)
                 let nib = UINib(nibName: nibName, bundle: nil)
+                tableView.register(nib, forCellReuseIdentifier: identifier)
+            case .nibName(let name):
+                let nib = UINib(nibName: name, bundle: nil)
                 tableView.register(nib, forCellReuseIdentifier: identifier)
             }
             registeredIdentifiers.insert(identifier)
@@ -129,7 +131,7 @@ open class TableController<Object>: NSObject, UITableViewDataSource {
 
 open class SimpleTableController <Object, Cell: UITableViewCell>: TableController<Object> {
     
-    public init(tableView: UITableView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
