@@ -51,6 +51,14 @@ open class FRCCollectionController<Object: NSFetchRequestResult>: CollectionCont
             updates.append(update)
         }
     }
+    
+    // MARK: - Observing
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        DispatchQueue.main.async {
+            self.collectionView?.reloadData()
+        }
+    }
+
 }
 
 open class SimpleFRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCollectionController<Object>  {
