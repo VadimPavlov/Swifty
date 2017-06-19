@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class CollectionController<Object>: NSObject, UICollectionViewDataSource {
+open class CollectionController<Object>: NSObject, UICollectionViewDataSource {
     
     private var dataSource: DataSource<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
@@ -26,15 +26,15 @@ public class CollectionController<Object>: NSObject, UICollectionViewDataSource 
     }
     
     // MARK: - DataSource
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return dataSource.numberOfSection()
     }
 
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.numberOfObjectsInSection(section)
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let object = self.object(at: indexPath)
         let descriptor = self.cellDescriptor(object)
@@ -57,15 +57,15 @@ public class CollectionController<Object>: NSObject, UICollectionViewDataSource 
     }
     
     // MARK: - Objects
-    public func object(at indexPath: IndexPath) -> Object {
+    open func object(at indexPath: IndexPath) -> Object {
         return dataSource.objectAtIndexPath(indexPath)
     }
-    public var selectedObject: Object? {
+    open var selectedObject: Object? {
         let indexPath = self.collectionView?.indexPathsForSelectedItems?.first
         return indexPath.map { self.object(at: $0) }
     }
     
-    public var selectedObjects: [Object] {
+    open var selectedObjects: [Object] {
         let indexPaths = self.collectionView?.indexPathsForSelectedItems ?? []
         return indexPaths.map { self.object(at: $0) }
     }
@@ -122,7 +122,7 @@ public class CollectionController<Object>: NSObject, UICollectionViewDataSource 
     }
 }
 
-public class SimpleCollectionController<Object, Cell: UICollectionViewCell>: CollectionController<Object> {
+open class SimpleCollectionController<Object, Cell: UICollectionViewCell>: CollectionController<Object> {
     public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
