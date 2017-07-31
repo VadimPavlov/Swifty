@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class TableController<Object>: NSObject, UITableViewDataSource {
+open class CellsTableController<Object>: NSObject, UITableViewDataSource {
 
     private var dataSource: DataSource<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
@@ -129,7 +129,7 @@ open class TableController<Object>: NSObject, UITableViewDataSource {
     }
 }
 
-open class SimpleTableController <Object, Cell: UITableViewCell>: TableController<Object> {
+open class TableController <Object, Cell: UITableViewCell>: CellsTableController<Object> {
     
     public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, dataSource: dataSource) { object in

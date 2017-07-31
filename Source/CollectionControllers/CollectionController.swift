@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class CollectionController<Object>: NSObject, UICollectionViewDataSource {
+open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSource {
     
     private var dataSource: DataSource<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
@@ -128,7 +128,7 @@ open class CollectionController<Object>: NSObject, UICollectionViewDataSource {
 }
 
 
-open class SimpleCollectionController<Object, Cell: UICollectionViewCell>: CollectionController<Object> {
+open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
     public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
