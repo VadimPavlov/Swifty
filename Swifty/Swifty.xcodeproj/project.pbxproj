@@ -96,6 +96,7 @@
 		149AEAB31EC5F8CD00F16858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149AEAB61EC5F8CD00F16858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		184E8BFF1F30ADC2002617B7 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +271,7 @@
 		149AEAAB1EC5F8CD00F16858 /* Swifty */ = {
 			isa = PBXGroup;
 			children = (
+				184E8BFF1F30ADC2002617B7 /* MyPlayground.playground */,
 				149AEAAC1EC5F8CD00F16858 /* AppDelegate.swift */,
 				149AEAB01EC5F8CD00F16858 /* Main.storyboard */,
 				149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */,

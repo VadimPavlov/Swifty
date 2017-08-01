@@ -1,6 +1,4 @@
-//
-//  UIColor.swift
-//  Created by Vadim Pavlov on 23.07.16.
+//: Playground - noun: a place where people can play
 
 import UIKit
 
@@ -29,8 +27,8 @@ public extension UIColor {
     }
 }
 
-extension UIColor {
-    static var random: UIColor {
-        return UIColor(red: .random, green: .random, blue: .random, alpha: 1)
-    }
-}
+var str = "Hello, playground"
+
+let c1 = UIColor(hexString: "#6ECE1A")
+let c2 = UIColor(hexString: "#6ece1a")
+let c3 = UIColor(hex: 0x6ece1a)
