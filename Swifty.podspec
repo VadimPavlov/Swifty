@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Swifty"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "Awesome Swift helpers"
   s.homepage     = "https://github.com/VadimPavlov/Swifty"
   s.license      = { :type => "MIT", :file => "LICENSE.md" }

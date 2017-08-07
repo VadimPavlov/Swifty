@@ -35,3 +35,16 @@ public extension Dictionary where Value: Equatable {
         return self.filter { $1 == val }.map { $0.0 }
     }
 }
+
+// MARK: - Combining operators
+public extension Dictionary {
+    public static func +=(lhs: inout [Key: Value], rhs: [Key: Value]) {
+        rhs.forEach({ lhs[$0] = $1})
+    }
+    
+    public static func +(lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
+        var combined = lhs
+        combined += rhs
+        return combined
+    }
+}
