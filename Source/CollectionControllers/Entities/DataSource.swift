@@ -10,8 +10,13 @@ import Foundation
 import CoreData
 
 public struct Section<A> {
-    let title: String?
-    let objects: [A]
+    public let title: String?
+    public let objects: [A]
+    
+    public init(title: String?, objects: [A]) {
+        self.title = title
+        self.objects = objects
+    }
 }
 
 public struct DataSource<Object>: ExpressibleByArrayLiteral, Equatable {
