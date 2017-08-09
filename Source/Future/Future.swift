@@ -4,10 +4,11 @@
 
 import Foundation
 
+public typealias Cancellation = () -> Void
+
 public struct Future<T> {
     
     public typealias Completion = (Result<T>) -> Void
-    public typealias Cancellation = () -> Void
     public typealias Operation = (@escaping Completion) -> Cancellation?
     
     public let operation: Operation
