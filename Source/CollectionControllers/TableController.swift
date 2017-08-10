@@ -10,7 +10,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
     private let cellDescriptor: (Object) -> CellDescriptor
     private var registeredIdentifiers: Set<String> = []
     
-    weak var tableView: UITableView? {
+    public weak var tableView: UITableView? {
         didSet { self.adapt(tableView: tableView) }
     }
 

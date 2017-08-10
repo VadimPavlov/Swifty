@@ -9,7 +9,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     private var dataSource: DataSource<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
     
-    weak var collectionView: UICollectionView? {
+    public weak var collectionView: UICollectionView? {
         didSet { self.adapt(collectionView)}
     }
 
