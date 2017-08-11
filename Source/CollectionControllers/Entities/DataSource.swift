@@ -13,7 +13,7 @@ public struct Section<A> {
     public let title: String?
     public let objects: [A]
     
-    public init(title: String?, objects: [A]) {
+    public init(title: String? = nil, objects: [A]) {
         self.title = title
         self.objects = objects
     }

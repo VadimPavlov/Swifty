@@ -27,15 +27,15 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
     }
     
     // MARK: - DataSource
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.numberOfSection()
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.numberOfObjectsInSection(section)
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let object = self.object(at: indexPath)
         let descriptor = self.cellDescriptor(object)
         let identifier = descriptor.identifier
@@ -62,15 +62,18 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
     }
     
     // MARK: - Objects
-    public func object(at indexPath: IndexPath) -> Object {
+    open func title(for section: Int) -> String? {
+        return dataSource.titleInSection(section)
+    }    
+    open func object(at indexPath: IndexPath) -> Object {
         return dataSource.objectAtIndexPath(indexPath)
     }
-    public var selectedObject: Object? {
+    open var selectedObject: Object? {
         let indexPath = self.tableView?.indexPathForSelectedRow
         return indexPath.map { self.object(at: $0) }
     }
     
-    public var selectedObjects: [Object] {
+    open var selectedObjects: [Object] {
         let indexPaths = self.tableView?.indexPathsForSelectedRows ?? []
         return indexPaths.map { self.object(at: $0) }
     }

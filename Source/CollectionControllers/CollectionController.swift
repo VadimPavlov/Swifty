@@ -60,6 +60,10 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     }
     
     // MARK: - Objects
+    open func title(for section: Int) -> String? {
+        return dataSource.titleInSection(section)
+    }
+
     open func object(at indexPath: IndexPath) -> Object {
         return dataSource.objectAtIndexPath(indexPath)
     }
