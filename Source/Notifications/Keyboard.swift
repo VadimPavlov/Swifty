@@ -46,19 +46,25 @@ public struct KeyboardNotificationToken {
 
 public extension UIScrollView {
     
+    struct OriginalInsets {
+        let contentBottom: CGFloat
+        let indicatorsBottom: CGFloat
+    }
+    
     typealias KeyboardAnimation = (KeyboardUserInfo) -> Void
+    
     func observeKeyboardNotifications(center: NotificationCenter = .default, animate: KeyboardAnimation? = nil) -> KeyboardNotificationToken {
         
-        var bottomInset: CGFloat = 0
+        let original = OriginalInsets(contentBottom: self.contentInset.bottom, indicatorsBottom: self.scrollIndicatorInsets.bottom)
         
         let showToken = center.addObserver(descriptor: Keyboard.WillShowNotification) { info in
             guard let scrollRect = self.window?.convert(self.frame, from: self.superview) else { return }
+
             let keyboardFrame = info.frameEndUser
             let overlaped = keyboardFrame.intersection(scrollRect)
             
             // window orientation depended
             let inset = overlaped.minX == 0 ? overlaped.height : overlaped.width
-            bottomInset = self.contentInset.bottom
             
             self.contentInset.bottom = inset
             self.scrollIndicatorInsets.bottom = inset
@@ -69,8 +75,8 @@ public extension UIScrollView {
         }
         
         let hideToken = center.addObserver(descriptor: Keyboard.WillHideNotification) { info in
-            self.contentInset.bottom = bottomInset
-            self.scrollIndicatorInsets.bottom = bottomInset
+            self.contentInset.bottom = original.contentBottom
+            self.scrollIndicatorInsets.bottom = original.indicatorsBottom
             
             if let animation = animate {
                 self.animate(with: info, animation: animation)
