@@ -16,7 +16,7 @@ public struct ViewEvents {
     public let onDidLoad: DidLoadAction?
     public let onSegue: SegueAction?
     
-    public init(onDidLoad: DidLoadAction?, onSegue: SegueAction?) {
+    public init(onDidLoad: DidLoadAction? = nil, onSegue: SegueAction? = nil) {
         self.onDidLoad = onDidLoad
         self.onSegue = onSegue
     }
