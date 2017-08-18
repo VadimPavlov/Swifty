@@ -9,10 +9,14 @@
 import UIKit
 
 public struct ViewEvents {
-    public let onDidLoad: () -> Void
-    public let onSegue: (UIStoryboardSegue, Any?) -> Void
     
-    public init(onDidLoad: @escaping () -> Void, onSegue: @escaping (UIStoryboardSegue, Any?) -> Void) {
+    public typealias DidLoadAction = () -> Void
+    public typealias SegueAction = (UIStoryboardSegue, Any?) -> Void
+    
+    public let onDidLoad: DidLoadAction?
+    public let onSegue: SegueAction?
+    
+    public init(onDidLoad: DidLoadAction?, onSegue: SegueAction?) {
         self.onDidLoad = onDidLoad
         self.onSegue = onSegue
     }
@@ -23,11 +27,11 @@ open class EventsViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewEvents?.onDidLoad()
+        self.viewEvents?.onDidLoad?()
     }
     
     open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        self.viewEvents?.onSegue(segue, sender)
+        self.viewEvents?.onSegue?(segue, sender)
     }
 }
