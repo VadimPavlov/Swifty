@@ -22,4 +22,9 @@ public extension UIAlertController {
         let message = error.localizedFailureReason ?? error.localizedDescription
         self.init(errorMessage: message)
     }
+    
+    func show(animated: Bool = true) {
+        let rootVC = UIApplication.shared.keyWindow?.rootViewController
+        rootVC?.present(self, animated: animated, completion: nil)
+    }
 }
