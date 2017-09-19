@@ -1,0 +1,30 @@
+//
+//  {{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import Foundation
+import Swifty
+
+final class {{ module_info.name }}ViewModel: ViewModel<{{ module_info.name }}ViewController> {
+    
+    fileprivate let router: {{ module_info.name }}Router
+    
+    init(router: {{ module_info.name }}Router, input: {{ module_info.name }}Input) {
+        self.router = router
+        
+        let state = {{ module_info.name }}ViewState()
+        super.init(state: state)
+    }
+    
+    // MARK: - Actions
+    
+}
+
+// MARK: - Private
+private extension {{ module_info.name }}ViewModel {
+    
+}
