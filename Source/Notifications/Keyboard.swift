@@ -40,8 +40,8 @@ fileprivate extension KeyboardUserInfo {
 }
 
 public struct KeyboardNotificationToken {
-    let show: NotificationToken
-    let hide: NotificationToken
+    public let show: NotificationToken
+    public let hide: NotificationToken
 }
 
 public extension UIScrollView {
