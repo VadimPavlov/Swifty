@@ -16,13 +16,13 @@ enum Keyboard {
 }
 
 public struct KeyboardUserInfo {
-    let isLocalUser: Bool
+    public let isLocalUser: Bool
     
-    let frameBeginUser: CGRect
-    let frameEndUser: CGRect
+    public let frameBeginUser: CGRect
+    public let frameEndUser: CGRect
     
-    let animationDuration: TimeInterval
-    let animationCurve: Int
+    public let animationDuration: TimeInterval
+    public let animationCurve: Int
 }
 
 fileprivate extension KeyboardUserInfo {
