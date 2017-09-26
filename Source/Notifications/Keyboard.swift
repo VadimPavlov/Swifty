@@ -53,7 +53,7 @@ public extension UIScrollView {
     
     typealias KeyboardAnimation = (KeyboardUserInfo) -> Void
     
-    func observeKeyboardNotifications(center: NotificationCenter = .default, animate: KeyboardAnimation? = nil) -> KeyboardNotificationToken {
+    func observeKeyboardNotifications(center: NotificationCenter = .default, extraInset: CGFloat = 0, animate: KeyboardAnimation? = nil) -> KeyboardNotificationToken {
         
         let original = OriginalInsets(contentBottom: self.contentInset.bottom, indicatorsBottom: self.scrollIndicatorInsets.bottom)
         
@@ -66,8 +66,8 @@ public extension UIScrollView {
             // window orientation depended
             let inset = overlaped.minX == 0 ? overlaped.height : overlaped.width
             
-            self.contentInset.bottom = inset
-            self.scrollIndicatorInsets.bottom = inset
+            self.contentInset.bottom = inset + extraInset
+            self.scrollIndicatorInsets.bottom = inset + extraInset
             
             if let animation = animate {
                 self.animate(with: info, animation: animation)
