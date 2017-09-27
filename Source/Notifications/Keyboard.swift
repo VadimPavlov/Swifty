@@ -46,7 +46,7 @@ public struct KeyboardNotificationToken {
 
 public extension UIScrollView {
     
-    struct OriginalInsets {
+    public struct OriginalInsets {
         let contentBottom: CGFloat
         let indicatorsBottom: CGFloat
     }
