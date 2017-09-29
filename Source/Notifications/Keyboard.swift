@@ -8,11 +8,11 @@
 
 import UIKit
 
-enum Keyboard {
-    static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
-    static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
-    static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
-    static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
+public enum Keyboard {
+    public static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
+    public static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
+    public static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
+    public static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
 }
 
 public struct KeyboardUserInfo {

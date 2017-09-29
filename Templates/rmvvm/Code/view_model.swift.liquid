@@ -11,7 +11,7 @@ import Swifty
 
 final class {{ module_info.name }}ViewModel: ViewModel<{{ module_info.name }}ViewController> {
     
-    fileprivate let router: {{ module_info.name }}Router
+    private let router: {{ module_info.name }}Router
     
     init(router: {{ module_info.name }}Router, input: {{ module_info.name }}Input) {
         self.router = router
