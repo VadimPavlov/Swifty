@@ -23,6 +23,10 @@ public struct KeyboardUserInfo {
     
     public let animationDuration: TimeInterval
     public let animationCurve: Int
+    
+    public var deltaY: CGFloat {
+        return frameBeginUser.minY - frameEndUser.minY
+    }
 }
 
 fileprivate extension KeyboardUserInfo {
@@ -42,6 +46,11 @@ fileprivate extension KeyboardUserInfo {
 public struct KeyboardNotificationToken {
     public let show: NotificationToken
     public let hide: NotificationToken
+    
+    public init(show: NotificationToken, hide: NotificationToken) {
+        self.show = show
+        self.hide = hide
+    }
 }
 
 public extension UIScrollView {
