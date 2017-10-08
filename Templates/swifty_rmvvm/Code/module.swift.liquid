@@ -1,0 +1,30 @@
+//
+//  {{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import Foundation
+import Swifty
+
+struct {{ module_info.name }}Input {}
+
+enum {{ module_info.name }}Module {
+    
+    static let session = Session.current!
+    
+    static func build(view: {{ module_info.name }}ViewController, input: {{ module_info.name }}Input) {
+     
+        let router = {{ module_info.name }}Router()
+        router.source = view
+        view.router = router
+        
+        let vm = {{ module_info.name }}ViewModel(router: router, input: input)
+        vm.view = view
+        view.vm = vm
+        
+        view.viewEvents = ViewEvents(onDidLoad: vm.updateState, onSegue: router.onSegue)
+    }
+}
