@@ -35,3 +35,31 @@ open class EventsViewController: UIViewController {
         self.viewEvents?.onSegue?(segue, sender)
     }
 }
+
+open class EventsTableViewController: UITableViewController {
+    public var viewEvents: ViewEvents?
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewEvents?.onDidLoad?()
+    }
+
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        self.viewEvents?.onSegue?(segue, sender)
+    }
+}
+
+open class EventsCollectionViewController: UICollectionViewController {
+    public var viewEvents: ViewEvents?
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewEvents?.onDidLoad?()
+    }
+
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        self.viewEvents?.onSegue?(segue, sender)
+    }
+}
