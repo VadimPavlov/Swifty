@@ -47,7 +47,7 @@ open class ListController: StateController<ListViewState> {
 
     // MARK: - Loading
 
-    func loadFirstPage() {
+    public func loadFirstPage() {
         self.lastID = nil
         self.currentPage = firstPage
 
@@ -55,7 +55,7 @@ open class ListController: StateController<ListViewState> {
         self.loadPage(page)
     }
     
-    func loadNextPage() {
+    public func loadNextPage() {
         let nextPage = ListPage(size: pageSize, number: currentPage + 1,  lastID: self.lastID)
         self.loadPage(nextPage)
     }
