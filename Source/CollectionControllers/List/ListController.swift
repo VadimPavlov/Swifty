@@ -8,7 +8,7 @@ public protocol ListControllerDataSource: class {
     func loadPage(_ page: ListPage) -> Future<[ListObject]>
 }
 
-public class ListController: StateController<ListViewState> {
+open class ListController: StateController<ListViewState> {
     
     private let pageSize: Int
     private let firstPage: Int
