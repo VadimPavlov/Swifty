@@ -23,7 +23,7 @@
 		1499DBA91ECC7BE90080B5AB /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB7C1ECC7BE90080B5AB /* ListController.swift */; };
 		1499DBAA1ECC7BE90080B5AB /* ListObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB7D1ECC7BE90080B5AB /* ListObject.swift */; };
 		1499DBAB1ECC7BE90080B5AB /* ListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB7E1ECC7BE90080B5AB /* ListPage.swift */; };
-		1499DBAC1ECC7BE90080B5AB /* ListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB7F1ECC7BE90080B5AB /* ListState.swift */; };
+		1499DBAC1ECC7BE90080B5AB /* ListViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB7F1ECC7BE90080B5AB /* ListViewState.swift */; };
 		1499DBAD1ECC7BE90080B5AB /* ListViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB801ECC7BE90080B5AB /* ListViewType.swift */; };
 		1499DBAE1ECC7BE90080B5AB /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB811ECC7BE90080B5AB /* TableController.swift */; };
 		1499DBAF1ECC7BE90080B5AB /* BatchSizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB831ECC7BE90080B5AB /* BatchSizable.swift */; };
@@ -69,7 +69,7 @@
 		1499DB7C1ECC7BE90080B5AB /* ListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		1499DB7D1ECC7BE90080B5AB /* ListObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListObject.swift; sourceTree = "<group>"; };
 		1499DB7E1ECC7BE90080B5AB /* ListPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPage.swift; sourceTree = "<group>"; };
-		1499DB7F1ECC7BE90080B5AB /* ListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListState.swift; sourceTree = "<group>"; };
+		1499DB7F1ECC7BE90080B5AB /* ListViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewState.swift; sourceTree = "<group>"; };
 		1499DB801ECC7BE90080B5AB /* ListViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewType.swift; sourceTree = "<group>"; };
 		1499DB811ECC7BE90080B5AB /* TableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
 		1499DB831ECC7BE90080B5AB /* BatchSizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchSizable.swift; sourceTree = "<group>"; };
@@ -178,7 +178,7 @@
 				1499DB7C1ECC7BE90080B5AB /* ListController.swift */,
 				1499DB7D1ECC7BE90080B5AB /* ListObject.swift */,
 				1499DB7E1ECC7BE90080B5AB /* ListPage.swift */,
-				1499DB7F1ECC7BE90080B5AB /* ListState.swift */,
+				1499DB7F1ECC7BE90080B5AB /* ListViewState.swift */,
 				1499DB801ECC7BE90080B5AB /* ListViewType.swift */,
 			);
 			path = List;
@@ -361,7 +361,7 @@
 				1499DBAE1ECC7BE90080B5AB /* TableController.swift in Sources */,
 				1499DBA81ECC7BE90080B5AB /* FRCTableController.swift in Sources */,
 				1499DBAB1ECC7BE90080B5AB /* ListPage.swift in Sources */,
-				1499DBAC1ECC7BE90080B5AB /* ListState.swift in Sources */,
+				1499DBAC1ECC7BE90080B5AB /* ListViewState.swift in Sources */,
 				1499DBA11ECC7BE90080B5AB /* ViewType.swift in Sources */,
 				1499DBA01ECC7BE90080B5AB /* ViewModel.swift in Sources */,
 				1499DBBA1ECC7BE90080B5AB /* NotificationDescriptor.swift in Sources */,

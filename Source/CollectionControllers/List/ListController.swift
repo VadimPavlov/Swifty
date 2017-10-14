@@ -10,7 +10,7 @@ public protocol ListControllerDataSource: class {
     func loadPage(_ page: ListPage, completion: @escaping ListPageLoadingCompletion)
 }
 
-public class ListController: StateController<ListState> {
+public class ListController: StateController<ListViewState> {
     
     private let pageSize: Int
     private let firstPage: Int
@@ -26,7 +26,7 @@ public class ListController: StateController<ListState> {
     private typealias ListUpdateAction = (BatchUpdate?, Bool) -> Void
     private var listUpdate: ListUpdateAction?
     
-    public override func setView<View : ListViewType>(_ view: View) where View.State == ListState {
+    public override func setView<View : ListViewType>(_ view: View) where View.State == ListViewState {
         super.setView(view)
         self.listUpdate = { [weak view, weak self] update, animated in
             let objects = self?.objects ?? []
@@ -35,7 +35,7 @@ public class ListController: StateController<ListState> {
         }
     }
     
-    init(pageSize: Int, firstPage: Int, objects: [ListObject] = [], appendAnimated: Bool = true) {
+    public init(pageSize: Int, firstPage: Int, objects: [ListObject] = [], appendAnimated: Bool = true) {
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.currentPage = firstPage
@@ -43,7 +43,7 @@ public class ListController: StateController<ListState> {
         self.objects = objects
         self.appendAnimated = appendAnimated
                 
-        let state = ListState()
+        let state = ListViewState()
         super.init(state: state)
     }
 
