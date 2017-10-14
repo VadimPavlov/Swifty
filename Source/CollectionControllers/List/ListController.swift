@@ -4,10 +4,8 @@
 
 import Foundation
 
-public typealias ListPageLoadingCompletion = (Result<[ListObject]>) -> Void
-
 public protocol ListControllerDataSource: class {
-    func loadPage(_ page: ListPage, completion: @escaping ListPageLoadingCompletion)
+    func loadPage(_ page: ListPage) -> Future<[ListObject]>
 }
 
 public class ListController: StateController<ListViewState> {
@@ -68,7 +66,7 @@ public class ListController: StateController<ListViewState> {
         
         self.state.isLoading = true
         
-        self.dataSource?.loadPage(page) { [weak self] result in
+        self.dataSource?.loadPage(page).start { [weak self] result in
             self?.state.isLoading = false
             switch result {
             case .success(let objects):
