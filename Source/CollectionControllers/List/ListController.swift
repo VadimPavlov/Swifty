@@ -13,7 +13,11 @@ public protocol ListControllerDataSource: class {
 public class ListController: StateController<ListState> {
     
     private let pageSize: Int
+    private let firstPage: Int
+
+    private var currentPage: Int
     private var lastID: String?
+
     private let appendAnimated: Bool
     
     public private(set) var objects: [ListObject]
@@ -31,8 +35,11 @@ public class ListController: StateController<ListState> {
         }
     }
     
-    init(pageSize: Int, objects: [ListObject] = [], appendAnimated: Bool = true) {
+    init(pageSize: Int, firstPage: Int, objects: [ListObject] = [], appendAnimated: Bool = true) {
         self.pageSize = pageSize
+        self.firstPage = firstPage
+        self.currentPage = firstPage
+
         self.objects = objects
         self.appendAnimated = appendAnimated
                 
@@ -44,13 +51,14 @@ public class ListController: StateController<ListState> {
 
     func loadFirstPage() {
         self.lastID = nil
-        
-        let page = ListPage(size: pageSize, lastID: nil)
+        self.currentPage = firstPage
+
+        let page = ListPage(size: pageSize, number: firstPage,  lastID: nil)
         self.loadPage(page)
     }
     
     func loadNextPage() {
-        let nextPage = ListPage(size: pageSize, lastID: self.lastID)
+        let nextPage = ListPage(size: pageSize, number: currentPage + 1,  lastID: self.lastID)
         self.loadPage(nextPage)
     }
     
@@ -83,6 +91,7 @@ public class ListController: StateController<ListState> {
     
     func appendNewPage(with objects: [ListObject]) {
         self.lastID = objects.last?.id
+        self.currentPage += 1
         self.appendObjects(objects, animated: self.appendAnimated)
     }
     

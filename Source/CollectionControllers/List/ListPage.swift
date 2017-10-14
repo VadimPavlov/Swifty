@@ -6,5 +6,6 @@ import Foundation
 
 public struct ListPage {
     public let size: Int
+    public let number: Int
     public var lastID: String?
 }
