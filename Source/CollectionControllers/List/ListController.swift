@@ -31,7 +31,7 @@ open class ListController: StateController<ListViewState> {
             view?.update(list: list, batch: update, animated: animated)
         }
     }
-    
+
     public init(pageSize: Int, firstPage: Int, currentPage: Int? = nil, objects: [ListObject] = [], appendAnimated: Bool = true) {
         self.pageSize = pageSize
         self.firstPage = firstPage
@@ -93,6 +93,10 @@ open class ListController: StateController<ListViewState> {
     }
     
     // MARK: - Updating
+    public func updateList() {
+        self.listUpdate?(nil, false)
+    }
+
     func update(objects: [ListObject]) {
         self.objects = objects
         self.listUpdate?(nil, false)
