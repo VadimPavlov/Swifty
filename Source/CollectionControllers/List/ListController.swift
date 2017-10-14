@@ -88,7 +88,7 @@ open class ListController: StateController<ListViewState> {
     }
     
     func appendNewPage(with objects: [ListObject]) {
-        self.lastID = objects.last?.id
+        self.lastID = objects.last?.listID
         self.currentPage += 1
         self.appendObjects(objects, animated: self.appendAnimated)
     }
@@ -100,7 +100,7 @@ open class ListController: StateController<ListViewState> {
     }
     
     func updateObject(_ object: ListObject, animated: Bool) {
-        let index = self.objects.index { $0.id == object.id }
+        let index = self.objects.index { $0.listID == object.listID }
         if let item = index {
             
             let ip = IndexPath(item: item, section: 0)
@@ -153,7 +153,7 @@ open class ListController: StateController<ListViewState> {
     }
     
     func removeObject(_ object: ListObject, animated: Bool) {
-        let index = self.objects.index { $0.id == object.id }
+        let index = self.objects.index { $0.listID == object.listID }
         if let index = index {
             self.removeObject(at: index, animated: animated)
         }
@@ -165,7 +165,7 @@ open class ListController: StateController<ListViewState> {
         // reverse arrays, so we can remove current idx in loop
         let reversedObjects = objects.reversed()
         for (idx, object) in self.objects.enumerated().reversed() {
-            let contains = reversedObjects.contains { $0.id == object.id }
+            let contains = reversedObjects.contains { $0.listID == object.listID }
             if contains {
                 self.objects.remove(at: idx)
                 let ip = IndexPath(row: idx, section: 0)

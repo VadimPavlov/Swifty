@@ -5,5 +5,5 @@
 import Foundation
 
 public protocol ListObject {
-    var id: String { get }
+    var listID: String { get }
 }
