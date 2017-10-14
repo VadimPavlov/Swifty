@@ -12,12 +12,11 @@ open class ListController: StateController<ListViewState> {
     
     private let pageSize: Int
     private let firstPage: Int
-
-    private var currentPage: Int
-    private var lastID: String?
-
     private let appendAnimated: Bool
-    
+
+    public private(set) var currentPage: Int
+    public private(set) var lastID: String?
+
     public private(set) var objects: [ListObject]
     public weak var dataSource: ListControllerDataSource?
     
