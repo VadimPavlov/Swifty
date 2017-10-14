@@ -27,9 +27,9 @@ open class ListController: StateController<ListViewState> {
     public override func setView<View : ListViewType>(_ view: View) where View.State == ListViewState {
         super.setView(view)
         self.listUpdate = { [weak view, weak self] update, animated in
-            let objects = self?.objects ?? []
             assert(Thread.isMainThread)
-            view?.update(list: objects, batch: update, animated: animated)
+            let list = self?.objects as? [View.ListViewObject] ?? []
+            view?.update(list: list, batch: update, animated: animated)
         }
     }
     
@@ -70,6 +70,7 @@ open class ListController: StateController<ListViewState> {
             self?.state.isLoading = false
             switch result {
             case .success(let objects):
+                self?.currentPage = page.number
                 self?.appendNewPage(with: objects)
                 
                 if objects.count > 0 && self?.state.isEmpty == true {
@@ -89,7 +90,6 @@ open class ListController: StateController<ListViewState> {
     
     func appendNewPage(with objects: [ListObject]) {
         self.lastID = objects.last?.listID
-        self.currentPage += 1
         self.appendObjects(objects, animated: self.appendAnimated)
     }
     

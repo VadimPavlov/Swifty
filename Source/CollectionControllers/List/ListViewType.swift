@@ -5,5 +5,6 @@
 import Foundation
 
 public protocol ListViewType: ViewType {
-    func update(list: [ListObject], batch: BatchUpdate?, animated: Bool)
+    associatedtype ListViewObject
+    func update(list: [ListViewObject], batch: BatchUpdate?, animated: Bool)
 }
