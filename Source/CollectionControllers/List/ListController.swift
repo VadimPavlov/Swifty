@@ -33,10 +33,10 @@ open class ListController: StateController<ListViewState> {
         }
     }
     
-    public init(pageSize: Int, firstPage: Int, objects: [ListObject] = [], appendAnimated: Bool = true) {
+    public init(pageSize: Int, firstPage: Int, currentPage: Int? = nil, objects: [ListObject] = [], appendAnimated: Bool = true) {
         self.pageSize = pageSize
         self.firstPage = firstPage
-        self.currentPage = firstPage
+        self.currentPage = currentPage ?? firstPage
 
         self.objects = objects
         self.appendAnimated = appendAnimated
