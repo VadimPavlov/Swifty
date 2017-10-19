@@ -67,6 +67,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     open func object(at indexPath: IndexPath) -> Object {
         return dataSource.objectAtIndexPath(indexPath)
     }
+    
     open var selectedObject: Object? {
         let indexPath = self.collectionView?.indexPathsForSelectedItems?.first
         return indexPath.map { self.object(at: $0) }

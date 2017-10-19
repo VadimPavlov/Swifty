@@ -8,4 +8,5 @@ public struct ListViewState {
     public var isEmpty: Bool = true
     public var isLoading: Bool = false
     public var canLoadMore: Bool = true
+    public var totalCount: Int?
 }
