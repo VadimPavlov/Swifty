@@ -48,6 +48,8 @@
 		149AEAB21EC5F8CD00F16858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB01EC5F8CD00F16858 /* Main.storyboard */; };
 		149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB31EC5F8CD00F16858 /* Assets.xcassets */; };
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
+		1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6771F9A2811008BCA93 /* Primitives.swift */; };
+		1884F67A1F9A2854008BCA93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6791F9A2854008BCA93 /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +96,8 @@
 		149AEAB31EC5F8CD00F16858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149AEAB61EC5F8CD00F16858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1884F6771F9A2811008BCA93 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
+		1884F6791F9A2854008BCA93 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 			children = (
 				1499DB6B1ECC7BE90080B5AB /* Architecture */,
 				1499DB721ECC7BE90080B5AB /* Atomic.swift */,
+				1884F6791F9A2854008BCA93 /* Settings.swift */,
+				1884F6771F9A2811008BCA93 /* Primitives.swift */,
 				1499DB731ECC7BE90080B5AB /* CollectionControllers */,
 				1499DB821ECC7BE90080B5AB /* CoreData */,
 				1499DB841ECC7BE90080B5AB /* Foundation */,
@@ -366,6 +372,7 @@
 				1499DBBF1ECC7BE90080B5AB /* UIColor.swift in Sources */,
 				1499DB9E1ECC7BE90080B5AB /* Router.swift in Sources */,
 				1499DBA41ECC7BE90080B5AB /* BatchUpdate.swift in Sources */,
+				1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */,
 				1499DBAD1ECC7BE90080B5AB /* ListViewType.swift in Sources */,
 				1499DBBD1ECC7BE90080B5AB /* UIAlertController.swift in Sources */,
 				1499DBB21ECC7BE90080B5AB /* Dispatch.swift in Sources */,
@@ -383,6 +390,7 @@
 				1499DBA61ECC7BE90080B5AB /* DataSource.swift in Sources */,
 				1499DBBB1ECC7BE90080B5AB /* NotificationToken.swift in Sources */,
 				1499DB9D1ECC7BE90080B5AB /* EventsViewController.swift in Sources */,
+				1884F67A1F9A2854008BCA93 /* Settings.swift in Sources */,
 				1499DBC11ECC7BE90080B5AB /* UIView.swift in Sources */,
 				1499DBBE1ECC7BE90080B5AB /* UICollectionView.swift in Sources */,
 				1499DBAF1ECC7BE90080B5AB /* BatchSizable.swift in Sources */,
