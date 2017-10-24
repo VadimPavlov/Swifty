@@ -45,3 +45,7 @@ public extension NotificationCenter {
         post(name: descriptor.name, object: value)
     }
 }
+
+public struct EmptyUserInfo {
+    init(notification: Notification) {}
+}
