@@ -27,15 +27,15 @@ public struct CustomNotificationDescriptor<A> {
 }
 
 public extension NotificationCenter {
-    func addObserver<A>(descriptor: NotificationDescriptor<A>, queue: OperationQueue? = nil, using block: @escaping (A) -> Void) -> NotificationToken {
-        let token = self.addObserver(forName: descriptor.name, object: nil, queue: queue) { notification in
+    func addObserver<A>(descriptor: NotificationDescriptor<A>, object: Any? = nil, queue: OperationQueue? = nil, using block: @escaping (A) -> Void) -> NotificationToken {
+        let token = self.addObserver(forName: descriptor.name, object: object, queue: queue) { notification in
             block(descriptor.convert(notification))
         }
         return NotificationToken(token: token, center: self)
     }
     
-    func addObserver<A>(descriptor: CustomNotificationDescriptor<A>, queue: OperationQueue? = nil, using block: @escaping (A) -> Void) -> NotificationToken {
-        let token = self.addObserver(forName: descriptor.name, object: nil, queue: queue) { notification in
+    func addObserver<A>(descriptor: CustomNotificationDescriptor<A>, object: Any? = nil, queue: OperationQueue? = nil, using block: @escaping (A) -> Void) -> NotificationToken {
+        let token = self.addObserver(forName: descriptor.name, object: object, queue: queue) { notification in
             block(notification.object as! A)
         }
         return NotificationToken(token: token, center: self)
@@ -44,4 +44,8 @@ public extension NotificationCenter {
     func post<A>(descriptor: CustomNotificationDescriptor<A>, value: A) {
         post(name: descriptor.name, object: value)
     }
+}
+
+public struct EmptyUserInfo {
+    init(notification: Notification) {}
 }

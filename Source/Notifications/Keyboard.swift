@@ -8,21 +8,25 @@
 
 import UIKit
 
-enum Keyboard {
-    static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
-    static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
-    static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
-    static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
+public enum Keyboard {
+    public static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
+    public static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
+    public static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
+    public static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
 }
 
 public struct KeyboardUserInfo {
-    let isLocalUser: Bool
+    public let isLocalUser: Bool
     
-    let frameBeginUser: CGRect
-    let frameEndUser: CGRect
+    public let frameBeginUser: CGRect
+    public let frameEndUser: CGRect
     
-    let animationDuration: TimeInterval
-    let animationCurve: Int
+    public let animationDuration: TimeInterval
+    public let animationCurve: Int
+    
+    public var deltaY: CGFloat {
+        return frameBeginUser.minY - frameEndUser.minY
+    }
 }
 
 fileprivate extension KeyboardUserInfo {
@@ -40,20 +44,25 @@ fileprivate extension KeyboardUserInfo {
 }
 
 public struct KeyboardNotificationToken {
-    let show: NotificationToken
-    let hide: NotificationToken
+    public let show: NotificationToken
+    public let hide: NotificationToken
+    
+    public init(show: NotificationToken, hide: NotificationToken) {
+        self.show = show
+        self.hide = hide
+    }
 }
 
 public extension UIScrollView {
     
-    struct OriginalInsets {
+    public struct OriginalInsets {
         let contentBottom: CGFloat
         let indicatorsBottom: CGFloat
     }
     
     typealias KeyboardAnimation = (KeyboardUserInfo) -> Void
     
-    func observeKeyboardNotifications(center: NotificationCenter = .default, animate: KeyboardAnimation? = nil) -> KeyboardNotificationToken {
+    func observeKeyboardNotifications(center: NotificationCenter = .default, extraInset: CGFloat = 0, animate: KeyboardAnimation? = nil) -> KeyboardNotificationToken {
         
         let original = OriginalInsets(contentBottom: self.contentInset.bottom, indicatorsBottom: self.scrollIndicatorInsets.bottom)
         
@@ -66,8 +75,8 @@ public extension UIScrollView {
             // window orientation depended
             let inset = overlaped.minX == 0 ? overlaped.height : overlaped.width
             
-            self.contentInset.bottom = inset
-            self.scrollIndicatorInsets.bottom = inset
+            self.contentInset.bottom = inset + extraInset
+            self.scrollIndicatorInsets.bottom = inset + extraInset
             
             if let animation = animate {
                 self.animate(with: info, animation: animation)
