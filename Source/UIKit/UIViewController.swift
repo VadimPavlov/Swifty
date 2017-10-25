@@ -5,7 +5,7 @@
 import UIKit
 
 extension UIViewController {
-    public func hideKeyboard() {
+    @objc public func hideKeyboard() {
         self.view.endEditing(true)
     }
 }
