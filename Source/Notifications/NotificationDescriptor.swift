@@ -46,6 +46,6 @@ public extension NotificationCenter {
     }
 }
 
-public struct EmptyUserInfo {
-    init(notification: Notification) {}
+public struct NoUserInfo {
+    public init(notification: Notification) {}
 }

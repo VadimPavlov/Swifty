@@ -9,7 +9,7 @@
 import CoreData
 
 public enum CoreData {
-    public static let ContextWillSaveNotification = NotificationDescriptor(name: .NSManagedObjectContextWillSave, convert: EmptyUserInfo.init)
+    public static let ContextWillSaveNotification = NotificationDescriptor(name: .NSManagedObjectContextWillSave, convert: NoUserInfo.init)
     public static let ContextDidSaveNotification = NotificationDescriptor(name: .NSManagedObjectContextDidSave, convert: ContextUserInfo.init)
     public static let ContextObjectsDidChangeNotification = NotificationDescriptor(name: .NSManagedObjectContextObjectsDidChange, convert: ContextUserInfo.init)
 }
