@@ -23,5 +23,10 @@ public extension Array where Element: Equatable {
             }
         }
     }
-    
+
+    func dictionary<Key: Hashable>(key: (Element) -> Key) -> [Key: Element] {
+        var dictionary: [Key: Element] = [:]
+        forEach { dictionary[key($0)] = $0 }
+        return dictionary
+    }
 }

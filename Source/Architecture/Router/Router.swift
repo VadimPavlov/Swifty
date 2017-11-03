@@ -26,7 +26,7 @@ public extension Router where Segue.RawValue == String {
     }
     
     public func onSegue(storyboardSegue: UIStoryboardSegue, sender: Any?) {
-        let identifier = storyboardSegue.identifier ?? ""
+        guard let identifier = storyboardSegue.identifier else { return }
         let destination = storyboardSegue.destination
         
         if let segue = Segue(rawValue: identifier) {

@@ -9,13 +9,11 @@
 import Foundation
 import Swifty
 
-struct {{ module_info.name }}Input {}
+struct {{ module_info.name }}ModuleInput {}
 
 enum {{ module_info.name }}Module {
-    
-    static let session = Session.current!
-    
-    static func build(view: {{ module_info.name }}ViewController, input: {{ module_info.name }}Input) {
+        
+    static func build(view: {{ module_info.name }}ViewController, input: {{ module_info.name }}ModuleInput) {
      
         let router = {{ module_info.name }}Router()
         router.source = view
