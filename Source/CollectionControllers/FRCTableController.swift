@@ -62,7 +62,7 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
 }
 
 open class FRCTableController<Object: NSFetchRequestResult, Cell: UITableViewCell>: FRCCellsTableController<Object> {
-    public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, frc: frc, observeRequestPredicate: observeRequestPredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
