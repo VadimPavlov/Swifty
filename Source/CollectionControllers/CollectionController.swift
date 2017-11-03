@@ -142,7 +142,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         registeredCells.insert(identifier)
     }
 
-    func register(supplementary descriptor: SupplementaryDescriptor) {
+    public func register(supplementary descriptor: SupplementaryDescriptor) {
         let identifier = descriptor.identifier
         guard let register = descriptor.register,
             !registeredElements.contains(identifier) else { return }
