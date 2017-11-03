@@ -8,7 +8,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
 
     private var dataSource: DataSource<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
-    private var registeredIdentifiers: Set<String> = []
+    private var registeredCells: Set<String> = []
     
     public weak var tableView: UITableView? {
         didSet { self.adapt(tableView: tableView) }
@@ -40,22 +40,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         let descriptor = self.cellDescriptor(object)
         let identifier = descriptor.identifier
         
-        if let register = descriptor.register, !registeredIdentifiers.contains(identifier) {
-            switch register {
-            case .cls:
-                let cls = descriptor.cellClass as! UITableViewCell.Type
-                tableView.register(cls, forCellReuseIdentifier: identifier)
-            case .nib:
-                let nibName = String(describing: descriptor.cellClass)
-                let nib = UINib(nibName: nibName, bundle: nil)
-                tableView.register(nib, forCellReuseIdentifier: identifier)
-            case .nibName(let name):
-                let nib = UINib(nibName: name, bundle: nil)
-                tableView.register(nib, forCellReuseIdentifier: identifier)
-            }
-            registeredIdentifiers.insert(identifier)
-        }
-        
+        self.register(cell: descriptor)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         descriptor.configure(cell)
         return cell
@@ -129,6 +114,27 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         if let move = batch.moveRow {
             tableView?.moveRow(at: move.at, to: move.to)
         }
+    }
+
+    private func register(cell descriptor: CellDescriptor) {
+        let identifier = descriptor.identifier
+
+        guard let register = descriptor.register,
+            !registeredCells.contains(identifier) else { return }
+
+        switch register {
+        case .cls:
+            let cls = descriptor.cellClass as! UITableViewCell.Type
+            tableView?.register(cls, forCellReuseIdentifier: identifier)
+        case .nib:
+            let nibName = String(describing: descriptor.cellClass)
+            let nib = UINib(nibName: nibName, bundle: nil)
+            tableView?.register(nib, forCellReuseIdentifier: identifier)
+        case .nibName(let name):
+            let nib = UINib(nibName: name, bundle: nil)
+            tableView?.register(nib, forCellReuseIdentifier: identifier)
+        }
+        registeredCells.insert(identifier)
     }
 }
 
