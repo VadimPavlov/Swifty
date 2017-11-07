@@ -324,7 +324,6 @@
 				TargetAttributes = {
 					149AEAA81EC5F8CD00F16858 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = WTQFJ264ZG;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -544,7 +543,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WTQFJ264ZG;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Swifty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.Swifty;
@@ -557,7 +556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WTQFJ264ZG;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Swifty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.Swifty;
