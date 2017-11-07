@@ -32,15 +32,10 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
         }
     }
     
-    open func adaptedIndexPath(for indexPath: IndexPath) -> IndexPath {
+    open func frcIndexPath(for indexPath: IndexPath) -> IndexPath {
         return indexPath
     }
-    
-    override open func object(at indexPath: IndexPath) -> Object {
-        let ip = adaptedIndexPath(for: indexPath)
-        return super.object(at: ip)
-    }
-    
+
     // MARK: - NSFetchedResultsControllerDelegate
     open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView?.beginUpdates()
@@ -56,8 +51,8 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        let old = indexPath.map(adaptedIndexPath)
-        let new = newIndexPath.map(adaptedIndexPath)
+        let old = indexPath.map(frcIndexPath)
+        let new = newIndexPath.map(frcIndexPath)
         
         if let update = BatchUpdate(type: type, indexPath: old, newIndexPath: new) {
             self.performBatch(update, animation: self.animation)
