@@ -8,7 +8,9 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     private var dataSource: DataSource<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
-    
+    private var registeredCells: Set<String> = []
+    private var registeredElements: Set<String> = []
+
     public weak var collectionView: UICollectionView? {
         didSet { self.adapt(collectionView)}
     }
@@ -40,20 +42,8 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         let descriptor = self.cellDescriptor(object)
         let identifier = descriptor.identifier
         
-        switch descriptor.register {
-        case .cellClass?:
-            let cls = descriptor.cellClass as! UICollectionViewCell.Type
-            collectionView.register(cls, forCellWithReuseIdentifier: identifier)
-        case .nib?:
-            let name = String(describing: descriptor.cellClass)
-            let nib = UINib(nibName: name, bundle: nil)
-            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
-        case .nibName(let name)?:
-            let nib = UINib(nibName: name, bundle: nil)
-            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
-        default: break
-        }
-        
+        self.register(cell: descriptor)
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         descriptor.configure(cell)
         return cell
@@ -130,11 +120,52 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
             
         }, completion: completion)
     }
+
+    private func register(cell descriptor: CellDescriptor) {
+        let identifier = descriptor.identifier
+
+        guard let register = descriptor.register,
+            !registeredCells.contains(identifier) else { return }
+
+        switch register {
+        case .cls:
+            let cls = descriptor.cellClass as! UICollectionViewCell.Type
+            collectionView?.register(cls, forCellWithReuseIdentifier: identifier)
+        case .nib:
+            let name = String(describing: descriptor.cellClass)
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView?.register(nib, forCellWithReuseIdentifier: identifier)
+        case .nibName(let name):
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView?.register(nib, forCellWithReuseIdentifier: identifier)
+        }
+        registeredCells.insert(identifier)
+    }
+
+    public func register(supplementary descriptor: SupplementaryDescriptor) {
+        let identifier = descriptor.identifier
+        guard let register = descriptor.register,
+            !registeredElements.contains(identifier) else { return }
+
+        switch register {
+        case .cls:
+            let cls = descriptor.elementCls
+            collectionView?.register(cls, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+        case .nib:
+            let name = String(describing: descriptor.elementCls)
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView?.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+        case .nibName(let name):
+            let nib = UINib(nibName: name, bundle: nil)
+            collectionView?.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+        }
+        registeredElements.insert(identifier)
+    }
 }
 
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
-    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

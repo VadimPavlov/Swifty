@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */; };
+		148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */; };
 		149239361F8A4EA900ED2438 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149239351F8A4EA900ED2438 /* CoreGraphics.swift */; };
 		1499DB9D1ECC7BE90080B5AB /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6D1ECC7BE90080B5AB /* EventsViewController.swift */; };
 		1499DB9E1ECC7BE90080B5AB /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6E1ECC7BE90080B5AB /* Router.swift */; };
@@ -56,6 +58,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryDescriptor.swift; sourceTree = "<group>"; };
+		148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemRegistration.swift; sourceTree = "<group>"; };
 		149239351F8A4EA900ED2438 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		1499DB6D1ECC7BE90080B5AB /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		1499DB6E1ECC7BE90080B5AB /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -174,8 +178,10 @@
 			isa = PBXGroup;
 			children = (
 				1499DB761ECC7BE90080B5AB /* BatchUpdate.swift */,
-				1499DB771ECC7BE90080B5AB /* CellDescriptor.swift */,
 				1499DB781ECC7BE90080B5AB /* DataSource.swift */,
+				148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */,
+				1499DB771ECC7BE90080B5AB /* CellDescriptor.swift */,
+				148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 				1499DBA41ECC7BE90080B5AB /* BatchUpdate.swift in Sources */,
 				1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */,
 				1499DBAD1ECC7BE90080B5AB /* ListViewType.swift in Sources */,
+				148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */,
 				1499DBBD1ECC7BE90080B5AB /* UIAlertController.swift in Sources */,
 				1499DBB21ECC7BE90080B5AB /* Dispatch.swift in Sources */,
 				1499DBB51ECC7BE90080B5AB /* Future.swift in Sources */,
@@ -405,6 +412,7 @@
 				1499DBC11ECC7BE90080B5AB /* UIView.swift in Sources */,
 				1499DBBE1ECC7BE90080B5AB /* UICollectionView.swift in Sources */,
 				1499DBAF1ECC7BE90080B5AB /* BatchSizable.swift in Sources */,
+				148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */,
 				1499DBA71ECC7BE90080B5AB /* FRCCollectionController.swift in Sources */,
 				1499DBA91ECC7BE90080B5AB /* ListController.swift in Sources */,
 			);
