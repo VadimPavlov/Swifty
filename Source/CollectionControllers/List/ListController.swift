@@ -59,6 +59,11 @@ open class ListController: StateController<ListViewState> {
         let page = ListPage(size: pageSize, number: firstPage,  lastID: nil)
         self.loadPage(page) { [weak self] objects in
             self?.appendNewPage(page, with: objects)
+            
+            let isEmpty = objects.isEmpty
+            if self?.state.isEmpty != isEmpty {
+                self?.state.isEmpty = isEmpty
+            }
         }
     }
     
@@ -131,15 +136,14 @@ open class ListController: StateController<ListViewState> {
     
     public func appendNewPage(_ page: ListPage, with objects: [ListObject]) {
         self.currentPage = page.number
-        if objects.count > 0 && self.state.isEmpty {
-            self.state.isEmpty = false
-        }
+        
         if objects.count < page.size {
             self.state.canLoadMore = false
         }
         
         self.lastID = objects.last?.listID
         self.appendObjects(objects, animated: self.appendAnimated)
+        
     }
     
 }
