@@ -11,6 +11,9 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     private var registeredCells: Set<String> = []
     private var registeredElements: Set<String> = []
 
+    typealias Supplementary = (IndexPath) -> SupplementaryDescriptor
+    var supplementaryDescriptor: Supplementary?
+    
     public weak var collectionView: UICollectionView? {
         didSet { self.adapt(collectionView)}
     }
@@ -47,6 +50,14 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         descriptor.configure(cell)
         return cell
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let descriptor = self.supplementaryDescriptor?(indexPath) else { fatalError() }
+        self.register(supplementary: descriptor)
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: descriptor.kind.value, withReuseIdentifier: descriptor.identifier, for: indexPath)
+        descriptor.configure(view)
+        return view
     }
     
     // MARK: - Objects
@@ -91,30 +102,30 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         
         collectionView?.performBatchUpdates({
             updates.forEach { update in
-                if let sections = update.insertSections {
-                    self.collectionView?.insertSections(sections)
-                }
-                if let sections = update.reloadSections {
-                    self.collectionView?.reloadSections(sections)
-                }
-                if let sections = update.deleteSections {
-                    self.collectionView?.deleteSections(sections)
+                if let indexes = update.deleteRows {
+                    self.collectionView?.deleteItems(at: indexes)
                 }
                 if let indexes = update.insertRows {
                     self.collectionView?.insertItems(at: indexes)
                 }
+                if let move = update.moveRow {
+                    self.collectionView?.moveItem(at: move.at, to: move.to)
+                }
                 if let indexes = update.reloadRows {
                     self.collectionView?.reloadItems(at: indexes)
                 }
-                if let indexes = update.deleteRows {
-                    self.collectionView?.deleteItems(at: indexes)
+
+                if let sections = update.deleteSections {
+                    self.collectionView?.deleteSections(sections)
+                }
+                if let sections = update.insertSections {
+                    self.collectionView?.insertSections(sections)
                 }
                 if let move = update.moveSection {
                     self.collectionView?.moveSection(move.at, toSection: move.to)
                 }
-                
-                if let move = update.moveRow {
-                    self.collectionView?.moveItem(at: move.at, to: move.to)
+                if let sections = update.reloadSections {
+                    self.collectionView?.reloadSections(sections)
                 }
             }
             
@@ -142,7 +153,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         registeredCells.insert(identifier)
     }
 
-    public func register(supplementary descriptor: SupplementaryDescriptor) {
+    private func register(supplementary descriptor: SupplementaryDescriptor) {
         let identifier = descriptor.identifier
         guard let register = descriptor.register,
             !registeredElements.contains(identifier) else { return }
