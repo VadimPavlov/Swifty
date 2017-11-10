@@ -47,9 +47,10 @@ open class ListController: StateController<ListViewState> {
     // MARK: - Loading
     public func clear() {
         self.lastID = nil
-        self.objects = []
         self.state.canLoadMore = true
         self.currentPage = firstPage
+        self.update(objects: [])
+
     }
     
     public func loadFirstPage() {
@@ -106,7 +107,7 @@ open class ListController: StateController<ListViewState> {
         self.loadPage(page) { [weak self] objects in
             
             let newObjects = objects.prefix { object in
-                object.listID == firstID
+                object.listID != firstID
             }
             
             guard !newObjects.isEmpty else { return }
