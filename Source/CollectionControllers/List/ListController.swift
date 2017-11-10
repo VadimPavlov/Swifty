@@ -48,6 +48,7 @@ open class ListController: StateController<ListViewState> {
     public func clear() {
         self.lastID = nil
         self.objects = []
+        self.state.canLoadMore = true
         self.currentPage = firstPage
     }
     
@@ -56,14 +57,15 @@ open class ListController: StateController<ListViewState> {
 
         let page = ListPage(size: pageSize, number: firstPage,  lastID: nil)
         self.loadPage(page) { [weak self] objects in
-            self?.appendNewPage(with: objects)
+            self?.appendNewPage(page, with: objects)
         }
     }
     
     public func loadNextPage() {
+        guard state.canLoadMore else { return }
         let nextPage = ListPage(size: pageSize, number: currentPage + 1,  lastID: self.lastID)
         self.loadPage(nextPage) { [weak self] objects in
-            self?.appendNewPage(with: objects)
+            self?.appendNewPage(nextPage, with: objects)
         }
     }
     
@@ -84,8 +86,7 @@ open class ListController: StateController<ListViewState> {
     
     private func loadPage(_ page: ListPage, completion: @escaping ([ListObject]) -> Void) {
         
-        guard state.isLoading == false, state.canLoadMore else { return }
-        
+        guard !state.isLoading else { return }
         self.state.isLoading = true
         
         self.dataSource?.loadPage(page).start { [weak self] result in
@@ -93,18 +94,10 @@ open class ListController: StateController<ListViewState> {
             switch result {
             case .success(let objects):
                 completion(objects)
-
-                self?.currentPage = page.number
-                if objects.count > 0 && self?.state.isEmpty == true {
-                    self?.state.isEmpty = false
-                }
-                
-                if objects.count < page.size {
-                    self?.state.canLoadMore = false
-                }
             case .error(let error):
                 self?.showError(error)
-                self?.state.canLoadMore = false // ? depends from error?
+                // ? depends from error?
+                // self?.state.canLoadMore = false
             }
         }
     }
@@ -123,7 +116,7 @@ open class ListController: StateController<ListViewState> {
                 switch onGap {
                 case .dropLoaded:
                     self?.clear()
-                    self?.appendNewPage(with: Array(newObjects))
+                    self?.appendNewPage(page, with: Array(newObjects))
                 case .keepLoading:
                     let nextPage = ListPage(size: page.size, number: page.number + 1,  lastID: nil)
                     self?.refreshPage(nextPage, firstID: firstID, onGap: onGap)
@@ -135,7 +128,15 @@ open class ListController: StateController<ListViewState> {
         }
     }
     
-    public func appendNewPage(with objects: [ListObject]) {
+    public func appendNewPage(_ page: ListPage, with objects: [ListObject]) {
+        self.currentPage = page.number
+        if objects.count > 0 && self.state.isEmpty {
+            self.state.isEmpty = false
+        }
+        if objects.count < page.size {
+            self.state.canLoadMore = false
+        }
+        
         self.lastID = objects.last?.listID
         self.appendObjects(objects, animated: self.appendAnimated)
     }
