@@ -139,7 +139,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
 
 open class TableController <Object, Cell: UITableViewCell>: CellsTableController<Object> {
     
-    public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

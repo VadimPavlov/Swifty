@@ -12,7 +12,7 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
 
     public var animation: UITableViewRowAnimation = .automatic
     
-    public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         
         self.frc = frc
         self.observingPredicate = observeRequestPredicate
@@ -48,7 +48,6 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         var update = BatchUpdate()
         update.addSection(type: type, index: sectionIndex)
-//        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
         self.performBatch(update, animation: animation)
     }
     
@@ -59,10 +58,6 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
         var update = BatchUpdate()
         update.addRow(type: type, indexPath: old, newIndexPath: new)
         self.performBatch(update, animation: self.animation)
-        
-//        if let update = BatchUpdate(type: type, indexPath: old, newIndexPath: new) {
-//            self.performBatch(update, animation: self.animation)
-//        }
     }
     
     // MARK: - Observing
@@ -74,7 +69,7 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
 }
 
 open class FRCTableController<Object: NSFetchRequestResult, Cell: UITableViewCell>: FRCCellsTableController<Object> {
-    public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, frc: frc, observeRequestPredicate: observeRequestPredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

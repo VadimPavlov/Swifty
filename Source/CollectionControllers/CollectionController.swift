@@ -175,7 +175,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
-    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, dataSource: dataSource) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

@@ -11,7 +11,7 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
     private let observingPredicate: Bool
     private var frcUpdate: BatchUpdate?
 
-    public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
 
         self.frc = frc
         self.observingPredicate = observeRequestPredicate
@@ -67,7 +67,7 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
 }
 
 open class FRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCellsCollectionController<Object>  {
-    public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, frc: frc, observeRequestPredicate: observeRequestPredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
