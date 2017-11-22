@@ -9,7 +9,7 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
     
     private let frc: NSFetchedResultsController<Object>
     private let observingPredicate: Bool
-    private var updates: [BatchUpdate] = []
+    private var frcUpdate: BatchUpdate?
 
     public init(collectionView: UICollectionView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
 
@@ -36,25 +36,25 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
-    open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {}
+    open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        frcUpdate = BatchUpdate()
+        
+    }
     
     open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.performBatch(updates: updates)
-        updates.removeAll()
+        guard let update = self.frcUpdate else { return }
+        self.performBatch(update)
+        self.frcUpdate = nil
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        
-        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
-        updates.append(update)
+        frcUpdate?.addSection(type: type, index: sectionIndex)
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         let old = indexPath.map(frcIndexPath)
         let new = newIndexPath.map(frcIndexPath)
-        if let update = BatchUpdate(type: type, indexPath: old, newIndexPath: new) {
-            updates.append(update)
-        }
+        frcUpdate?.addRow(type: type, indexPath: old, newIndexPath: new)
     }
     
     // MARK: - Observing

@@ -11,6 +11,8 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     private var registeredCells: Set<String> = []
     private var registeredElements: Set<String> = []
 
+    private var update: BatchUpdate?
+    
     typealias Supplementary = (IndexPath) -> SupplementaryDescriptor
     var supplementaryDescriptor: Supplementary?
     
@@ -92,43 +94,30 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     public func update(dataSource: DataSource<Object>, batch: BatchUpdate, completion: UpdateCompletion? = nil) {
         if self.dataSource != dataSource {
             self.dataSource = dataSource
-            self.performBatch(updates: [batch], completion: completion)
+            self.performBatch(batch, completion: completion)
         }
     }
     
-    internal func performBatch(updates: [BatchUpdate], completion: UpdateCompletion? = nil) {
+    internal func performBatch(_ update: BatchUpdate, completion: UpdateCompletion? = nil) {
         // TODO: handle known issues
         // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
         
         collectionView?.performBatchUpdates({
-            updates.forEach { update in
-                if let indexes = update.deleteRows {
-                    self.collectionView?.deleteItems(at: indexes)
-                }
-                if let indexes = update.insertRows {
-                    self.collectionView?.insertItems(at: indexes)
-                }
-                if let move = update.moveRow {
-                    self.collectionView?.moveItem(at: move.at, to: move.to)
-                }
-                if let indexes = update.reloadRows {
-                    self.collectionView?.reloadItems(at: indexes)
-                }
-
-                if let sections = update.deleteSections {
-                    self.collectionView?.deleteSections(sections)
-                }
-                if let sections = update.insertSections {
-                    self.collectionView?.insertSections(sections)
-                }
-                if let move = update.moveSection {
-                    self.collectionView?.moveSection(move.at, toSection: move.to)
-                }
-                if let sections = update.reloadSections {
-                    self.collectionView?.reloadSections(sections)
-                }
-            }
+            self.collectionView?.deleteSections(update.deleteSections)
+            self.collectionView?.insertSections(update.insertSections)
+            self.collectionView?.reloadSections(update.reloadSections)
             
+            update.moveSections.forEach { move in
+                self.collectionView?.moveSection(move.at, toSection: move.to)
+            }
+
+            self.collectionView?.deleteItems(at: update.deleteRows)
+            self.collectionView?.insertItems(at: update.insertRows)
+            self.collectionView?.reloadItems(at: update.reloadRows)
+            update.moveRows.forEach { move in
+                self.collectionView?.moveItem(at: move.at, to: move.to)
+            }
+
         }, completion: completion)
     }
 

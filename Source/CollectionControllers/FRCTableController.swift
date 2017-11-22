@@ -11,7 +11,7 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     private let observingPredicate: Bool
 
     public var animation: UITableViewRowAnimation = .automatic
-
+    
     public init(tableView: UITableView? = nil, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         
         self.frc = frc
@@ -46,17 +46,23 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
+        var update = BatchUpdate()
+        update.addSection(type: type, index: sectionIndex)
+//        let update =  BatchUpdate(type: type, sectionIndex: sectionIndex)
         self.performBatch(update, animation: animation)
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         let old = indexPath.map(frcIndexPath)
         let new = newIndexPath.map(frcIndexPath)
+
+        var update = BatchUpdate()
+        update.addRow(type: type, indexPath: old, newIndexPath: new)
+        self.performBatch(update, animation: self.animation)
         
-        if let update = BatchUpdate(type: type, indexPath: old, newIndexPath: new) {
-            self.performBatch(update, animation: self.animation)
-        }
+//        if let update = BatchUpdate(type: type, indexPath: old, newIndexPath: new) {
+//            self.performBatch(update, animation: self.animation)
+//        }
     }
     
     // MARK: - Observing

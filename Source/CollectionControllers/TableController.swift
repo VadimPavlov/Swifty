@@ -86,32 +86,21 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         }
     }
     
-    internal func performBatch(_ batch: BatchUpdate, animation: UITableViewRowAnimation) {
+    internal func performBatch(_ update: BatchUpdate, animation: UITableViewRowAnimation) {
         // TODO: handle known issues
         // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
         
-        if let sections = batch.insertSections {
-            tableView?.insertSections(sections, with: animation)
-        }
-        if let sections = batch.reloadSections {
-            tableView?.reloadSections(sections, with: animation)
-        }
-        if let sections = batch.deleteSections {
-            tableView?.deleteSections(sections, with: animation)
-        }
-        if let indexes = batch.insertRows {
-            tableView?.insertRows(at: indexes, with: animation)
-        }
-        if let indexes = batch.reloadRows {
-            tableView?.reloadRows(at: indexes, with: animation)
-        }
-        if let indexes = batch.deleteRows {
-            tableView?.deleteRows(at: indexes, with: animation)
-        }
-        if let move = batch.moveSection {
+        tableView?.deleteSections(update.deleteSections, with: animation)
+        tableView?.insertSections(update.insertSections, with: animation)
+        tableView?.reloadSections(update.reloadSections, with: animation)
+        update.moveSections.forEach { move in
             tableView?.moveSection(move.at, toSection: move.to)
         }
-        if let move = batch.moveRow {
+    
+        tableView?.deleteRows(at: update.deleteRows, with: animation)
+        tableView?.insertRows(at: update.insertRows, with: animation)
+        tableView?.reloadRows(at: update.reloadRows, with: animation)
+        update.moveRows.forEach { move in
             tableView?.moveRow(at: move.at, to: move.to)
         }
     }

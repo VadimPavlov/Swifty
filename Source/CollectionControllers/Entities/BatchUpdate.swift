@@ -6,71 +6,86 @@ import Foundation
 import CoreData
 
 public struct Move<Index> {
-    let at: Index
-    let to: Index
+    public let at: Index
+    public let to: Index
 }
 
-public struct BatchUpdate {
-    let insertSections: IndexSet?
-    let reloadSections: IndexSet?
-    let deleteSections: IndexSet?
+public struct BatchUpdate: CustomStringConvertible {
+   
+    public var deleteSections: IndexSet
+    public var insertSections: IndexSet
+    public var reloadSections: IndexSet
+    public var moveSections: [Move<Int>]
     
-    let insertRows: [IndexPath]?
-    let reloadRows: [IndexPath]?
-    let deleteRows: [IndexPath]?
-    
-    let moveSection: Move<Int>?
-    let moveRow: Move<IndexPath>?
-    
-    public init(insertSections: IndexSet? = nil,
-         reloadSections: IndexSet? = nil,
-         deleteSections: IndexSet? = nil,
-         insertRows: [IndexPath]? = nil,
-         reloadRows: [IndexPath]? = nil,
-         deleteRows: [IndexPath]? = nil,
-         moveSection: Move<Int>? = nil,
-         moveRow: Move<IndexPath>? = nil) {
+    public var deleteRows: [IndexPath]
+    public var insertRows: [IndexPath]
+    public var reloadRows: [IndexPath]
+    public var moveRows: [Move<IndexPath>]
+
+
+    public init(deleteSections: IndexSet = IndexSet(),
+                insertSections: IndexSet = IndexSet(),
+                reloadSections: IndexSet = IndexSet(),
+                moveSections: [Move<Int>] = [],
+                deleteRows: [IndexPath] = [],
+                insertRows: [IndexPath] = [],
+                reloadRows: [IndexPath] = [],
+                moveRows: [Move<IndexPath>] = []) {
         
+        self.deleteSections = deleteSections
         self.insertSections = insertSections
         self.reloadSections = reloadSections
-        self.deleteSections = deleteSections
+        self.moveSections = moveSections
+        self.deleteRows = deleteRows
         self.insertRows = insertRows
         self.reloadRows = reloadRows
-        self.deleteRows = deleteRows
-        self.moveSection = moveSection
-        self.moveRow = moveRow
+        self.moveRows = moveRows
+    }
+    
+    public var description: String {
+        var operations: [String] = []
+        
+        operations.append(contentsOf: deleteSections.map { "Delete section: \($0)" })
+        operations.append(contentsOf: insertSections.map { "Insert sections: \($0)" })
+        operations.append(contentsOf: reloadSections.map {  "Reload section: \($0)" })
+        operations.append(contentsOf: moveSections.map { "Move section at: \($0.at) to: \($0.to)" })
+        
+        operations.append(contentsOf: deleteRows.map { "Delete row at: \($0)" })
+        operations.append(contentsOf: insertRows.map { "Insert row at: \($0)" })
+        operations.append(contentsOf: reloadRows.map { "Reload row at: \($0)" })
+        operations.append(contentsOf: moveRows.map { "Move row at: \($0.at) to: \($0.to)" })
+        
+        return operations.joined(separator: "\n")
     }
 }
 
 // FRC Helpers
 public extension BatchUpdate {
-    public init(type: NSFetchedResultsChangeType, sectionIndex: Int) {
-        let sections = IndexSet(integer: sectionIndex)
-        
+    public mutating func addSection(type: NSFetchedResultsChangeType, index: Int) {
         switch type {
-        case .insert: self.init(insertSections: sections)
-        case .delete: self.init(deleteSections: sections)
+        case .insert: insertSections.insert(index)
+        case .delete: deleteSections.insert(index)
         case .update, .move: fatalError("Not supported cases")
         }
     }
     
-    public init?(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
-        guard let ip = newIndexPath ?? indexPath else { return nil }
+    public mutating func addRow(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
+        guard let ip = newIndexPath ?? indexPath else { return }
         
         switch type {
         case .insert:
-            self.init(insertRows: [ip])
+            insertRows.append(ip)
         case .delete:
-            self.init(deleteRows: [ip])
+            deleteRows.append(ip)
         case .update:
-            self.init(reloadRows: [ip])
+            reloadRows.append(ip)
         case .move:
-            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return nil }
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
             if indexPath == newIndexPath {
-                self.init(reloadRows: [ip])
+                reloadRows.append(ip)
             } else {
                 let move = Move(at: indexPath, to: newIndexPath)
-                self.init(moveRow: move)
+                moveRows.append(move)
             }
         }
     }
