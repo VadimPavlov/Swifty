@@ -20,7 +20,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         didSet { self.adapt(collectionView)}
     }
 
-    public init(collectionView: UICollectionView? = nil, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.collectionView = collectionView
         self.dataSource = dataSource
         self.cellDescriptor = cellDescriptor
@@ -99,7 +99,6 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     }
     
     internal func performBatch(_ update: BatchUpdate, completion: UpdateCompletion? = nil) {
-        // TODO: handle known issues
         
         collectionView?.performBatchUpdates({
             self.collectionView?.deleteSections(update.deleteSections)

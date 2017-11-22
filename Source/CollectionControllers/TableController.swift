@@ -14,7 +14,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         didSet { self.adapt(tableView: tableView) }
     }
 
-    public init(tableView: UITableView? = nil, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(tableView: UITableView, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.tableView = tableView
         self.dataSource = dataSource
         self.cellDescriptor = cellDescriptor
@@ -87,8 +87,6 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
     }
     
     internal func performBatch(_ update: BatchUpdate, animation: UITableViewRowAnimation) {
-        // TODO: handle known issues
-        // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
         
         tableView?.deleteSections(update.deleteSections, with: animation)
         tableView?.insertSections(update.insertSections, with: animation)
@@ -99,12 +97,24 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
     
         tableView?.deleteRows(at: update.deleteRows, with: animation)
         tableView?.insertRows(at: update.insertRows, with: animation)
-        tableView?.reloadRows(at: update.reloadRows, with: animation)
+        
+        // Reloads can not be used in conjunction with other changes
+        // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
+        update.reloadRows.forEach(self.reloadCell)
+        
         update.moveRows.forEach { move in
             tableView?.moveRow(at: move.at, to: move.to)
         }
     }
+    private func reloadCell(at indexPath: IndexPath) {
+        guard let cell = tableView?.cellForRow(at: indexPath) else { return }
+        let object = self.object(at: indexPath)
+        let descriptor = self.cellDescriptor(object)
+        descriptor.configure(cell)
+    }
 
+    
+    
     private func register(cell descriptor: CellDescriptor) {
         let identifier = descriptor.identifier
 
