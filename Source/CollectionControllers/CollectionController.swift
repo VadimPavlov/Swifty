@@ -100,7 +100,6 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     internal func performBatch(_ update: BatchUpdate, completion: UpdateCompletion? = nil) {
         // TODO: handle known issues
-        // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
         
         collectionView?.performBatchUpdates({
             self.collectionView?.deleteSections(update.deleteSections)
@@ -113,7 +112,11 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 
             self.collectionView?.deleteItems(at: update.deleteRows)
             self.collectionView?.insertItems(at: update.insertRows)
-            self.collectionView?.reloadItems(at: update.reloadRows)
+            
+            // Reloads can not be used in conjunction with other changes
+            // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
+            update.reloadRows.forEach(self.reloadCell)
+            
             update.moveRows.forEach { move in
                 self.collectionView?.moveItem(at: move.at, to: move.to)
             }
@@ -121,6 +124,14 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         }, completion: completion)
     }
 
+    private func reloadCell(at indexPath: IndexPath) {
+        guard let cell = collectionView?.cellForItem(at: indexPath) else { return }
+        let object = self.object(at: indexPath)
+        let descriptor = self.cellDescriptor(object)
+        descriptor.configure(cell)
+    }
+
+    
     private func register(cell descriptor: CellDescriptor) {
         let identifier = descriptor.identifier
 
