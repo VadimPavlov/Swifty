@@ -7,7 +7,7 @@ import CoreData
 
 open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsCollectionController<Object>, NSFetchedResultsControllerDelegate {
     
-    private let frc: NSFetchedResultsController<Object>
+    public let frc: NSFetchedResultsController<Object>
     private let observingPredicate: Bool
     private var frcUpdate: BatchUpdate?
 

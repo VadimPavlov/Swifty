@@ -7,7 +7,7 @@ import CoreData
 
 open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableController<Object>, NSFetchedResultsControllerDelegate {
     
-    private let frc: NSFetchedResultsController<Object>
+    public let frc: NSFetchedResultsController<Object>
     private let observingPredicate: Bool
 
     public var animation: UITableViewRowAnimation = .automatic
