@@ -8,8 +8,8 @@ import CoreData
 open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsCollectionController<Object>, NSFetchedResultsControllerDelegate {
     
     public let frc: NSFetchedResultsController<Object>
+    public var frcUpdate: BatchUpdate?
     private let observingPredicate: Bool
-    private var frcUpdate: BatchUpdate?
 
     public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
 
