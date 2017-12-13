@@ -36,7 +36,7 @@ public extension NotificationCenter {
     
     func addObserver<A>(descriptor: CustomNotificationDescriptor<A>, object: Any? = nil, queue: OperationQueue? = nil, using block: @escaping (A) -> Void) -> NotificationToken {
         let token = self.addObserver(forName: descriptor.name, object: object, queue: queue) { notification in
-            let object: Any = notification.object is NSNull ? nil : notification.object
+            let object = (notification.object is NSNull ? nil : notification.object) as Any
             block(object as! A)
         }
         return NotificationToken(token: token, center: self)
