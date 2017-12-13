@@ -9,26 +9,27 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
     
     public let frc: NSFetchedResultsController<Object>
     public var frcUpdate: BatchUpdate?
-    private let observingPredicate: Bool
 
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    private var predicateToken: NSKeyValueObservation?
+    
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
 
         self.frc = frc
-        self.observingPredicate = observeRequestPredicate
-
         let dataSource = DataSource(frc: frc)
         super.init(collectionView: collectionView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
         
-        if observeRequestPredicate {
-            frc.fetchRequest.addObserver(self, forKeyPath: "predicate", options: .new, context: nil)
+        if observePredicate {
+            predicateToken = frc.fetchRequest.observe(\.predicate) { request, change in
+                DispatchQueue.main.async {
+                    collectionView.reloadData()
+                }
+            }
         }
     }
     
     deinit {
-        if observingPredicate {
-            frc.fetchRequest.removeObserver(self, forKeyPath: "predicate")
-        }
+        predicateToken?.invalidate()
     }
 
     open func frcIndexPath(for indexPath: IndexPath) -> IndexPath {
@@ -38,7 +39,6 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
     // MARK: - NSFetchedResultsControllerDelegate
     open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         frcUpdate = BatchUpdate()
-        
     }
     
     open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -56,19 +56,12 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
         let new = newIndexPath.map(frcIndexPath)
         frcUpdate?.addRow(type: type, indexPath: old, newIndexPath: new)
     }
-    
-    // MARK: - Observing
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        DispatchQueue.main.async {
-            self.collectionView?.reloadData()
-        }
-    }
 
 }
 
 open class FRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCellsCollectionController<Object>  {
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
-        super.init(collectionView: collectionView, frc: frc, observeRequestPredicate: observeRequestPredicate) { object in
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, frc: frc, observePredicate: observePredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
             })

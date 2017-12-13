@@ -8,28 +8,29 @@ import CoreData
 open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableController<Object>, NSFetchedResultsControllerDelegate {
     
     public let frc: NSFetchedResultsController<Object>
-    private let observingPredicate: Bool
-
+    public var frcUpdate: BatchUpdate?
     public var animation: UITableViewRowAnimation = .automatic
+
+    private var predicateToken: NSKeyValueObservation?
     
-    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
-        
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.frc = frc
-        self.observingPredicate = observeRequestPredicate
-        
         let dataSource = DataSource(frc: frc)
+
         super.init(tableView: tableView, dataSource: dataSource, cellDescriptor: cellDescriptor)
         frc.delegate = self
         
-        if observeRequestPredicate {
-            frc.fetchRequest.addObserver(self, forKeyPath: "predicate", options: .new, context: nil)
+        if observePredicate {
+            predicateToken = frc.fetchRequest.observe(\.predicate) { request, change in
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                }
+            }
         }
     }
     
     deinit {
-        if observingPredicate {
-            frc.fetchRequest.removeObserver(self, forKeyPath: "predicate")
-        }
+        predicateToken?.invalidate()
     }
     
     open func frcIndexPath(for indexPath: IndexPath) -> IndexPath {
@@ -38,39 +39,32 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
 
     // MARK: - NSFetchedResultsControllerDelegate
     open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView?.beginUpdates()
+        frcUpdate = BatchUpdate()
     }
     
     open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView?.beginUpdates()
+        if let update = self.frcUpdate {
+            self.performBatch(update, animation: self.animation)
+            frcUpdate = nil
+        }
         tableView?.endUpdates()
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        var update = BatchUpdate()
-        update.addSection(type: type, index: sectionIndex)
-        self.performBatch(update, animation: animation)
+        frcUpdate?.addSection(type: type, index: sectionIndex)
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         let old = indexPath.map(frcIndexPath)
         let new = newIndexPath.map(frcIndexPath)
-
-        var update = BatchUpdate()
-        update.addRow(type: type, indexPath: old, newIndexPath: new)
-        self.performBatch(update, animation: self.animation)
-    }
-    
-    // MARK: - Observing
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        DispatchQueue.main.async {
-            self.tableView?.reloadData()
-        }
+        frcUpdate?.addRow(type: type, indexPath: old, newIndexPath: new)
     }
 }
 
 open class FRCTableController<Object: NSFetchRequestResult, Cell: UITableViewCell>: FRCCellsTableController<Object> {
-    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observeRequestPredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
-        super.init(tableView: tableView, frc: frc, observeRequestPredicate: observeRequestPredicate) { object in
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(tableView: tableView, frc: frc, observePredicate: observePredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
             })

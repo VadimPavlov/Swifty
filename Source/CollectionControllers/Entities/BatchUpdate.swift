@@ -57,6 +57,11 @@ public struct BatchUpdate: CustomStringConvertible {
         
         return operations.joined(separator: "\n")
     }
+    
+    var isSectionsUpdate: Bool {
+        return !deleteSections.isEmpty || !insertSections.isEmpty || !reloadSections.isEmpty
+    }
+
 }
 
 // FRC Helpers
