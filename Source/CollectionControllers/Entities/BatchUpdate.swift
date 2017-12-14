@@ -5,9 +5,16 @@
 import Foundation
 import CoreData
 
-public struct Move<Index> {
+public struct Move<Index: Equatable> {
     public let at: Index
     public let to: Index
+    
+}
+
+extension Move: Equatable {
+    public static func ==(lhs: Move<Index>, rhs: Move<Index>) -> Bool {
+        return lhs.at == rhs.at && lhs.to == rhs.to
+    }
 }
 
 public struct BatchUpdate: CustomStringConvertible {
@@ -46,8 +53,8 @@ public struct BatchUpdate: CustomStringConvertible {
         var operations: [String] = []
         
         operations.append(contentsOf: deleteSections.map { "Delete section: \($0)" })
-        operations.append(contentsOf: insertSections.map { "Insert sections: \($0)" })
-        operations.append(contentsOf: reloadSections.map {  "Reload section: \($0)" })
+        operations.append(contentsOf: insertSections.map { "Insert section: \($0)" })
+        operations.append(contentsOf: reloadSections.map { "Reload section: \($0)" })
         operations.append(contentsOf: moveSections.map { "Move section at: \($0.at) to: \($0.to)" })
         
         operations.append(contentsOf: deleteRows.map { "Delete row at: \($0)" })
@@ -62,6 +69,54 @@ public struct BatchUpdate: CustomStringConvertible {
         return !deleteSections.isEmpty || !insertSections.isEmpty || !reloadSections.isEmpty
     }
 
+    mutating func fixed() {
+        // changes by IGListKit
+        var at: [Int:Move<Int>] = [:]
+        var to: [Int:Move<Int>] = [:]
+        
+        var fixedSections = moveSections.filter { move in
+            if deleteSections.contains(move.at) || insertSections.contains(move.to) {
+                return false
+            } else {
+                at[move.at] = move
+                to[move.to] = move
+                return true
+            }
+        }
+        
+        deleteRows = clean(rows: deleteRows, map: at, moves: &fixedSections, deletes: &deleteSections, inserts: &insertSections)
+        insertRows = clean(rows: insertRows, map: to, moves: &fixedSections, deletes: &deleteSections, inserts: &insertSections)
+        
+        let fixedRows = moveRows.filter { rowMove in
+            var result = true
+            let section = rowMove.at.section
+            if deleteSections.contains(section) {
+                result = false
+            }
+            
+            if let sectionMove = at[section] {
+                deleteSections.insert(sectionMove.at)
+                insertSections.insert(sectionMove.to)
+                result = false
+            }
+            return result
+        }
+        
+        moveSections = fixedSections
+        moveRows = fixedRows
+    }
+    
+    func clean(rows: [IndexPath], map: [Int:Move<Int>], moves: inout [Move<Int>], deletes: inout IndexSet, inserts: inout IndexSet) -> [IndexPath] {
+        return rows.filter { ip in
+            if let move = map[ip.section] {
+                moves.remove(move)
+                deletes.insert(move.at)
+                inserts.insert(move.to)
+                return false
+            }
+            return true
+        }
+    }
 }
 
 // FRC Helpers

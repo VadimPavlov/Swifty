@@ -91,23 +91,21 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
 
         // Simultaneous updates of sections and items lead to the mentioned exceptions and incorrect internal states of views
-        if update.isSectionsUpdate {
-            tableView?.deleteSections(update.deleteSections, with: animation)
-            tableView?.insertSections(update.insertSections, with: animation)
-            tableView?.reloadSections(update.reloadSections, with: animation)
-            update.moveSections.forEach { move in
-                tableView?.moveSection(move.at, toSection: move.to)
-            }
-        } else {
-            tableView?.deleteRows(at: update.deleteRows, with: animation)
-            tableView?.insertRows(at: update.insertRows, with: animation)
-            
-            // Reloads can not be used in conjunction with other changes
-            update.reloadRows.forEach(self.reloadCell)
-            
-            update.moveRows.forEach { move in
-                tableView?.moveRow(at: move.at, to: move.to)
-            }
+        tableView?.deleteSections(update.deleteSections, with: animation)
+        tableView?.insertSections(update.insertSections, with: animation)
+        tableView?.reloadSections(update.reloadSections, with: animation)
+        update.moveSections.forEach { move in
+            tableView?.moveSection(move.at, toSection: move.to)
+        }
+        
+        tableView?.deleteRows(at: update.deleteRows, with: animation)
+        tableView?.insertRows(at: update.insertRows, with: animation)
+        
+        // Reloads can not be used in conjunction with other changes
+        update.reloadRows.forEach(self.reloadCell)
+        
+        update.moveRows.forEach { move in
+            tableView?.moveRow(at: move.at, to: move.to)
         }
     
     }
