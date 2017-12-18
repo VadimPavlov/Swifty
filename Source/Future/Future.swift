@@ -4,31 +4,29 @@
 
 import Foundation
 
-public typealias Cancellation = () -> Void
-
 public struct Future<T> {
     
     public typealias Completion = (Result<T>) -> Void
-    public typealias Operation = (@escaping Completion) -> Cancellation?
+    public typealias Task = (@escaping Completion) -> Progress?
     
-    public let operation: Operation
+    public let task: Task
     
-    public init(_ operation: @escaping Operation) {
-        self.operation = operation
+    public init(_ task: @escaping Task) {
+        self.task = task
     }
 }
 
 public extension Future {
     
     @discardableResult
-    func start(completion: @escaping Completion) -> Cancellation? {
-        return self.operation() { result in
+    func start(completion: @escaping Completion) -> Progress? {
+        return self.task() { result in
             completion(result)
         }
     }
     
     @discardableResult
-    func onSuccess(completion: @escaping (T) -> Void) -> Cancellation? {
+    func onSuccess(completion: @escaping (T) -> Void) -> Progress? {
         return self.start { result in
             if case .success(let value) = result {
                 completion(value)
@@ -37,7 +35,7 @@ public extension Future {
     }
     
     @discardableResult
-    func onError(completion: @escaping (Error) -> Void)-> Cancellation? {
+    func onError(completion: @escaping (Error) -> Void)-> Progress? {
         return self.start { result in
             if case .error(let error) = result {
                 completion(error)
@@ -67,7 +65,7 @@ public extension Future {
         })
     }
     
-    static func just(_ result: T) -> Future<T> {
+    static func success(_ result: T) -> Future<T> {
         return Future { completion in
             completion(.success(result))
             return nil

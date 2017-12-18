@@ -52,6 +52,8 @@
 		149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB31EC5F8CD00F16858 /* Assets.xcassets */; };
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
 		183691181FA8913E007EC646 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183691171FA8913E007EC646 /* Application.swift */; };
+		188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188347DE1FE8184B00CB783F /* BatchFuture.swift */; };
+		188347E11FE81C3D00CB783F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188347E01FE81C3D00CB783F /* Progress.swift */; };
 		1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6771F9A2811008BCA93 /* Primitives.swift */; };
 		1884F67A1F9A2854008BCA93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6791F9A2854008BCA93 /* Settings.swift */; };
 		188510431F9F2D84001B46E0 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188510421F9F2D84001B46E0 /* CoreData.swift */; };
@@ -105,6 +107,8 @@
 		149AEAB61EC5F8CD00F16858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		183691171FA8913E007EC646 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		188347DE1FE8184B00CB783F /* BatchFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchFuture.swift; sourceTree = "<group>"; };
+		188347E01FE81C3D00CB783F /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		1884F6771F9A2811008BCA93 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
 		1884F6791F9A2854008BCA93 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		188510421F9F2D84001B46E0 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 			children = (
 				1499DB8C1ECC7BE90080B5AB /* Result.swift */,
 				1499DB8B1ECC7BE90080B5AB /* Future.swift */,
+				188347DE1FE8184B00CB783F /* BatchFuture.swift */,
+				188347E01FE81C3D00CB783F /* Progress.swift */,
 			);
 			path = Future;
 			sourceTree = "<group>";
@@ -399,10 +405,12 @@
 				1499DBA31ECC7BE90080B5AB /* CollectionController.swift in Sources */,
 				1499DBB11ECC7BE90080B5AB /* Dictionary.swift in Sources */,
 				183691181FA8913E007EC646 /* Application.swift in Sources */,
+				188347E11FE81C3D00CB783F /* Progress.swift in Sources */,
 				1499DBB41ECC7BE90080B5AB /* String.swift in Sources */,
 				1499DBA21ECC7BE90080B5AB /* Atomic.swift in Sources */,
 				1499DBB31ECC7BE90080B5AB /* Foundation.swift in Sources */,
 				1499DBC01ECC7BE90080B5AB /* UITextField.swift in Sources */,
+				188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */,
 				1499DBB91ECC7BE90080B5AB /* Keyboard.swift in Sources */,
 				1499DBB71ECC7BE90080B5AB /* UIGradientView.swift in Sources */,
 				1499DBA61ECC7BE90080B5AB /* DataSource.swift in Sources */,
