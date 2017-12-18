@@ -8,9 +8,12 @@
 
 import Foundation
 
-public struct BatchFutures<T> {
+public struct BatchFuture<T> {
 
     public let futures: [Future<T>]
+    public init(futures: [Future<T>]) {
+        self.futures = futures
+    }
 
     public enum ErrorHandling {
         case fail       // Fail Batch Future on first error
