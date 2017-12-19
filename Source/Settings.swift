@@ -13,7 +13,7 @@ public protocol SettingKey {
     var stringValue: String { get }
 }
 
-public class Settings {
+open class Settings {
     fileprivate let defaults: UserDefaults
     public init(defaults: UserDefaults) {
         self.defaults = defaults
