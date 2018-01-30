@@ -146,10 +146,10 @@
 		1499DB6B1ECC7BE90080B5AB /* RMVVM */ = {
 			isa = PBXGroup;
 			children = (
-				1499DB6F1ECC7BE90080B5AB /* StateController.swift */,
 				1499DB6E1ECC7BE90080B5AB /* Router.swift */,
-				1499DB701ECC7BE90080B5AB /* ViewModel.swift */,
 				1499DB711ECC7BE90080B5AB /* ViewType.swift */,
+				1499DB701ECC7BE90080B5AB /* ViewModel.swift */,
+				1499DB6F1ECC7BE90080B5AB /* StateController.swift */,
 			);
 			path = RMVVM;
 			sourceTree = "<group>";

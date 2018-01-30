@@ -10,7 +10,7 @@ public protocol Router {
     func prepareSegue(_ segue: Segue, destination: UIViewController, sender: Any?)
 }
 
-extension Router where Segue.RawValue == String, Self: UIViewController {
+public extension Router where Segue.RawValue == String, Self: UIViewController {
 
     func performSegue(_ segue: Segue, sender: Any?) {
         let identifier = segue.rawValue
