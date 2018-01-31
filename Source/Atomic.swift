@@ -8,14 +8,15 @@
 
 import Foundation
 
-class Atomic<A> {
+public class Atomic<A> {
     private var _value: A
-    private let queue = DispatchQueue(label: "Serial " + String(describing: A.self))
-    init(value: A) {
+    private let queue = DispatchQueue(label: "serial." + String(describing: A.self).lowercased())
+
+    public init(_ value: A) {
         _value = value
     }
     
-    var value: A {
+    public var value: A {
         get {
             return queue.sync { _value }
         }
@@ -23,5 +24,10 @@ class Atomic<A> {
             queue.sync { _value = newValue }
         }
     }
-    
+
+    public func perform(block: (inout A) -> Void) {
+        queue.sync {
+            block(&_value)
+        }
+    }
 }
