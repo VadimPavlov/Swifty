@@ -10,7 +10,6 @@
 		148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */; };
 		148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */; };
 		149239361F8A4EA900ED2438 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149239351F8A4EA900ED2438 /* CoreGraphics.swift */; };
-		1499DB9D1ECC7BE90080B5AB /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6D1ECC7BE90080B5AB /* EventsViewController.swift */; };
 		1499DB9E1ECC7BE90080B5AB /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6E1ECC7BE90080B5AB /* Router.swift */; };
 		1499DB9F1ECC7BE90080B5AB /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6F1ECC7BE90080B5AB /* StateController.swift */; };
 		1499DBA01ECC7BE90080B5AB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB701ECC7BE90080B5AB /* ViewModel.swift */; };
@@ -76,7 +75,6 @@
 		148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryDescriptor.swift; sourceTree = "<group>"; };
 		148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemRegistration.swift; sourceTree = "<group>"; };
 		149239351F8A4EA900ED2438 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
-		1499DB6D1ECC7BE90080B5AB /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		1499DB6E1ECC7BE90080B5AB /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		1499DB6F1ECC7BE90080B5AB /* StateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		1499DB701ECC7BE90080B5AB /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -153,7 +151,7 @@
 		1499DB6A1ECC7BE90080B5AB /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1499DB6B1ECC7BE90080B5AB /* Architecture */,
+				1499DB6B1ECC7BE90080B5AB /* RMVVM */,
 				1499DB721ECC7BE90080B5AB /* Atomic.swift */,
 				1884F6791F9A2854008BCA93 /* Settings.swift */,
 				1884F6771F9A2811008BCA93 /* Primitives.swift */,
@@ -171,24 +169,15 @@
 			path = ../../Source;
 			sourceTree = "<group>";
 		};
-		1499DB6B1ECC7BE90080B5AB /* Architecture */ = {
+		1499DB6B1ECC7BE90080B5AB /* RMVVM */ = {
 			isa = PBXGroup;
 			children = (
-				1499DB6C1ECC7BE90080B5AB /* Router */,
-				1499DB6F1ECC7BE90080B5AB /* StateController.swift */,
-				1499DB701ECC7BE90080B5AB /* ViewModel.swift */,
-				1499DB711ECC7BE90080B5AB /* ViewType.swift */,
-			);
-			path = Architecture;
-			sourceTree = "<group>";
-		};
-		1499DB6C1ECC7BE90080B5AB /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				1499DB6D1ECC7BE90080B5AB /* EventsViewController.swift */,
 				1499DB6E1ECC7BE90080B5AB /* Router.swift */,
+				1499DB711ECC7BE90080B5AB /* ViewType.swift */,
+				1499DB701ECC7BE90080B5AB /* ViewModel.swift */,
+				1499DB6F1ECC7BE90080B5AB /* StateController.swift */,
 			);
-			path = Router;
+			path = RMVVM;
 			sourceTree = "<group>";
 		};
 		1499DB731ECC7BE90080B5AB /* CollectionControllers */ = {
@@ -486,7 +475,6 @@
 				1499DBB71ECC7BE90080B5AB /* UIGradientView.swift in Sources */,
 				1499DBA61ECC7BE90080B5AB /* DataSource.swift in Sources */,
 				1499DBBB1ECC7BE90080B5AB /* NotificationToken.swift in Sources */,
-				1499DB9D1ECC7BE90080B5AB /* EventsViewController.swift in Sources */,
 				1884F67A1F9A2854008BCA93 /* Settings.swift in Sources */,
 				1499DBC11ECC7BE90080B5AB /* UIView.swift in Sources */,
 				1499DBBE1ECC7BE90080B5AB /* UICollectionView.swift in Sources */,
