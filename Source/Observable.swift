@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Observable<Value> {
+final public class Observable<Value> {
 
     public typealias Observer = (Value, Value?) -> Void
     private var observers: Atomic<[UUID:Observer]>
