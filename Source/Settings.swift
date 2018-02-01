@@ -9,22 +9,22 @@
 import Foundation
 
 public protocol SettingKey {
-    init?(stringValue: String)
-    var stringValue: String { get }
+    init?(rawValue: String)
+    var rawValue: String { get }
 }
 
-open class Settings {
+open class Settings<Key: SettingKey> {
     fileprivate let defaults: UserDefaults
     public init(defaults: UserDefaults) {
         self.defaults = defaults
     }
-    
-    public subscript<T>(key: SettingKey) -> T? {
+
+    public subscript<T>(key: Key) -> T? {
         set { self.set(value: newValue, forKey: key) }
         get { return self.get(key: key) as? T }
     }
-    
-    public subscript<E: RawRepresentable>(key: SettingKey) -> E? {
+
+    public subscript<E: RawRepresentable>(key: Key) -> E? {
         set { self.set(value: newValue?.rawValue, forKey: key) }
         get {
             let raw = self.get(key: key) as? E.RawValue
@@ -35,7 +35,7 @@ open class Settings {
 
 private extension Settings {
     func set(value: Any?, forKey settingKey: SettingKey) {
-        let key = settingKey.stringValue
+        let key = settingKey.rawValue
         if let newValue = value {
             defaults.set(newValue, forKey: key)
         } else {
@@ -44,7 +44,7 @@ private extension Settings {
     }
 
     func get(key settingKey: SettingKey) -> Any? {
-        let key = settingKey.stringValue
+        let key = settingKey.rawValue
         return defaults.object(forKey: key)
     }
 }
