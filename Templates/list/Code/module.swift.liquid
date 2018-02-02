@@ -15,7 +15,7 @@ enum {{ module_info.name }}Module {
 	static func build(view: {{ module_info.name }}ViewController, input: {{ module_info.name }}ModuleInput) {
 
 		let vm = {{ module_info.name }}ViewModel(router: view, input: input)
-		vm.view = view
+		vm.setView(view)
 		view.vm = vm
 	}
 }
