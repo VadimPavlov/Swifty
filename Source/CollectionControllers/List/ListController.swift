@@ -23,7 +23,7 @@ open class ListController: StateController<ListViewState> {
     private typealias ListUpdateAction = (BatchUpdate?, Bool) -> Void
     private var listUpdate: ListUpdateAction?
     
-    public override func setView<View : ListViewType>(_ view: View) where View.State == ListViewState {
+    open override func setView<View : ListViewType>(_ view: View) where View.State == ListViewState {
         super.setView(view)
         self.listUpdate = { [weak view, weak self] update, animated in
             assert(Thread.isMainThread)
