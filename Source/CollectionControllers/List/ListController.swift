@@ -134,7 +134,7 @@ open class ListController: StateController<ListViewState> {
         }
     }
     
-    public func appendNewPage(_ page: ListPage, with objects: [ListObject]) {
+    open func appendNewPage(_ page: ListPage, with objects: [ListObject]) {
         self.currentPage = page.number
         
         if objects.count < page.size {
