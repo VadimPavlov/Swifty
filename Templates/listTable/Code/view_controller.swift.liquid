@@ -9,11 +9,21 @@
 import UIKit
 import Swifty
 
-final class {{ module_info.name }}ViewController: UIViewController, ViewType {
+final class {{ module_info.name }}ViewController: UITableViewController, ListViewType {
+
+    typealias Object = Any
+    typealias Cell = UITableViewCell
 
     var vm: {{ module_info.name }}ViewModel?
     var router: {{ module_info.name }}Router { return self }
  
+
+    lazy var controller: TableController<Object, Cell> = {
+        return TableController(tableView: self.tableView) { cell, object in
+            print(cell, object)
+        }
+    }()
+
     // MARK: - Lifetime
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +38,15 @@ final class {{ module_info.name }}ViewController: UIViewController, ViewType {
 extension {{ module_info.name }}ViewController {
     func update(state: {{ module_info.name }}ViewState, oldState: {{ module_info.name }}ViewState?) {
 
+    }
+
+    func update(list: [Object], batch: BatchUpdate?, animated: Bool) {
+        let ds = DataSource(list)
+        if let batch = batch {
+            controller.update(dataSource: ds, batch: batch)
+        } else {
+            controller.update(dataSource: ds)
+        }
     }
 }
 

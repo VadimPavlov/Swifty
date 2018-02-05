@@ -39,7 +39,7 @@ typealias {{ Segue5 }}ModuleInput = Any
 typealias {{ Segue5 }}ViewController = UIViewController
 {%- endif %}
 
-protocol {{ module_info.name }}Router {
+protocol {{ module_info.name }}Router: class {
 	func open(screen: {{ module_info.name }}ViewController.Screen)
 }
 
