@@ -18,7 +18,7 @@ open class StateController<State> {
         }
     }
     
-    public func setView<View:ViewType>(_ view: View) where View.State == State {
+    open func setView<View:ViewType>(_ view: View) where View.State == State {
         
         self.update = { [weak view] newState, oldState in
             assert(Thread.isMainThread)
