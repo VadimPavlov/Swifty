@@ -12,7 +12,7 @@ import Swifty
 final class {{ module_info.name }}ViewModel: ViewModel<{{ module_info.name }}ViewController> {
 
 	private let input: {{ module_info.name }}ModuleInput
-	private weak var router: {{ module_info.name }}Router
+	private weak var router: {{ module_info.name }}Router?
 
 	init(router: {{ module_info.name }}Router, input: {{ module_info.name }}ModuleInput) {
 		self.input = input

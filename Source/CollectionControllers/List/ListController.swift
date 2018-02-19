@@ -143,7 +143,6 @@ open class ListController: StateController<ListViewState> {
         
         self.lastID = objects.last?.listID
         self.appendObjects(objects, animated: self.appendAnimated)
-        
     }
     
 }
