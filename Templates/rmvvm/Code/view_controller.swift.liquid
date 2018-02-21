@@ -9,7 +9,7 @@
 import UIKit
 import Swifty
 
-final class {{ module_info.name }}ViewController: GENViewController, ViewType {
+final class {{ module_info.name }}ViewController: UIViewController, ViewType {
 
     var vm: {{ module_info.name }}ViewModel?
     var router: {{ module_info.name }}Router { return self }
