@@ -10,12 +10,12 @@ public protocol ListControllerDataSource: class {
 
 open class ListController: StateController<ListViewState> {
     
-    private let pageSize: Int
-    private let firstPage: Int
-    private let appendAnimated: Bool
+    public let pageSize: Int
+    public let firstPage: Int
+    public let appendAnimated: Bool
 
-    public private(set) var currentPage: Int
-    public private(set) var lastID: String?
+    public var currentPage: Int
+    public var lastID: String?
 
     public private(set) var objects: [ListObject]
     public weak var dataSource: ListControllerDataSource?
@@ -138,11 +138,12 @@ open class ListController: StateController<ListViewState> {
         self.currentPage = page.number
         self.lastID = objects.last?.listID
 
-        self.appendObjects(objects, animated: self.appendAnimated)
-
         if objects.count < page.size {
             self.state.canLoadMore = false
         }
+
+        self.appendObjects(objects, animated: self.appendAnimated)
+
     }
     
 }
