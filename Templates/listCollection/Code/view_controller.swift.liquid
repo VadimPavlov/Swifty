@@ -19,7 +19,7 @@ final class {{ module_info.name }}ViewController: UICollectionViewController, Li
  
 
     lazy var controller: CollectionController<Object, Cell> = {
-        return CollectionController(tableView: self.collectionView) { cell, object in
+        return CollectionController(collectionView: self.collectionView!) { cell, object in
             print(cell, object)
         }
     }()
@@ -36,7 +36,7 @@ final class {{ module_info.name }}ViewController: UICollectionViewController, Li
 
 // MARK: - Bindings
 extension {{ module_info.name }}ViewController {
-    func update(state: {{ module_info.name }}ViewState, oldState: {{ module_info.name }}ViewState?) {
+    func update(state: ListViewState, oldState: ListViewState?) {
 
     }
 
