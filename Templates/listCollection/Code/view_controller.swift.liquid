@@ -32,6 +32,15 @@ final class {{ module_info.name }}ViewController: UICollectionViewController, Li
 
     // MARK: - Actions
 
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let visible = collectionView.visibleCells.count
+        let total = collectionView.numberOfItems(inSection: indexPath.section) - 1
+        let current = indexPath.item
+
+        if total - current <= visible {
+            vm?.loadNextPage()
+        }
+    }
 }
 
 // MARK: - Bindings

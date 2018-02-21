@@ -136,13 +136,13 @@ open class ListController: StateController<ListViewState> {
     
     open func appendNewPage(_ page: ListPage, with objects: [ListObject]) {
         self.currentPage = page.number
-        
+        self.lastID = objects.last?.listID
+
+        self.appendObjects(objects, animated: self.appendAnimated)
+
         if objects.count < page.size {
             self.state.canLoadMore = false
         }
-        
-        self.lastID = objects.last?.listID
-        self.appendObjects(objects, animated: self.appendAnimated)
     }
     
 }
