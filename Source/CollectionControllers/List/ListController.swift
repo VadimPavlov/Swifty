@@ -150,7 +150,7 @@ open class ListController: StateController<ListViewState> {
 
 // MARK: - Updating
 public extension ListController {
-    public func updateList() {
+    func updateList() {
         self.listUpdate?(nil, false)
     }
 
@@ -241,12 +241,15 @@ public extension ListController {
     // MARK: - MOVE
     func moveObject(_ object: ListObject, to index: Int, animated: Bool) {
         guard let row = objects.index(where: { $0.listID == object.listID }) else { return }
+        move(from: row, to: index, animated: animated)
+    }
 
-        let at = IndexPath(row: row, section: 0)
-        let to = IndexPath(row: 0, section: 0)
+    func move(from: Int, to index: Int, animated: Bool) {
+        let at = IndexPath(row: from, section: 0)
+        let to = IndexPath(row: index, section: 0)
         let move = Move<IndexPath>(at: at, to: to)
         let update = BatchUpdate(moveRows: [move])
-        self.objects.swapAt(row, index)
+        self.objects.swapAt(from, index)
         self.listUpdate?(update, animated)
     }
 }
