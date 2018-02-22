@@ -170,7 +170,7 @@ public extension ListController {
             self.listUpdate?(update, animated)
         }
     }
-    
+    // MARK: Insert
     func appendObjects(_ newObjects: [ListObject], animated: Bool) {
         
         let lower = self.objects.count
@@ -204,7 +204,8 @@ public extension ListController {
 
         self.listUpdate?(update, animated)
     }
-    
+
+    // MARK: - Remove
     func removeObject(at index: Int, animated: Bool) {
         let indexPath = IndexPath(row: index, section: 0)
         let update = BatchUpdate(deleteRows: [indexPath])
@@ -236,5 +237,16 @@ public extension ListController {
         let update = BatchUpdate(deleteRows: indexPaths)
         self.listUpdate?(update, animated)
     }
-    
+
+    // MARK: - MOVE
+    func moveObject(_ object: ListObject, to index: Int, animated: Bool) {
+        guard let row = objects.index(where: { $0.listID == object.listID }) else { return }
+
+        let at = IndexPath(row: row, section: 0)
+        let to = IndexPath(row: 0, section: 0)
+        let move = Move<IndexPath>(at: at, to: to)
+        let update = BatchUpdate(moveRows: [move])
+        self.objects.swapAt(row, index)
+        self.listUpdate?(update, animated)
+    }
 }
