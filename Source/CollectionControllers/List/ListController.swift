@@ -247,9 +247,12 @@ public extension ListController {
     func move(from: Int, to index: Int, animated: Bool) {
         let at = IndexPath(row: from, section: 0)
         let to = IndexPath(row: index, section: 0)
+
         let move = Move<IndexPath>(at: at, to: to)
         let update = BatchUpdate(moveRows: [move])
-        self.objects.swapAt(from, index)
+
+        let object = self.objects.remove(at: from)
+        self.objects.insert(object, at: index)
         self.listUpdate?(update, animated)
     }
 }
