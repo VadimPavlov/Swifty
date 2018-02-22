@@ -8,7 +8,11 @@ import CoreData
 public struct Move<Index: Equatable> {
     public let at: Index
     public let to: Index
-    
+
+    public init(at: Index, to: Index) {
+        self.at = at
+        self.to = to
+    }
 }
 
 extension Move: Equatable {
