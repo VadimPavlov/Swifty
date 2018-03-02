@@ -10,24 +10,33 @@ import Foundation
 
 final public class Observable<Value> {
 
-    public typealias Observer = (Value, Value?) -> Void
-    private var observers: Atomic<[UUID:Observer]>
+    public typealias Observer    = (Value) -> Void
+    public typealias ObserverOld = (Value, Value) -> Void
+
+    private var observers:    Atomic<[UUID: Observer]>
+    private var observersOld: Atomic<[UUID: ObserverOld]>
 
     public init(_ value: Value) {
         self.value = value
-        self.observers = Atomic([:])
+        self.observers    = Atomic([:])
+        self.observersOld = Atomic([:])
     }
 
     public var value: Value {
         didSet {
             observers.value.forEach { (_, observer) in
+                observer(self.value)
+            }
+            observersOld.value.forEach { (_, observer) in
                 observer(self.value, oldValue)
             }
         }
     }
 
-    public func observe(_ observer: @escaping Observer) -> Disposable {
-        observer(self.value, nil)
+    public func observe(skipCurrent: Bool = false, observer: @escaping Observer) -> Disposable {
+        if !skipCurrent {
+            observer(self.value)
+        }
 
         let id = UUID()
         self.observers.perform { observers in
@@ -36,6 +45,20 @@ final public class Observable<Value> {
 
         return Disposable {
             self.observers.perform { observers in
+                observers[id] = nil
+            }
+        }
+    }
+
+    public func observeOld(observer: @escaping ObserverOld) -> Disposable {
+
+        let id = UUID()
+        self.observersOld.perform { observers in
+            observers[id] = observer
+        }
+
+        return Disposable {
+            self.observersOld.perform { observers in
                 observers[id] = nil
             }
         }
