@@ -12,34 +12,30 @@ open class ListController: StateController<ListViewState> {
     
     public let pageSize: Int
     public let firstPage: Int
-    public let appendAnimated: Bool
-
     public var currentPage: Int
     public var lastID: String?
 
     public private(set) var objects: [ListObject]
     public weak var dataSource: ListControllerDataSource?
     
-    private typealias ListUpdateAction = (BatchUpdate?, Bool) -> Void
+    private typealias ListUpdateAction = (BatchUpdate?) -> Void
     private var listUpdate: ListUpdateAction?
     
     open override func setView<View : ListViewType>(_ view: View) where View.State == ListViewState {
         super.setView(view)
-        self.listUpdate = { [weak view, weak self] update, animated in
+        self.listUpdate = { [weak view, weak self] update in
             assert(Thread.isMainThread)
             let list = self?.objects as? [View.ListViewObject] ?? []
-            view?.update(list: list, batch: update, animated: animated)
+            view?.update(list: list, batch: update)
         }
     }
 
-    public init(pageSize: Int, firstPage: Int, currentPage: Int? = nil, objects: [ListObject] = [], appendAnimated: Bool = true) {
+    public init(pageSize: Int, firstPage: Int, currentPage: Int? = nil, objects: [ListObject] = []) {
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.currentPage = currentPage ?? firstPage
-
         self.objects = objects
-        self.appendAnimated = appendAnimated
-                
+
         let state = ListViewState()
         super.init(state: state)
     }
@@ -128,8 +124,7 @@ open class ListController: StateController<ListViewState> {
                     self?.refreshPage(nextPage, firstID: firstID, onGap: onGap)
                 }
             } else {
-                let animated = self?.appendAnimated ?? true
-                self?.insertObjects(Array(newObjects), animated: animated)
+                self?.insertObjects(Array(newObjects))
             }
         }
     }
@@ -142,7 +137,7 @@ open class ListController: StateController<ListViewState> {
             self.state.canLoadMore = false
         }
 
-        self.appendObjects(objects, animated: self.appendAnimated)
+        self.appendObjects(objects)
 
     }
     
@@ -151,15 +146,15 @@ open class ListController: StateController<ListViewState> {
 // MARK: - Updating
 public extension ListController {
     func updateList() {
-        self.listUpdate?(nil, false)
+        self.listUpdate?(nil)
     }
 
     func update(objects: [ListObject]) {
         self.objects = objects
-        self.listUpdate?(nil, false)
+        updateList()
     }
     
-    func updateObject(_ object: ListObject, animated: Bool) {
+    func updateObject(_ object: ListObject) {
         let index = self.objects.index { $0.listID == object.listID }
         if let item = index {
             
@@ -167,11 +162,11 @@ public extension ListController {
             let update = BatchUpdate(reloadRows: [ip])
             
             self.objects[item] = object
-            self.listUpdate?(update, animated)
+            self.listUpdate?(update)
         }
     }
     // MARK: Insert
-    func appendObjects(_ newObjects: [ListObject], animated: Bool) {
+    func appendObjects(_ newObjects: [ListObject]) {
         
         let lower = self.objects.count
         let upper = lower + newObjects.count
@@ -181,18 +176,18 @@ public extension ListController {
         let update = BatchUpdate(insertRows: inserted)
         
         self.objects.append(contentsOf: newObjects)
-        self.listUpdate?(update, animated)
+        self.listUpdate?(update)
     }
     
-    func insertObject(_ object: ListObject, at index: Int = 0, animated: Bool) {
+    func insertObject(_ object: ListObject, at index: Int = 0) {
         let indexPath = IndexPath(row: index, section: 0)
         let update = BatchUpdate(insertRows: [indexPath])
 
         self.objects.insert(object, at: index)
-        self.listUpdate?(update, animated)
+        self.listUpdate?(update)
     }
     
-    func insertObjects(_ newObjects: [ListObject], at index: Int = 0, animated: Bool) {
+    func insertObjects(_ newObjects: [ListObject], at index: Int = 0) {
         self.objects.insert(contentsOf: newObjects, at: index)
         
         let lower = index
@@ -202,25 +197,25 @@ public extension ListController {
         let inserted = range.map { IndexPath(row: $0, section: 0) }
         let update = BatchUpdate(insertRows: inserted)
 
-        self.listUpdate?(update, animated)
+        self.listUpdate?(update)
     }
 
     // MARK: - Remove
-    func removeObject(at index: Int, animated: Bool) {
+    func removeObject(at index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         let update = BatchUpdate(deleteRows: [indexPath])
         self.objects.remove(at: index)
-        self.listUpdate?(update, animated)
+        self.listUpdate?(update)
     }
     
-    func removeObject(_ object: ListObject, animated: Bool) {
+    func removeObject(_ object: ListObject) {
         let index = self.objects.index { $0.listID == object.listID }
         if let index = index {
-            self.removeObject(at: index, animated: animated)
+            self.removeObject(at: index)
         }
     }
     
-    func removeObjects(_ objects: [ListObject], animated: Bool) {
+    func removeObjects(_ objects: [ListObject]) {
         var indexPaths: [IndexPath] = []
         
         // reverse arrays, so we can remove current idx in loop
@@ -235,16 +230,16 @@ public extension ListController {
         }
         
         let update = BatchUpdate(deleteRows: indexPaths)
-        self.listUpdate?(update, animated)
+        self.listUpdate?(update)
     }
 
     // MARK: - MOVE
-    func moveObject(_ object: ListObject, to index: Int, animated: Bool) {
+    func moveObject(_ object: ListObject, to index: Int) {
         guard let row = objects.index(where: { $0.listID == object.listID }) else { return }
-        move(from: row, to: index, animated: animated)
+        move(from: row, to: index)
     }
 
-    func move(from: Int, to index: Int, animated: Bool) {
+    func move(from: Int, to index: Int) {
         let at = IndexPath(row: from, section: 0)
         let to = IndexPath(row: index, section: 0)
 
@@ -253,6 +248,6 @@ public extension ListController {
 
         let object = self.objects.remove(at: from)
         self.objects.insert(object, at: index)
-        self.listUpdate?(update, animated)
+        self.listUpdate?(update)
     }
 }
