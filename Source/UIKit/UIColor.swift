@@ -41,12 +41,12 @@ public extension UIColor {
             return String(format: "#%02lX%02lX%02lX",
                           lroundf(Float(red * 255)),
                           lroundf(Float(green * 255)),
-                          lroundf(Float(red * 255)))
+                          lroundf(Float(blue * 255)))
         } else {
             return String(format: "#%02lX%02lX%02lX%02lX",
                           lroundf(Float(red * 255)),
                           lroundf(Float(green * 255)),
-                          lroundf(Float(red * 255)),
+                          lroundf(Float(blue * 255)),
                           lroundf(Float(alpha * 255)))
         }
     }
