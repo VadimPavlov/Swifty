@@ -31,23 +31,20 @@ public extension UIColor {
     }
 
     var hex: String {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        var r: CGFloat = 0; var g: CGFloat = 0; var b: CGFloat = 0; var a: CGFloat = 0
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
 
-        if alpha == 1 {
+        if a == 1 {
             return String(format: "#%02lX%02lX%02lX",
-                          lroundf(Float(red * 255)),
-                          lroundf(Float(green * 255)),
-                          lroundf(Float(blue * 255)))
+                          lroundf(Float(r * 255)),
+                          lroundf(Float(g * 255)),
+                          lroundf(Float(b * 255)))
         } else {
             return String(format: "#%02lX%02lX%02lX%02lX",
-                          lroundf(Float(red * 255)),
-                          lroundf(Float(green * 255)),
-                          lroundf(Float(blue * 255)),
-                          lroundf(Float(alpha * 255)))
+                          lroundf(Float(r * 255)),
+                          lroundf(Float(g * 255)),
+                          lroundf(Float(b * 255)),
+                          lroundf(Float(a * 255)))
         }
     }
     
