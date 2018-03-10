@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		142F279520540D660058EF40 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142F279420540D660058EF40 /* UIImage.swift */; };
 		148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */; };
 		148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */; };
 		149239361F8A4EA900ED2438 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149239351F8A4EA900ED2438 /* CoreGraphics.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		142F279420540D660058EF40 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryDescriptor.swift; sourceTree = "<group>"; };
 		148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemRegistration.swift; sourceTree = "<group>"; };
 		149239351F8A4EA900ED2438 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				1499DB9A1ECC7BE90080B5AB /* UITextField.swift */,
 				1499DB9B1ECC7BE90080B5AB /* UIView.swift */,
 				1499DB9C1ECC7BE90080B5AB /* UIViewController.swift */,
+				142F279420540D660058EF40 /* UIImage.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				1499DBAC1ECC7BE90080B5AB /* ListViewState.swift in Sources */,
 				1499DBA11ECC7BE90080B5AB /* ViewType.swift in Sources */,
 				1499DBA01ECC7BE90080B5AB /* ViewModel.swift in Sources */,
+				142F279520540D660058EF40 /* UIImage.swift in Sources */,
 				1499DBBA1ECC7BE90080B5AB /* NotificationDescriptor.swift in Sources */,
 				149AEAAD1EC5F8CD00F16858 /* AppDelegate.swift in Sources */,
 				1499DB9F1ECC7BE90080B5AB /* StateController.swift in Sources */,
