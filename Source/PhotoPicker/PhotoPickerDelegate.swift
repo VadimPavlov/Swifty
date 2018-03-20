@@ -14,11 +14,11 @@ public protocol PhotoPickerDelegate: UIImagePickerControllerDelegate, UINavigati
 
 extension UIViewController: PhotoPickerDelegate {
     
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    open func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
 
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+    open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         let edited = info[UIImagePickerControllerEditedImage] as? UIImage
         let original = info[UIImagePickerControllerOriginalImage] as? UIImage
         
