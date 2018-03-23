@@ -8,11 +8,26 @@
 
 import UIKit
 
+public typealias KeyboardAnimation = (KeyboardUserInfo) -> Void
+
 public enum Keyboard {
     public static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
     public static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
     public static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
     public static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
+
+    public static func animate(with info: KeyboardUserInfo, animation: @escaping KeyboardAnimation) {
+
+        guard let curve = UIViewAnimationCurve(rawValue: info.animationCurve) else { return }
+        let duration = info.animationDuration
+
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(duration)
+        UIView.setAnimationCurve(curve)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        animation(info)
+        UIView.commitAnimations()
+    }
 }
 
 public struct KeyboardUserInfo {
@@ -59,9 +74,7 @@ public extension UIScrollView {
         let contentBottom: CGFloat
         let indicatorsBottom: CGFloat
     }
-    
-    typealias KeyboardAnimation = (KeyboardUserInfo) -> Void
-    
+
     func observeKeyboardNotifications(center: NotificationCenter = .default, extraInset: CGFloat = 0, animate: KeyboardAnimation? = nil) -> KeyboardNotificationToken {
         
         let original = OriginalInsets(contentBottom: self.contentInset.bottom, indicatorsBottom: self.scrollIndicatorInsets.bottom)
@@ -79,7 +92,7 @@ public extension UIScrollView {
             self.scrollIndicatorInsets.bottom = inset + extraInset
             
             if let animation = animate {
-                self.animate(with: info, animation: animation)
+                Keyboard.animate(with: info, animation: animation)
             }
         }
         
@@ -88,25 +101,10 @@ public extension UIScrollView {
             self.scrollIndicatorInsets.bottom = original.indicatorsBottom
             
             if let animation = animate {
-                self.animate(with: info, animation: animation)
+                Keyboard.animate(with: info, animation: animation)
             }
         }
         
         return KeyboardNotificationToken(show: showToken, hide: hideToken)
-    }
-    
-    
-    private func animate(with info: KeyboardUserInfo, animation: @escaping KeyboardAnimation) {
-        
-        guard let curve = UIViewAnimationCurve(rawValue: info.animationCurve) else { return }
-        let duration = info.animationDuration
-        
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(duration)
-        UIView.setAnimationCurve(curve)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        animation(info)
-        UIView.commitAnimations()
-        
     }
 }
