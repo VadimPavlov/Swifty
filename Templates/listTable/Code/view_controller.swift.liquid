@@ -31,9 +31,9 @@ final class {{ module_info.name }}ViewController: UITableViewController, ListVie
     }
 
     // MARK: - Actions
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let visible = tableView.visibleCells.count
-        let total = tableView.numberOfItems(inSection: indexPath.section) - 1
+        let total = tableView.numberOfRows(inSection: indexPath.section) - 1
         let current = indexPath.row
 
         if total - current <= visible {
@@ -48,7 +48,7 @@ extension {{ module_info.name }}ViewController {
 
     }
 
-    func update(list: [Object], batch: BatchUpdate?, animated: Bool) {
+    func update(list: [Object], batch: BatchUpdate?) {
         let ds = DataSource(list)
         if let batch = batch {
             controller.update(dataSource: ds, batch: batch)

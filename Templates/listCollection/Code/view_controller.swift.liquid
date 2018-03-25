@@ -49,7 +49,7 @@ extension {{ module_info.name }}ViewController {
 
     }
 
-    func update(list: [Object], batch: BatchUpdate?, animated: Bool) {
+    func update(list: [Object], batch: BatchUpdate?) {
         let ds = DataSource(list)
         if let batch = batch {
             controller.update(dataSource: ds, batch: batch)
