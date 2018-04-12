@@ -15,9 +15,21 @@ public protocol SettingKey {
     static var allKeys: [Self] { get }
 }
 
+public protocol SettingValue {}
+
+extension String: SettingValue {}
+extension NSString: SettingValue {}
+
+extension Data: SettingValue {}
+
+extension Int: SettingValue {}
+extension Float: SettingValue {}
+extension Double: SettingValue {}
+extension NSNumber: SettingValue {}
+
 open class Settings<Key: SettingKey> {
     
-    fileprivate let defaults: UserDefaults
+    public let defaults: UserDefaults
     public init(defaults: UserDefaults) {
         self.defaults = defaults
     }
@@ -28,16 +40,36 @@ open class Settings<Key: SettingKey> {
         }
     }
     
-    public subscript<T>(key: Key) -> T? {
+    public subscript<Value: SettingValue>(key: Key) -> Value? {
         set { self.set(value: newValue, forKey: key) }
-        get { return self.get(key: key) as? T }
+        get { return self.get(key: key) as? Value }
     }
-    
+
     public subscript<E: RawRepresentable>(key: Key) -> E? {
         set { self.set(value: newValue?.rawValue, forKey: key) }
         get {
             let raw = self.get(key: key) as? E.RawValue
             return raw.flatMap(E.init)
+        }
+    }
+
+    public subscript<Object: Codable>(key: Key) -> Object? {
+        set {
+            if let value = newValue as? SettingValue {
+                self.set(value: value, forKey: key)
+            } else if let object = newValue {
+                let encoder = PropertyListEncoder()
+                let data = try? encoder.encode(object)
+                self.set(value: data, forKey: key)
+            } else {
+                self.set(value: newValue, forKey: key)
+            }
+        }
+        get {
+            let decoder = PropertyListDecoder()
+            let data = self.get(key: key) as? Data
+            let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
+            return object
         }
     }
 }

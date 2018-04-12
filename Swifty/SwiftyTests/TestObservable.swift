@@ -16,7 +16,7 @@ class TestObservable: XCTestCase {
         var disposable: Disposable?
 
         var count = 0
-        disposable = property.observe { value, oldValue in
+        disposable = property.observe { value in
             count += 1
         }
         XCTAssertEqual(count, 1)
