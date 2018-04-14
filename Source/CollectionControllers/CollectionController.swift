@@ -13,8 +13,8 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 
     private var update: BatchUpdate?
     
-    typealias Supplementary = (IndexPath) -> SupplementaryDescriptor
-    var supplementaryDescriptor: Supplementary?
+    public typealias Supplementary = (IndexPath) -> SupplementaryDescriptor
+    public var supplementaryDescriptor: Supplementary?
     
     public weak var collectionView: UICollectionView? {
         didSet { self.adapt(collectionView)}

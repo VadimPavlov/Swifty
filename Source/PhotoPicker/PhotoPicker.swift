@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias PhotoPickCompletion = (UIImage?) -> Void
+public typealias PhotoPickCompletion = (PickedPhoto) -> Void
 
 final public class PhotoPicker {
  

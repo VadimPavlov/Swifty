@@ -10,9 +10,20 @@ import XCTest
 import CoreData
 @testable import Swifty
 
+final class TestEntity: NSManagedObject {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<TestEntity> {
+        return NSFetchRequest<TestEntity>(entityName: "TestEntity")
+    }
+
+    @NSManaged public var name: String?
+    @NSManaged public var priority: Int16
+}
+
+
 class TestDataSource: XCTestCase {
 
-    let delegate = FRCDelegate()
+//    let delegate = FRCDelegate()
 
     func testEmpty() {
         let ds = DataSource([])
@@ -77,7 +88,9 @@ class TestDataSource: XCTestCase {
         let container = self.testContainer
         let context = container.viewContext
 
-        _ = TestEntity(context: context) // insert 1 object
+        let entity = NSEntityDescription.entity(forEntityName: "TestEntity", in: context)!
+
+        _ = TestEntity(entity: entity, insertInto: context) // insert 1 object
 
         let request: NSFetchRequest<TestEntity> = TestEntity.fetchRequest()
         let sort = NSSortDescriptor(key: #keyPath(TestEntity.priority), ascending: true)
@@ -97,9 +110,10 @@ class TestDataSource: XCTestCase {
         let context = container.viewContext
 
         // insert few objects
-        let object1 = TestEntity(context: context)
-        let object2 = TestEntity(context: context)
-        let object3 = TestEntity(context: context)
+        let entity = NSEntityDescription.entity(forEntityName: "TestEntity", in: context)!
+        let object1 = TestEntity(entity: entity, insertInto: context)
+        let object2 = TestEntity(entity: entity, insertInto: context)
+        let object3 = TestEntity(entity: entity, insertInto: context)
 
         object1.name = "Section1"
         object2.name = "Section2"
@@ -113,8 +127,7 @@ class TestDataSource: XCTestCase {
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: groupKey, cacheName: nil)
         let ds = DataSource(frc: frc)
 
-        try? frc.performFetch()
-
+        try! frc.performFetch()
 
         XCTAssertEqual(ds.numberOfSection(), 2)
         XCTAssertEqual(ds.numberOfObjectsInSection(0), 1)
