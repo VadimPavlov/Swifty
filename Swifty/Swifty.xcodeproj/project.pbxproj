@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14276D612072D3E100952C27 /* TestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE942072C8AD00CD6D2D /* TestTableCell.swift */; };
+		14276D622072D3EA00952C27 /* TestTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147CEE922072C88900CD6D2D /* TestTableCell.xib */; };
+		14276D652072D55D00952C27 /* TestTableAnotherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */; };
+		14276D682072D7D500952C27 /* MockTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14276D672072D7D500952C27 /* MockTableView.swift */; };
 		142F279520540D660058EF40 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142F279420540D660058EF40 /* UIImage.swift */; };
+		146636F42082482F00D68EB4 /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146636F32082482F00D68EB4 /* TestSettings.swift */; };
+		147CEE8620729E5500CD6D2D /* TestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE8520729E5500CD6D2D /* TestDataSource.swift */; };
+		147CEE8B2072B55400CD6D2D /* Swifty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */; };
+		147CEE8D2072BE5F00CD6D2D /* Swifty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */; };
+		147CEE912072C5C900CD6D2D /* TestTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE902072C5C900CD6D2D /* TestTableController.swift */; };
 		148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */; };
 		148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */; };
 		149239361F8A4EA900ED2438 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149239351F8A4EA900ED2438 /* CoreGraphics.swift */; };
@@ -52,12 +61,10 @@
 		149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB31EC5F8CD00F16858 /* Assets.xcassets */; };
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
 		14DC607A2022735800DE6A6C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60792022735800DE6A6C /* Observable.swift */; };
-		14DC60822022794300DE6A6C /* SwiftyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60812022794300DE6A6C /* SwiftyTests.swift */; };
 		14DC608A2022795D00DE6A6C /* TestObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60892022795D00DE6A6C /* TestObservable.swift */; };
 		183691181FA8913E007EC646 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183691171FA8913E007EC646 /* Application.swift */; };
 		1838FE6D20613E1A00629F64 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838FE6B20613E1A00629F64 /* PhotoPicker.swift */; };
 		1838FE6E20613E1A00629F64 /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838FE6C20613E1A00629F64 /* PhotoPickerDelegate.swift */; };
-		1860BDDC207F5E7300F7F094 /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860BDDB207F5E7300F7F094 /* TestSettings.swift */; };
 		188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188347DE1FE8184B00CB783F /* BatchFuture.swift */; };
 		188347E11FE81C3D00CB783F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188347E01FE81C3D00CB783F /* Progress.swift */; };
 		1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6771F9A2811008BCA93 /* Primitives.swift */; };
@@ -76,7 +83,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestTableAnotherCell.xib; sourceTree = "<group>"; };
+		14276D672072D7D500952C27 /* MockTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTableView.swift; sourceTree = "<group>"; };
 		142F279420540D660058EF40 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		146636F32082482F00D68EB4 /* TestSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
+		147CEE8520729E5500CD6D2D /* TestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataSource.swift; sourceTree = "<group>"; };
+		147CEE8A2072B55400CD6D2D /* Swifty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swifty.xcdatamodel; sourceTree = "<group>"; };
+		147CEE902072C5C900CD6D2D /* TestTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableController.swift; sourceTree = "<group>"; };
+		147CEE922072C88900CD6D2D /* TestTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestTableCell.xib; sourceTree = "<group>"; };
+		147CEE942072C8AD00CD6D2D /* TestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableCell.swift; sourceTree = "<group>"; };
 		148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryDescriptor.swift; sourceTree = "<group>"; };
 		148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemRegistration.swift; sourceTree = "<group>"; };
 		149239351F8A4EA900ED2438 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
@@ -124,13 +139,11 @@
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14DC60792022735800DE6A6C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		14DC607F2022794300DE6A6C /* SwiftyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		14DC60812022794300DE6A6C /* SwiftyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyTests.swift; sourceTree = "<group>"; };
 		14DC60832022794300DE6A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14DC60892022795D00DE6A6C /* TestObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObservable.swift; sourceTree = "<group>"; };
 		183691171FA8913E007EC646 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		1838FE6B20613E1A00629F64 /* PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		1838FE6C20613E1A00629F64 /* PhotoPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerDelegate.swift; sourceTree = "<group>"; };
-		1860BDDB207F5E7300F7F094 /* TestSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
 		188347DE1FE8184B00CB783F /* BatchFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchFuture.swift; sourceTree = "<group>"; };
 		188347E01FE81C3D00CB783F /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		1884F6771F9A2811008BCA93 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
@@ -156,6 +169,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14276D662072D7C900952C27 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				14276D672072D7D500952C27 /* MockTableView.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		147CEE962072C8BA00CD6D2D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				147CEE902072C5C900CD6D2D /* TestTableController.swift */,
+				147CEE942072C8AD00CD6D2D /* TestTableCell.swift */,
+				147CEE922072C88900CD6D2D /* TestTableCell.xib */,
+				14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		1499DB6A1ECC7BE90080B5AB /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,9 +366,12 @@
 		14DC60802022794300DE6A6C /* SwiftyTests */ = {
 			isa = PBXGroup;
 			children = (
-				14DC60812022794300DE6A6C /* SwiftyTests.swift */,
+				147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */,
 				14DC60892022795D00DE6A6C /* TestObservable.swift */,
-				1860BDDB207F5E7300F7F094 /* TestSettings.swift */,
+				147CEE8520729E5500CD6D2D /* TestDataSource.swift */,
+				146636F32082482F00D68EB4 /* TestSettings.swift */,
+				14276D662072D7C900952C27 /* Mocks */,
+				147CEE962072C8BA00CD6D2D /* Controllers */,
 				14DC60832022794300DE6A6C /* Info.plist */,
 			);
 			path = SwiftyTests;
@@ -437,6 +472,8 @@
 			files = (
 				149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */,
 				149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */,
+				14276D622072D3EA00952C27 /* TestTableCell.xib in Resources */,
+				14276D652072D55D00952C27 /* TestTableAnotherCell.xib in Resources */,
 				149AEAB21EC5F8CD00F16858 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,6 +506,7 @@
 				1838FE6E20613E1A00629F64 /* PhotoPickerDelegate.swift in Sources */,
 				1499DBBA1ECC7BE90080B5AB /* NotificationDescriptor.swift in Sources */,
 				149AEAAD1EC5F8CD00F16858 /* AppDelegate.swift in Sources */,
+				14276D612072D3E100952C27 /* TestTableCell.swift in Sources */,
 				1499DB9F1ECC7BE90080B5AB /* StateController.swift in Sources */,
 				1499DBBC1ECC7BE90080B5AB /* SortDescriptor.swift in Sources */,
 				1499DBB01ECC7BE90080B5AB /* Array.swift in Sources */,
@@ -489,6 +527,7 @@
 				1499DBB11ECC7BE90080B5AB /* Dictionary.swift in Sources */,
 				183691181FA8913E007EC646 /* Application.swift in Sources */,
 				188347E11FE81C3D00CB783F /* Progress.swift in Sources */,
+				147CEE8D2072BE5F00CD6D2D /* Swifty.xcdatamodeld in Sources */,
 				1499DBB41ECC7BE90080B5AB /* String.swift in Sources */,
 				1499DBA21ECC7BE90080B5AB /* Atomic.swift in Sources */,
 				1499DBB31ECC7BE90080B5AB /* Foundation.swift in Sources */,
@@ -512,9 +551,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1860BDDC207F5E7300F7F094 /* TestSettings.swift in Sources */,
+				146636F42082482F00D68EB4 /* TestSettings.swift in Sources */,
+				147CEE912072C5C900CD6D2D /* TestTableController.swift in Sources */,
+				147CEE8B2072B55400CD6D2D /* Swifty.xcdatamodeld in Sources */,
 				14DC608A2022795D00DE6A6C /* TestObservable.swift in Sources */,
-				14DC60822022794300DE6A6C /* SwiftyTests.swift in Sources */,
+				14276D682072D7D500952C27 /* MockTableView.swift in Sources */,
+				147CEE8620729E5500CD6D2D /* TestDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +800,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				147CEE8A2072B55400CD6D2D /* Swifty.xcdatamodel */,
+			);
+			currentVersion = 147CEE8A2072B55400CD6D2D /* Swifty.xcdatamodel */;
+			path = Swifty.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 149AEAA11EC5F8CD00F16858 /* Project object */;
 }

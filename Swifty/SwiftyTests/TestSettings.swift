@@ -23,6 +23,9 @@ enum TestKeys: String, SettingKey {
     case intEnum
     case stringEnum
 
+    case array
+    case dict
+
     case object
 
     static var allKeys: [TestKeys] = [.bool, .string, .data, .integer, .float, .double, .number, .intEnum, .stringEnum, .object]
@@ -159,7 +162,22 @@ class SettingsTests: XCTestCase {
 
     }
 
-    /*
+    func testContainers() {
+        let arrayValue = ["One", "Two"]
+
+        settings[.array] = arrayValue
+
+        let array: [String]? = settings[.array]
+        XCTAssertEqual(array, arrayValue)
+
+        let dictValue = ["One": 1, "Two": 2]
+        settings[.dict] = dictValue
+
+        let dict: [String:Int]? = settings[.dict]
+        XCTAssertEqual(dict, dictValue)
+
+    }
+
     func testCodable() {
 
         struct TestObject: Codable {
@@ -169,14 +187,13 @@ class SettingsTests: XCTestCase {
 
         let value = TestObject(id: 1, name: "test")
 
-        settings[.object] = value
+        settings.set(value, key: .object)
 
-        let object: TestObject? = settings[.object]
+        let object: TestObject? = settings.object(key: .object)
 
         XCTAssertEqual(object?.id, value.id)
         XCTAssertEqual(object?.name, value.name)
 
     }
-     */
 
 }

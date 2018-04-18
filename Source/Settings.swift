@@ -28,6 +28,9 @@ extension Float: SettingValue {}
 extension Double: SettingValue {}
 extension NSNumber: SettingValue {}
 
+extension Array: SettingValue where Element: SettingValue {}
+extension Dictionary: SettingValue where Value: SettingValue {}
+
 open class Settings<Key: SettingKey> {
     
     public let defaults: UserDefaults
@@ -92,6 +95,13 @@ open class Settings<Key: SettingKey> {
         }
     }
     */
+
+    public func object<Object: Codable>(key: Key) -> Object? {
+        let decoder = PropertyListDecoder()
+        let data = self.get(key: key) as? Data
+        let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
+        return object
+    }
 }
 
 private extension Settings {
