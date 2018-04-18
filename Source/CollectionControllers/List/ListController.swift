@@ -9,7 +9,7 @@ public protocol ListControllerDataSource: class {
     func canLoadMore(after page: ListPage, loaded objects: [ListObject]) -> Bool
 }
 
-extension ListControllerDataSource {
+public extension ListControllerDataSource {
     func canLoadMore(after page: ListPage, loaded objects: [ListObject]) -> Bool {
         return objects.count < page.size
     }
