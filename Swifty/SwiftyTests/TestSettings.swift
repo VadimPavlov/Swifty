@@ -10,6 +10,8 @@ import XCTest
 @testable import Swifty
 
 enum TestKeys: String, SettingKey {
+
+    case bool
     case string
     case data
 
@@ -23,7 +25,7 @@ enum TestKeys: String, SettingKey {
 
     case object
 
-    static var allKeys: [TestKeys] = [.string, .data, .integer, .float, .double, .number, .intEnum, .stringEnum, .object]
+    static var allKeys: [TestKeys] = [.bool, .string, .data, .integer, .float, .double, .number, .intEnum, .stringEnum, .object]
 }
 
 class TestSettings: Settings<TestKeys> {
@@ -76,6 +78,14 @@ class SettingsTests: XCTestCase {
 
         XCTAssertEqual(string, stringValue)
         XCTAssertEqual(nsstring, stringValue as NSString)
+    }
+
+    func testBool() {
+        let boolValue: Bool = false
+        settings[.bool] = boolValue
+
+        let bool: Bool? = settings[.bool]
+        XCTAssertEqual(bool, boolValue)
     }
 
     func testNumbers() {

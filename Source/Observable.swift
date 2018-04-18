@@ -33,8 +33,8 @@ final public class Observable<Value> {
         }
     }
 
-    public func observe(skipCurrent: Bool = false, observer: @escaping Observer) -> Disposable {
-        if !skipCurrent {
+    public func observe(onlyNew: Bool = false, observer: @escaping Observer) -> Disposable {
+        if !onlyNew {
             observer(self.value)
         }
 

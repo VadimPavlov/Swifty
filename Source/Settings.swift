@@ -17,6 +17,7 @@ public protocol SettingKey {
 
 public protocol SettingValue {}
 
+extension Bool: SettingValue {}
 extension String: SettingValue {}
 extension NSString: SettingValue {}
 
@@ -53,6 +54,24 @@ open class Settings<Key: SettingKey> {
         }
     }
 
+    public func set<Object: Codable>(_ object: Object?, key: Key) {
+        if let object = object {
+            let encoder = PropertyListEncoder()
+            let data = try? encoder.encode(object)
+            self.set(value: data, forKey: key)
+        } else {
+            self.set(value: nil, forKey: key)
+        }
+    }
+
+    public func object<Object: Codable>(_ key: Key) -> Object? {
+        let decoder = PropertyListDecoder()
+        let data = self.get(key: key) as? Data
+        let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
+        return object
+    }
+
+    /*
     public subscript<Object: Codable>(key: Key) -> Object? {
         set {
             if let value = newValue as? SettingValue {
@@ -72,6 +91,7 @@ open class Settings<Key: SettingKey> {
             return object
         }
     }
+    */
 }
 
 private extension Settings {

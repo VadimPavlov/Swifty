@@ -6,6 +6,13 @@ import Foundation
 
 public protocol ListControllerDataSource: class {
     func loadPage(_ page: ListPage) -> Future<[ListObject]>
+    func canLoadMore(after page: ListPage, loaded objects: [ListObject]) -> Bool
+}
+
+extension ListControllerDataSource {
+    func canLoadMore(after page: ListPage, loaded objects: [ListObject]) -> Bool {
+        return objects.count < page.size
+    }
 }
 
 open class ListController: StateController<ListViewState> {
@@ -133,7 +140,12 @@ open class ListController: StateController<ListViewState> {
         self.currentPage = page.number
         self.lastID = objects.last?.listID
 
-        if objects.count < page.size {
+        // ask data source first
+        if let canLoadMore = self.dataSource?.canLoadMore(after: page, loaded: objects) {
+            if self.state.canLoadMore != canLoadMore {
+                self.state.canLoadMore = canLoadMore
+            }
+        } else if objects.count < page.size {
             self.state.canLoadMore = false
         }
 
