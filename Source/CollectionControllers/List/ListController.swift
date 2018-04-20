@@ -21,7 +21,7 @@ open class ListController: StateController<ListViewState> {
     public let firstPage: Int
     public var currentPage: Int
     public var lastID: String?
-
+    public var section: Int = 0
 
     public private(set) var objects: [ListObject]
     public weak var dataSource: ListControllerDataSource?
@@ -171,7 +171,7 @@ public extension ListController {
         let index = self.objects.index { $0.listID == object.listID }
         if let item = index {
             
-            let ip = IndexPath(item: item, section: 0)
+            let ip = IndexPath(item: item, section: section)
             let update = BatchUpdate(reloadRows: [ip])
             
             self.objects[item] = object
@@ -185,7 +185,7 @@ public extension ListController {
         let upper = lower + newObjects.count
         let range = lower..<upper
         
-        let inserted = range.map { IndexPath(row: $0, section: 0) }
+        let inserted = range.map { IndexPath(row: $0, section: section) }
         let update = BatchUpdate(insertRows: inserted)
         
         self.objects.append(contentsOf: newObjects)
@@ -193,7 +193,7 @@ public extension ListController {
     }
     
     func insertObject(_ object: ListObject, at index: Int = 0) {
-        let indexPath = IndexPath(row: index, section: 0)
+        let indexPath = IndexPath(row: index, section: section)
         let update = BatchUpdate(insertRows: [indexPath])
 
         self.objects.insert(object, at: index)
@@ -207,7 +207,7 @@ public extension ListController {
         let upper = lower + newObjects.count
         let range = lower..<upper
         
-        let inserted = range.map { IndexPath(row: $0, section: 0) }
+        let inserted = range.map { IndexPath(row: $0, section: section) }
         let update = BatchUpdate(insertRows: inserted)
 
         self.listUpdate?(update)
@@ -215,7 +215,7 @@ public extension ListController {
 
     // MARK: - Remove
     func removeObject(at index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
+        let indexPath = IndexPath(row: index, section: section)
         let update = BatchUpdate(deleteRows: [indexPath])
         self.objects.remove(at: index)
         self.listUpdate?(update)
@@ -237,7 +237,7 @@ public extension ListController {
             let contains = reversedObjects.contains { $0.listID == object.listID }
             if contains {
                 self.objects.remove(at: idx)
-                let ip = IndexPath(row: idx, section: 0)
+                let ip = IndexPath(row: idx, section: section)
                 indexPaths.insert(ip, at: 0)
             }
         }
@@ -253,8 +253,8 @@ public extension ListController {
     }
 
     func move(from: Int, to index: Int) {
-        let at = IndexPath(row: from, section: 0)
-        let to = IndexPath(row: index, section: 0)
+        let at = IndexPath(row: from, section: section)
+        let to = IndexPath(row: index, section: section)
 
         let move = Move<IndexPath>(at: at, to: to)
         let update = BatchUpdate(moveRows: [move])
