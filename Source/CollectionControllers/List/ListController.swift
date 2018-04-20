@@ -11,7 +11,7 @@ public protocol ListControllerDataSource: class {
 
 public extension ListControllerDataSource {
     func canLoadMore(after page: ListPage, loaded objects: [ListObject]) -> Bool {
-        return objects.count < page.size
+        return objects.count == page.size
     }
 }
 
@@ -21,6 +21,7 @@ open class ListController: StateController<ListViewState> {
     public let firstPage: Int
     public var currentPage: Int
     public var lastID: String?
+
 
     public private(set) var objects: [ListObject]
     public weak var dataSource: ListControllerDataSource?
