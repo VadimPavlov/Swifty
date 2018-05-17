@@ -19,12 +19,14 @@ public struct PickedPhoto {
     public let original: UIImage?
     public let edited: UIImage?
     public let cropRect: CGRect?
+    public let metadata: [String: Any]?
 
     init(info: [String: Any]) {
         type = info[UIImagePickerControllerMediaType] as? String
         edited = info[UIImagePickerControllerEditedImage] as? UIImage
         original = info[UIImagePickerControllerOriginalImage] as? UIImage
         cropRect = info[UIImagePickerControllerCropRect] as? CGRect
+        metadata = info[UIImagePickerControllerMediaMetadata] as? [String: Any]
 
         // TODO: ensure urls correctness
         if #available(iOS 11.0, *) {
