@@ -167,7 +167,7 @@ public extension ListController {
         updateList()
     }
     
-    func updateObject(_ object: ListObject) {
+    func updateObject(_ object: ListObject) -> Int? {
         let index = self.objects.index { $0.listID == object.listID }
         if let item = index {
             
@@ -177,6 +177,8 @@ public extension ListController {
             self.objects[item] = object
             self.listUpdate?(update)
         }
+
+        return index
     }
     // MARK: Insert
     func appendObjects(_ newObjects: [ListObject]) {
@@ -221,11 +223,12 @@ public extension ListController {
         self.listUpdate?(update)
     }
     
-    func removeObject(_ object: ListObject) {
+    func removeObject(_ object: ListObject) -> Int? {
         let index = self.objects.index { $0.listID == object.listID }
         if let index = index {
             self.removeObject(at: index)
         }
+        return index
     }
     
     func removeObjects(_ objects: [ListObject]) {
