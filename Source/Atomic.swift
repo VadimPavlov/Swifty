@@ -10,7 +10,7 @@ import Foundation
 
 public class Atomic<A> {
     private var _value: A
-    private let queue = DispatchQueue(label: "serial." + String(describing: A.self).lowercased())
+    private let queue = DispatchQueue(label: "atomic." + String(describing: A.self).lowercased())
 
     public init(_ value: A) {
         _value = value

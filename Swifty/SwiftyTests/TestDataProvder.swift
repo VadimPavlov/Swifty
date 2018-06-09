@@ -1,5 +1,5 @@
 //
-//  TestDataSource.swift
+//  TestDataProvider.swift
 //  SwiftyTests
 //
 //  Created by Vadym Pavlov on 02.04.18.
@@ -21,12 +21,12 @@ final class TestEntity: NSManagedObject {
 }
 
 
-class TestDataSource: XCTestCase {
+class TestDataProvider: XCTestCase {
 
 //    let delegate = FRCDelegate()
 
     func testEmpty() {
-        let ds = DataSource([])
+        let ds = DataProvider([])
 
         XCTAssertEqual(ds.numberOfSection(), 1)
         XCTAssertEqual(ds.numberOfObjectsInSection(0), 0)
@@ -35,7 +35,7 @@ class TestDataSource: XCTestCase {
     func testArray() {
         let array = ["1", "2", "3", "4", "5"]
 
-        let ds = DataSource(array)
+        let ds = DataProvider(array)
 
         XCTAssertEqual(ds.numberOfSection(), 1)
         XCTAssertEqual(ds.numberOfObjectsInSection(0), 5)
@@ -45,7 +45,7 @@ class TestDataSource: XCTestCase {
         let section1 = Section(title: "First", objects: [0,1,2])
         let section2 = Section(title: "Second", objects: [3,4])
 
-        let ds = DataSource(sections: [section1, section2])
+        let ds = DataProvider(sections: [section1, section2])
 
         XCTAssertEqual(ds.numberOfSection(), 2)
         XCTAssertEqual(ds.numberOfObjectsInSection(0), 3)
@@ -77,7 +77,7 @@ class TestDataSource: XCTestCase {
         request.sortDescriptors = [sort]
 
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        let ds = DataSource(frc: frc)
+        let ds = DataProvider(frc: frc)
 
         XCTAssertEqual(ds.numberOfSection(), 0)
         XCTAssertEqual(ds.numberOfObjectsInSection(0), 0)
@@ -97,7 +97,7 @@ class TestDataSource: XCTestCase {
         request.sortDescriptors = [sort]
 
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        let ds = DataSource(frc: frc)
+        let ds = DataProvider(frc: frc)
 
         try? frc.performFetch()
 
@@ -125,7 +125,7 @@ class TestDataSource: XCTestCase {
         request.sortDescriptors = [sort]
 
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: groupKey, cacheName: nil)
-        let ds = DataSource(frc: frc)
+        let ds = DataProvider(frc: frc)
 
         try! frc.performFetch()
 

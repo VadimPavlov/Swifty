@@ -6,7 +6,7 @@ import UIKit
 
 open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSource {
     
-    private var dataSource: DataSource<Object>
+    private var dataProvider: DataProvider<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
     private var registeredCells: Set<String> = []
     private var registeredElements: Set<String> = []
@@ -16,29 +16,23 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     public typealias Supplementary = (IndexPath) -> SupplementaryDescriptor
     public var supplementaryDescriptor: Supplementary?
     
-    public weak var collectionView: UICollectionView? {
-        didSet { self.adapt(collectionView)}
-    }
+    public var collectionView: UICollectionView
 
-    public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.collectionView = collectionView
-        self.dataSource = dataSource
+        self.dataProvider = provider
         self.cellDescriptor = cellDescriptor
         super.init()
-        self.adapt(collectionView)
+        collectionView.dataSource = self
     }
-    
-    private func adapt(_ collectionView: UICollectionView?) {
-        collectionView?.dataSource = self
-    }
-    
+
     // MARK: - DataSource
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource.numberOfSection()
+        return dataProvider.numberOfSection()
     }
 
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.numberOfObjectsInSection(section)
+        return dataProvider.numberOfObjectsInSection(section)
     }
     
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,67 +58,62 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     // MARK: - Objects
     open func title(for section: Int) -> String? {
-        return dataSource.titleInSection(section)
+        return dataProvider.titleInSection(section)
     }
 
     open func object(at indexPath: IndexPath) -> Object {
-        return dataSource.objectAtIndexPath(indexPath)
+        return dataProvider.objectAtIndexPath(indexPath)
     }
     
     open var selectedObject: Object? {
-        let indexPath = self.collectionView?.indexPathsForSelectedItems?.first
+        let indexPath = self.collectionView.indexPathsForSelectedItems?.first
         return indexPath.map { self.object(at: $0) }
     }
     
     open var selectedObjects: [Object] {
-        let indexPaths = self.collectionView?.indexPathsForSelectedItems ?? []
+        let indexPaths = self.collectionView.indexPathsForSelectedItems ?? []
         return indexPaths.map { self.object(at: $0) }
     }
     
     // MARK: - Updates
     public typealias UpdateCompletion = (Bool) -> Void
-    
-    public func update(dataSource: DataSource<Object>) {
-        if self.dataSource != dataSource {
-            self.dataSource = dataSource
-            self.collectionView?.reloadData()
-        }
-    }
-    
-    public func update(dataSource: DataSource<Object>, batch: BatchUpdate, completion: UpdateCompletion? = nil) {
-        if self.dataSource != dataSource {
-            self.dataSource = dataSource
+    public func update(provider: DataProvider<Object>, batch: BatchUpdate? = nil, completion: UpdateCompletion? = nil) {
+        guard self.dataProvider !== provider else { return }
+        self.dataProvider = provider
+        if let batch = batch {
             self.performBatch(batch, completion: completion)
+        } else {
+            self.collectionView.reloadData()
         }
     }
     
     internal func performBatch(_ update: BatchUpdate, completion: UpdateCompletion? = nil) {
         
-        collectionView?.performBatchUpdates({
-            self.collectionView?.deleteSections(update.deleteSections)
-            self.collectionView?.insertSections(update.insertSections)
-            self.collectionView?.reloadSections(update.reloadSections)
+        collectionView.performBatchUpdates({
+            self.collectionView.deleteSections(update.deleteSections)
+            self.collectionView.insertSections(update.insertSections)
+            self.collectionView.reloadSections(update.reloadSections)
             
             update.moveSections.forEach { move in
-                self.collectionView?.moveSection(move.at, toSection: move.to)
+                self.collectionView.moveSection(move.at, toSection: move.to)
             }
 
-            self.collectionView?.deleteItems(at: update.deleteRows)
-            self.collectionView?.insertItems(at: update.insertRows)
+            self.collectionView.deleteItems(at: update.deleteRows)
+            self.collectionView.insertItems(at: update.insertRows)
             
             // Reloads can not be used in conjunction with other changes
             // https://techblog.badoo.com/blog/2015/10/08/batch-updates-for-uitableview-and-uicollectionview/
             update.reloadRows.forEach(self.reloadCell)
             
             update.moveRows.forEach { move in
-                self.collectionView?.moveItem(at: move.at, to: move.to)
+                self.collectionView.moveItem(at: move.at, to: move.to)
             }
 
         }, completion: completion)
     }
 
     private func reloadCell(at indexPath: IndexPath) {
-        guard let cell = collectionView?.cellForItem(at: indexPath) else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let object = self.object(at: indexPath)
         let descriptor = self.cellDescriptor(object)
         descriptor.configure(cell)
@@ -140,14 +129,14 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         switch register {
         case .cls:
             let cls = descriptor.cellClass as! UICollectionViewCell.Type
-            collectionView?.register(cls, forCellWithReuseIdentifier: identifier)
+            collectionView.register(cls, forCellWithReuseIdentifier: identifier)
         case .nib:
             let name = String(describing: descriptor.cellClass)
             let nib = UINib(nibName: name, bundle: nil)
-            collectionView?.register(nib, forCellWithReuseIdentifier: identifier)
+            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         case .nibName(let name):
             let nib = UINib(nibName: name, bundle: nil)
-            collectionView?.register(nib, forCellWithReuseIdentifier: identifier)
+            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         }
         registeredCells.insert(identifier)
     }
@@ -160,14 +149,14 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         switch register {
         case .cls:
             let cls = descriptor.elementCls
-            collectionView?.register(cls, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+            collectionView.register(cls, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
         case .nib:
             let name = String(describing: descriptor.elementCls)
             let nib = UINib(nibName: name, bundle: nil)
-            collectionView?.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+            collectionView.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
         case .nibName(let name):
             let nib = UINib(nibName: name, bundle: nil)
-            collectionView?.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+            collectionView.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
         }
         registeredElements.insert(identifier)
     }
@@ -175,8 +164,8 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
-    public init(collectionView: UICollectionView, dataSource: DataSource<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
-        super.init(collectionView: collectionView, dataSource: dataSource) { object in
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, provider: provider) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
             })

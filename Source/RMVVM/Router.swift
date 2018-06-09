@@ -4,6 +4,8 @@
 
 import UIKit
 
+// https://github.com/mac-cain13/R.swift
+@available(*, deprecated, message: "Use R.swift for strong typed segues")
 public protocol Router {
     associatedtype Segue: RawRepresentable
     func performSegue(_ segue: Segue, sender: Any?)

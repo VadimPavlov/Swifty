@@ -15,8 +15,8 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
     public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
 
         self.frc = frc
-        let dataSource = DataSource(frc: frc)
-        super.init(collectionView: collectionView, dataSource: dataSource, cellDescriptor: cellDescriptor)
+        let provider = DataProvider(frc: frc)
+        super.init(collectionView: collectionView, provider: provider, cellDescriptor: cellDescriptor)
         frc.delegate = self
         
         if observePredicate {

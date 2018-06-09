@@ -2,7 +2,7 @@
 //  BatchUpdate.swift
 //  Created by Vadim Pavlov on 2/21/17.
 
-import Foundation
+import UIKit
 import CoreData
 
 public struct Move<Index: Equatable> {
@@ -22,7 +22,9 @@ extension Move: Equatable {
 }
 
 public struct BatchUpdate: CustomStringConvertible {
-   
+
+    public var animation: UITableViewRowAnimation = .automatic
+
     public var deleteSections: IndexSet
     public var insertSections: IndexSet
     public var reloadSections: IndexSet

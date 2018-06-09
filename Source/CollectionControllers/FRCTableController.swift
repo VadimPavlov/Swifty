@@ -15,9 +15,9 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     
     public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.frc = frc
-        let dataSource = DataSource(frc: frc)
+        let provider = DataProvider(frc: frc)
 
-        super.init(tableView: tableView, dataSource: dataSource, cellDescriptor: cellDescriptor)
+        super.init(tableView: tableView, provider: provider, cellDescriptor: cellDescriptor)
         frc.delegate = self
         
         if observePredicate {
@@ -43,12 +43,12 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     }
     
     open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView?.beginUpdates()
+        tableView.beginUpdates()
         if let update = self.frcUpdate {
-            self.performBatch(update, animation: self.animation)
+            self.performBatch(update)
             frcUpdate = nil
         }
-        tableView?.endUpdates()
+        tableView.endUpdates()
     }
     
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
