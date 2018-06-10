@@ -7,23 +7,23 @@ import UIKit
 @IBDesignable
 public class UIGradientView: UIView {
     
-    @IBInspectable var startColor: UIColor = .black {
+    @IBInspectable public var startColor: UIColor = .black {
         didSet {
             self.updateColors()
         }
     }
-    @IBInspectable var endColor: UIColor = .white {
+    @IBInspectable public var endColor: UIColor = .white {
         didSet {
             self.updateColors()
         }
     }
     
-    @IBInspectable var startPoint: CGPoint = CGPoint(x: 0.5, y: 0) {
+    @IBInspectable public var startPoint: CGPoint = CGPoint(x: 0.5, y: 0) {
         willSet {
             self.gradientLayer.startPoint = newValue
         }
     }
-    @IBInspectable var endPoint: CGPoint = CGPoint(x: 0.5, y: 1) {
+    @IBInspectable public var endPoint: CGPoint = CGPoint(x: 0.5, y: 1) {
         willSet {
             self.gradientLayer.endPoint = newValue
         }
