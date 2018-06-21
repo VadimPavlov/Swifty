@@ -35,7 +35,7 @@ public struct PickedMedia {
         } else if #available(iOS 11.0, *) {
 //            let live = info[UIImagePickerControllerLivePhoto]
 //            let asset = info[UIImagePickerControllerPHAsset]
-                url = info[UIImagePickerControllerImageURL] as? URL
+            url = info[UIImagePickerControllerImageURL] as? URL
         } else {
             url = info[UIImagePickerControllerReferenceURL] as? URL
         }
