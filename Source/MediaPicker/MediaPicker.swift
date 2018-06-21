@@ -1,5 +1,5 @@
 //
-//  PhotoPicker.swift
+//  MediaPicker.swift
 //  FunMiles
 //
 //  Created by Vadim Pavlov on 10/10/17.
@@ -8,19 +8,20 @@
 
 import UIKit
 
-public typealias PhotoPickCompletion = (PickedPhoto) -> Void
+public typealias MediaPickCompletion = (PickedMedia) -> Void
+public typealias MediaPickerConfig = (UIImagePickerController) -> Void
 
-final public class PhotoPicker {
+final public class MediaPicker {
  
-    public static func present(in viewController: PhotoPickerDelegate, allowsEditing: Bool = true, completion: @escaping PhotoPickCompletion) {
+    public static func present(in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let camera = UIAlertAction(title: NSLocalizedString("Camera", comment: ""), style: .default) { _ in
-            presentPicker(sourceType: .camera, in: viewController, allowsEditing: allowsEditing, completion: completion)
+            presentPicker(sourceType: .camera, in: viewController, config: config, completion: completion)
         }
         
         let library = UIAlertAction(title: NSLocalizedString("Library", comment: ""), style: .default) { _ in
-            presentPicker(sourceType: .photoLibrary, in: viewController, allowsEditing: allowsEditing, completion: completion)
+            presentPicker(sourceType: .photoLibrary, in: viewController, config: config, completion: completion)
         }
         let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         
@@ -30,16 +31,16 @@ final public class PhotoPicker {
         viewController.present(sheet, animated: true, completion: nil)
     }
     
-    static func presentPicker(sourceType: UIImagePickerControllerSourceType, in viewController: PhotoPickerDelegate, allowsEditing: Bool, completion: @escaping PhotoPickCompletion) {
+    static func presentPicker(sourceType: UIImagePickerControllerSourceType, in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
         let picker = ImagePickerController()
-        picker.allowsEditing = allowsEditing
-        picker.sourceType = sourceType
         picker.delegate = viewController
+        picker.sourceType = sourceType
         picker.completion = completion
+        config?(picker)
         viewController.present(picker, animated: true, completion: nil)
     }
 }
 
 final class ImagePickerController: UIImagePickerController {
-    var completion: PhotoPickCompletion?
+    var completion: MediaPickCompletion?
 }

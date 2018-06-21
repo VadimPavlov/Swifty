@@ -1,5 +1,5 @@
 //
-//  PhotoPickerDelegate.swift
+//  MediaPickerDelegate.swift
 //  FunMiles
 //
 //  Created by Vadim Pavlov on 10/10/17.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-public protocol PhotoPickerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public protocol MediaPickerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
 }
 
-public struct PickedPhoto {
+public struct PickedMedia {
 
     public let url: URL?
     public let type: String?
@@ -39,7 +39,7 @@ public struct PickedPhoto {
     }
 }
 
-extension UIViewController: PhotoPickerDelegate {
+extension UIViewController: MediaPickerDelegate {
     
     open func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -47,7 +47,7 @@ extension UIViewController: PhotoPickerDelegate {
 
     open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let picker = picker as? ImagePickerController {
-            let photo = PickedPhoto(info: info)
+            let photo = PickedMedia(info: info)
             picker.completion?(photo)
         }
 
