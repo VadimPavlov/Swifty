@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 public protocol MediaPickerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
@@ -28,13 +29,16 @@ public struct PickedMedia {
         cropRect = info[UIImagePickerControllerCropRect] as? CGRect
         metadata = info[UIImagePickerControllerMediaMetadata] as? [String: Any]
 
-        // TODO: ensure urls correctness
-        if #available(iOS 11.0, *) {
-            url = info[UIImagePickerControllerImageURL] as? URL
+        if type == String(kUTTypeMovie) {
+            url = info[UIImagePickerControllerMediaURL] as? URL
+        } else {
+            if #available(iOS 11.0, *) {
 //            let live = info[UIImagePickerControllerLivePhoto]
 //            let asset = info[UIImagePickerControllerPHAsset]
-        } else {
-            url = info[UIImagePickerControllerReferenceURL] as? URL
+                url = info[UIImagePickerControllerImageURL] as? URL
+            } else {
+                url = info[UIImagePickerControllerReferenceURL] as? URL
+            }
         }
     }
 }
