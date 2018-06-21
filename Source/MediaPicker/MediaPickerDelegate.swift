@@ -29,6 +29,7 @@ public struct PickedMedia {
         cropRect = info[UIImagePickerControllerCropRect] as? CGRect
         metadata = info[UIImagePickerControllerMediaMetadata] as? [String: Any]
 
+        // TODO: Test URLs on iOS 10
         if type == String(kUTTypeMovie) {
             url = info[UIImagePickerControllerMediaURL] as? URL
         } else {
