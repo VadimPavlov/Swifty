@@ -32,14 +32,12 @@ public struct PickedMedia {
         // TODO: Test URLs on iOS 10
         if type == String(kUTTypeMovie) {
             url = info[UIImagePickerControllerMediaURL] as? URL
-        } else {
-            if #available(iOS 11.0, *) {
+        } else if #available(iOS 11.0, *) {
 //            let live = info[UIImagePickerControllerLivePhoto]
 //            let asset = info[UIImagePickerControllerPHAsset]
                 url = info[UIImagePickerControllerImageURL] as? URL
-            } else {
-                url = info[UIImagePickerControllerReferenceURL] as? URL
-            }
+        } else {
+            url = info[UIImagePickerControllerReferenceURL] as? URL
         }
     }
 }
