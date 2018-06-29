@@ -26,7 +26,7 @@ extension UITableView: BatchSizable {
 }
 
 extension UICollectionView: BatchSizable {
-    
+
     public var batchSize: Int {
 
         guard let flow = collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }

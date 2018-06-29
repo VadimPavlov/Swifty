@@ -197,10 +197,9 @@
 		1499DB6A1ECC7BE90080B5AB /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1499DB6B1ECC7BE90080B5AB /* RMVVM */,
+				1499DB6B1ECC7BE90080B5AB /* MVVM */,
 				1499DB721ECC7BE90080B5AB /* Atomic.swift */,
 				1884F6791F9A2854008BCA93 /* Settings.swift */,
-				1884F6771F9A2811008BCA93 /* Primitives.swift */,
 				14DC60792022735800DE6A6C /* Observable.swift */,
 				14B4469520CBF887007D7091 /* Codable */,
 				1499DB731ECC7BE90080B5AB /* Controllers */,
@@ -218,15 +217,15 @@
 			path = ../../Source;
 			sourceTree = "<group>";
 		};
-		1499DB6B1ECC7BE90080B5AB /* RMVVM */ = {
+		1499DB6B1ECC7BE90080B5AB /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				1499DB6E1ECC7BE90080B5AB /* Router.swift */,
 				1499DB711ECC7BE90080B5AB /* ViewType.swift */,
 				1499DB701ECC7BE90080B5AB /* ViewModel.swift */,
 				1499DB6F1ECC7BE90080B5AB /* StateController.swift */,
+				1499DB6E1ECC7BE90080B5AB /* Router.swift */,
 			);
-			path = RMVVM;
+			path = MVVM;
 			sourceTree = "<group>";
 		};
 		1499DB731ECC7BE90080B5AB /* Controllers */ = {
@@ -268,6 +267,7 @@
 		1499DB821ECC7BE90080B5AB /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				1884F6771F9A2811008BCA93 /* Primitives.swift */,
 				1499DB831ECC7BE90080B5AB /* BatchSizable.swift */,
 			);
 			path = CoreData;
