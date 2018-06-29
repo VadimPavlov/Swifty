@@ -1,5 +1,5 @@
 //
-//  PhotoPickerDelegate.swift
+//  MediaPickerDelegate.swift
 //  FunMiles
 //
 //  Created by Vadim Pavlov on 10/10/17.
@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-public protocol PhotoPickerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public protocol MediaPickerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
 }
 
-public struct PickedPhoto {
+public struct PickedMedia {
 
     public let url: URL?
     public let type: String?
@@ -28,18 +29,20 @@ public struct PickedPhoto {
         cropRect = info[UIImagePickerControllerCropRect] as? CGRect
         metadata = info[UIImagePickerControllerMediaMetadata] as? [String: Any]
 
-        // TODO: ensure urls correctness
-        if #available(iOS 11.0, *) {
-            url = info[UIImagePickerControllerImageURL] as? URL
+        // TODO: Test URLs on iOS 10
+        if type == String(kUTTypeMovie) {
+            url = info[UIImagePickerControllerMediaURL] as? URL
+        } else if #available(iOS 11.0, *) {
 //            let live = info[UIImagePickerControllerLivePhoto]
 //            let asset = info[UIImagePickerControllerPHAsset]
+                url = info[UIImagePickerControllerImageURL] as? URL
         } else {
             url = info[UIImagePickerControllerReferenceURL] as? URL
         }
     }
 }
 
-extension UIViewController: PhotoPickerDelegate {
+extension UIViewController: MediaPickerDelegate {
     
     open func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -47,7 +50,7 @@ extension UIViewController: PhotoPickerDelegate {
 
     open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let picker = picker as? ImagePickerController {
-            let photo = PickedPhoto(info: info)
+            let photo = PickedMedia(info: info)
             picker.completion?(photo)
         }
 

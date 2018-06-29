@@ -62,8 +62,8 @@
 		14DC607A2022735800DE6A6C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60792022735800DE6A6C /* Observable.swift */; };
 		14DC608A2022795D00DE6A6C /* TestObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60892022795D00DE6A6C /* TestObservable.swift */; };
 		183691181FA8913E007EC646 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183691171FA8913E007EC646 /* Application.swift */; };
-		1838FE6D20613E1A00629F64 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838FE6B20613E1A00629F64 /* PhotoPicker.swift */; };
-		1838FE6E20613E1A00629F64 /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838FE6C20613E1A00629F64 /* PhotoPickerDelegate.swift */; };
+		1838FE6D20613E1A00629F64 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838FE6B20613E1A00629F64 /* MediaPicker.swift */; };
+		1838FE6E20613E1A00629F64 /* MediaPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838FE6C20613E1A00629F64 /* MediaPickerDelegate.swift */; };
 		188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188347DE1FE8184B00CB783F /* BatchFuture.swift */; };
 		188347E11FE81C3D00CB783F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188347E01FE81C3D00CB783F /* Progress.swift */; };
 		1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6771F9A2811008BCA93 /* Primitives.swift */; };
@@ -140,8 +140,8 @@
 		14DC60832022794300DE6A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14DC60892022795D00DE6A6C /* TestObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObservable.swift; sourceTree = "<group>"; };
 		183691171FA8913E007EC646 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
-		1838FE6B20613E1A00629F64 /* PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
-		1838FE6C20613E1A00629F64 /* PhotoPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerDelegate.swift; sourceTree = "<group>"; };
+		1838FE6B20613E1A00629F64 /* MediaPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
+		1838FE6C20613E1A00629F64 /* MediaPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerDelegate.swift; sourceTree = "<group>"; };
 		188347DE1FE8184B00CB783F /* BatchFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchFuture.swift; sourceTree = "<group>"; };
 		188347E01FE81C3D00CB783F /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		1884F6771F9A2811008BCA93 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				1499DB901ECC7BE90080B5AB /* Notifications */,
 				1499DB941ECC7BE90080B5AB /* SortDescriptors */,
 				1499DB961ECC7BE90080B5AB /* UIKit */,
-				1838FE6A20613E1A00629F64 /* PhotoPicker */,
+				1838FE6A20613E1A00629F64 /* MediaPicker */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -390,13 +390,13 @@
 			path = SwiftyTests;
 			sourceTree = "<group>";
 		};
-		1838FE6A20613E1A00629F64 /* PhotoPicker */ = {
+		1838FE6A20613E1A00629F64 /* MediaPicker */ = {
 			isa = PBXGroup;
 			children = (
-				1838FE6B20613E1A00629F64 /* PhotoPicker.swift */,
-				1838FE6C20613E1A00629F64 /* PhotoPickerDelegate.swift */,
+				1838FE6B20613E1A00629F64 /* MediaPicker.swift */,
+				1838FE6C20613E1A00629F64 /* MediaPickerDelegate.swift */,
 			);
-			path = PhotoPicker;
+			path = MediaPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -505,7 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1838FE6D20613E1A00629F64 /* PhotoPicker.swift in Sources */,
+				1838FE6D20613E1A00629F64 /* MediaPicker.swift in Sources */,
 				1499DBB61ECC7BE90080B5AB /* Result.swift in Sources */,
 				1499DBA51ECC7BE90080B5AB /* CellDescriptor.swift in Sources */,
 				1499DBAE1ECC7BE90080B5AB /* TableController.swift in Sources */,
@@ -516,7 +516,7 @@
 				1499DBA11ECC7BE90080B5AB /* ViewType.swift in Sources */,
 				1499DBA01ECC7BE90080B5AB /* ViewModel.swift in Sources */,
 				142F279520540D660058EF40 /* UIImage.swift in Sources */,
-				1838FE6E20613E1A00629F64 /* PhotoPickerDelegate.swift in Sources */,
+				1838FE6E20613E1A00629F64 /* MediaPickerDelegate.swift in Sources */,
 				1499DBBA1ECC7BE90080B5AB /* NotificationDescriptor.swift in Sources */,
 				149AEAAD1EC5F8CD00F16858 /* AppDelegate.swift in Sources */,
 				14276D612072D3E100952C27 /* TestTableCell.swift in Sources */,
