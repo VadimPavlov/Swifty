@@ -11,7 +11,7 @@ import UIKit
 public typealias MediaPickCompletion = (PickedMedia) -> Void
 public typealias MediaPickerConfig = (UIImagePickerController) -> Void
 
-final public class MediaPicker {
+public enum MediaPicker {
  
     public static func present(in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -32,7 +32,7 @@ final public class MediaPicker {
     }
     
     static func presentPicker(sourceType: UIImagePickerControllerSourceType, in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
-        let picker = ImagePickerController()
+        let picker = MediaPickerController()
         picker.delegate = viewController
         picker.sourceType = sourceType
         picker.completion = completion
@@ -41,6 +41,6 @@ final public class MediaPicker {
     }
 }
 
-final class ImagePickerController: UIImagePickerController {
+final class MediaPickerController: UIImagePickerController {
     var completion: MediaPickCompletion?
 }

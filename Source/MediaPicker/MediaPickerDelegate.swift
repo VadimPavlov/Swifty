@@ -29,16 +29,17 @@ public struct PickedMedia {
         cropRect = info[UIImagePickerControllerCropRect] as? CGRect
         metadata = info[UIImagePickerControllerMediaMetadata] as? [String: Any]
 
-        // TODO: Test URLs on iOS 10
         if type == String(kUTTypeMovie) {
             url = info[UIImagePickerControllerMediaURL] as? URL
         } else if #available(iOS 11.0, *) {
-//            let live = info[UIImagePickerControllerLivePhoto]
-//            let asset = info[UIImagePickerControllerPHAsset]
-                url = info[UIImagePickerControllerImageURL] as? URL
+            url = info[UIImagePickerControllerImageURL] as? URL
         } else {
             url = info[UIImagePickerControllerReferenceURL] as? URL
         }
+
+        // TODO: Find out when this keys appear
+        // let live = info[UIImagePickerControllerLivePhoto]
+        // let asset = info[UIImagePickerControllerPHAsset]
     }
 }
 
@@ -49,7 +50,7 @@ extension UIViewController: MediaPickerDelegate {
     }
 
     open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        if let picker = picker as? ImagePickerController {
+        if let picker = picker as? MediaPickerController {
             let photo = PickedMedia(info: info)
             picker.completion?(photo)
         }
