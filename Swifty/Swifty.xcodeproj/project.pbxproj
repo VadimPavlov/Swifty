@@ -18,7 +18,6 @@
 		147CEE8D2072BE5F00CD6D2D /* Swifty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */; };
 		147CEE912072C5C900CD6D2D /* TestTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE902072C5C900CD6D2D /* TestTableController.swift */; };
 		148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */; };
-		148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */; };
 		149239361F8A4EA900ED2438 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149239351F8A4EA900ED2438 /* CoreGraphics.swift */; };
 		1499DB9E1ECC7BE90080B5AB /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6E1ECC7BE90080B5AB /* Router.swift */; };
 		1499DB9F1ECC7BE90080B5AB /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB6F1ECC7BE90080B5AB /* StateController.swift */; };
@@ -40,7 +39,6 @@
 		1499DBB01ECC7BE90080B5AB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB851ECC7BE90080B5AB /* Array.swift */; };
 		1499DBB11ECC7BE90080B5AB /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB861ECC7BE90080B5AB /* Dictionary.swift */; };
 		1499DBB21ECC7BE90080B5AB /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB871ECC7BE90080B5AB /* Dispatch.swift */; };
-		1499DBB31ECC7BE90080B5AB /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB881ECC7BE90080B5AB /* Foundation.swift */; };
 		1499DBB41ECC7BE90080B5AB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB891ECC7BE90080B5AB /* String.swift */; };
 		1499DBB51ECC7BE90080B5AB /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB8B1ECC7BE90080B5AB /* Future.swift */; };
 		1499DBB61ECC7BE90080B5AB /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1499DB8C1ECC7BE90080B5AB /* Result.swift */; };
@@ -94,7 +92,6 @@
 		147CEE922072C88900CD6D2D /* TestTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestTableCell.xib; sourceTree = "<group>"; };
 		147CEE942072C8AD00CD6D2D /* TestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableCell.swift; sourceTree = "<group>"; };
 		148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryDescriptor.swift; sourceTree = "<group>"; };
-		148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemRegistration.swift; sourceTree = "<group>"; };
 		149239351F8A4EA900ED2438 /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		1499DB6E1ECC7BE90080B5AB /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		1499DB6F1ECC7BE90080B5AB /* StateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
@@ -116,7 +113,6 @@
 		1499DB851ECC7BE90080B5AB /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		1499DB861ECC7BE90080B5AB /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		1499DB871ECC7BE90080B5AB /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
-		1499DB881ECC7BE90080B5AB /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		1499DB891ECC7BE90080B5AB /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		1499DB8B1ECC7BE90080B5AB /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		1499DB8C1ECC7BE90080B5AB /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -190,6 +186,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		1495C0AF20E6F7860097A120 /* Dispatch */ = {
+			isa = PBXGroup;
+			children = (
+				1499DB871ECC7BE90080B5AB /* Dispatch.swift */,
+			);
+			path = Dispatch;
+			sourceTree = "<group>";
+		};
 		1499DB6A1ECC7BE90080B5AB /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,9 +203,10 @@
 				1884F6771F9A2811008BCA93 /* Primitives.swift */,
 				14DC60792022735800DE6A6C /* Observable.swift */,
 				14B4469520CBF887007D7091 /* Codable */,
-				1499DB731ECC7BE90080B5AB /* CollectionControllers */,
+				1499DB731ECC7BE90080B5AB /* Controllers */,
 				1499DB821ECC7BE90080B5AB /* CoreData */,
 				1499DB841ECC7BE90080B5AB /* Foundation */,
+				1495C0AF20E6F7860097A120 /* Dispatch */,
 				1499DB8A1ECC7BE90080B5AB /* Future */,
 				1499DB8D1ECC7BE90080B5AB /* IBDesignable */,
 				1499DB901ECC7BE90080B5AB /* Notifications */,
@@ -224,7 +229,7 @@
 			path = RMVVM;
 			sourceTree = "<group>";
 		};
-		1499DB731ECC7BE90080B5AB /* CollectionControllers */ = {
+		1499DB731ECC7BE90080B5AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				1499DB811ECC7BE90080B5AB /* TableController.swift */,
@@ -234,7 +239,7 @@
 				1499DB751ECC7BE90080B5AB /* Entities */,
 				1499DB7B1ECC7BE90080B5AB /* List */,
 			);
-			path = CollectionControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		1499DB751ECC7BE90080B5AB /* Entities */ = {
@@ -242,7 +247,6 @@
 			children = (
 				1499DB761ECC7BE90080B5AB /* BatchUpdate.swift */,
 				14B4469320CBF235007D7091 /* DataProvider.swift */,
-				148677CA1FAC951C009B6270 /* CollectionItemRegistration.swift */,
 				1499DB771ECC7BE90080B5AB /* CellDescriptor.swift */,
 				148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */,
 			);
@@ -274,8 +278,6 @@
 			children = (
 				1499DB851ECC7BE90080B5AB /* Array.swift */,
 				1499DB861ECC7BE90080B5AB /* Dictionary.swift */,
-				1499DB871ECC7BE90080B5AB /* Dispatch.swift */,
-				1499DB881ECC7BE90080B5AB /* Foundation.swift */,
 				1499DB891ECC7BE90080B5AB /* String.swift */,
 				149239351F8A4EA900ED2438 /* CoreGraphics.swift */,
 			);
@@ -528,7 +530,6 @@
 				1499DBA41ECC7BE90080B5AB /* BatchUpdate.swift in Sources */,
 				1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */,
 				1499DBAD1ECC7BE90080B5AB /* ListViewType.swift in Sources */,
-				148677CB1FAC951C009B6270 /* CollectionItemRegistration.swift in Sources */,
 				14B4469720CBF8A2007D7091 /* LossyArray.swift in Sources */,
 				1499DBBD1ECC7BE90080B5AB /* UIAlertController.swift in Sources */,
 				1499DBB21ECC7BE90080B5AB /* Dispatch.swift in Sources */,
@@ -543,7 +544,6 @@
 				147CEE8D2072BE5F00CD6D2D /* Swifty.xcdatamodeld in Sources */,
 				1499DBB41ECC7BE90080B5AB /* String.swift in Sources */,
 				1499DBA21ECC7BE90080B5AB /* Atomic.swift in Sources */,
-				1499DBB31ECC7BE90080B5AB /* Foundation.swift in Sources */,
 				1499DBC01ECC7BE90080B5AB /* UITextField.swift in Sources */,
 				188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */,
 				1499DBB91ECC7BE90080B5AB /* Keyboard.swift in Sources */,

@@ -15,11 +15,7 @@ public extension Dictionary {
     public func mapPairs<OutKey: Hashable, OutValue>(_ transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
         return Dictionary<OutKey, OutValue>(try map(transform))
     }
-    
-    public func filterPairs(_ includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
-        return Dictionary(try filter(includeElement))
-    }
-    
+
     public func mapKeys<OutKey: Hashable>(_ transform: @escaping (Key) -> OutKey) -> [OutKey : Value] {
         return self.mapPairs { (transform($0), $1) }
     }
@@ -27,7 +23,11 @@ public extension Dictionary {
     public func mapValues<OutValue>(_ transform: (Value) -> OutValue) -> [Key : OutValue] {
         return self.mapPairs { ($0, transform($1)) }
     }
-    
+
+    public func filterPairs(_ includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
+        return Dictionary(try filter(includeElement))
+    }
+
 }
 
 public extension Dictionary where Value: Equatable {

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Photos
 
 public struct Section<A> {
     public let title: String?
@@ -53,6 +54,16 @@ public final class DataProvider<Object>: ExpressibleByArrayLiteral {
         self.objectAtIndexPath = objectAtIndexPath
         self.titleInSection = titleInSection
     }
+
+}
+
+public extension DataProvider where Object: AnyObject {
+    public convenience init(result: PHFetchResult<Object>) {
+        self.init(numberOfSection: { 1 },
+                  numberOfObjectsInSection: { _ in return result.count },
+                  objectAtIndexPath: { return result.object(at: $0.row) },
+                  titleInSection: { _ in return nil })
+    }
 }
 
 public extension DataProvider where Object: NSFetchRequestResult {
@@ -64,3 +75,4 @@ public extension DataProvider where Object: NSFetchRequestResult {
                   titleInSection: { frc.sections?[$0].name })
     }
 }
+

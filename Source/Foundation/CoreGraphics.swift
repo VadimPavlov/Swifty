@@ -25,3 +25,9 @@ public func CGAspectWidth(ratio: CGSize, height: CGFloat) -> CGFloat {
     let size = CGSize(width: width, height: height)
     return ceil(CGAspectSize(ratio: ratio, inside: size).width)
 }
+
+public extension CGFloat {
+    static var random: CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
