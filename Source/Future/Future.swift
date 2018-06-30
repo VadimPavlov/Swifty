@@ -15,14 +15,14 @@ public struct Future<T> {
         self.task = task
     }
 
-    static func success(_ result: T) -> Future<T> {
+    public static func success(_ result: T) -> Future<T> {
         return Future { completion in
             completion(.success(result))
             return nil
         }
     }
 
-    static func error(_ error: Error) -> Future<T> {
+    public static func error(_ error: Error) -> Future<T> {
         return Future { completion in
             completion(.error(error))
             return nil
