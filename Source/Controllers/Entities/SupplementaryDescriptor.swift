@@ -24,11 +24,11 @@ public struct SupplementaryDescriptor {
 
     public let kind: Kind
     public let identifier: String
-    public let register: CollectionItemRegistration?
+    public let register: CellDescriptor.Register?
     public let elementCls: UICollectionReusableView.Type
     public let configure: (UICollectionReusableView) -> ()
 
-    public init<Element: UICollectionReusableView>(kind: Kind, identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Element) -> ()) {
+    public init<Element: UICollectionReusableView>(kind: Kind, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Element) -> ()) {
         self.kind = kind
         self.identifier = identifier ?? String(describing: Element.self)
         self.register = register

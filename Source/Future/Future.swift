@@ -14,6 +14,26 @@ public struct Future<T> {
     public init(_ task: @escaping Task) {
         self.task = task
     }
+
+    public static func success(_ result: T) -> Future<T> {
+        return Future { completion in
+            completion(.success(result))
+            return nil
+        }
+    }
+
+    public static func error(_ error: Error) -> Future<T> {
+        return Future { completion in
+            completion(.error(error))
+            return nil
+        }
+    }
+}
+
+public extension Future where T == Void {
+    static var success: Future<Void> {
+        return Future.success(())
+    }
 }
 
 public extension Future {
@@ -53,6 +73,17 @@ public extension Future {
             }
         })
     }
+
+    func mapError(f: @escaping (Error) -> Error) -> Future<T> {
+        return Future ({ completion in
+            return self.start { result in
+                switch result {
+                case .success(let value): completion(Result.success(value))
+                case .error(let error): completion(Result.error(f(error)))
+                }
+            }
+        })
+    }
     
     func flatMap<U>(f: @escaping (T) -> Future<U>) -> Future<U> {
         return Future<U>({ completion in
@@ -64,20 +95,4 @@ public extension Future {
             }
         })
     }
-    
-    static func success(_ result: T) -> Future<T> {
-        return Future { completion in
-            completion(.success(result))
-            return nil
-        }
-    }
-    
-    static func error(_ error: Error) -> Future<T> {
-        return Future { completion in
-            completion(.error(error))
-            return nil
-        }
-        
-    }
 }
-

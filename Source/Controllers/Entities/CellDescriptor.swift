@@ -6,16 +6,26 @@
 //  Copyright © 2017 Vadym Pavlov. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+public protocol AnyCell {}
+extension UITableViewCell: AnyCell {}
+extension UICollectionViewCell: AnyCell {}
 
 public struct CellDescriptor {
-    
+
+    public enum Register {
+        case cls // class name
+        case nib // nib name from class name
+        case nibName(String)
+    }
+
     public let identifier: String
-    public let register: CollectionItemRegistration?
+    public let register: CellDescriptor.Register?
     public let cellClass: AnyCell.Type
     public let configure: (AnyCell) -> ()
     
-    public init<Cell: AnyCell>(identifier: String? = nil, register: CollectionItemRegistration? = nil, configure: @escaping (Cell) -> ()) {
+    public init<Cell: AnyCell>(identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell) -> ()) {
         self.identifier = identifier ?? String(describing: Cell.self)
         self.register = register
         self.cellClass = Cell.self

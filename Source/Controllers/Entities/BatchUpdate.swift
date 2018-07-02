@@ -13,6 +13,10 @@ public struct Move<Index: Equatable> {
         self.at = at
         self.to = to
     }
+
+    public var description: String {
+        return "at:\(at) to:\(to)"
+    }
 }
 
 extension Move: Equatable {
@@ -61,12 +65,12 @@ public struct BatchUpdate: CustomStringConvertible {
         operations.append(contentsOf: deleteSections.map { "Delete section: \($0)" })
         operations.append(contentsOf: insertSections.map { "Insert section: \($0)" })
         operations.append(contentsOf: reloadSections.map { "Reload section: \($0)" })
-        operations.append(contentsOf: moveSections.map { "Move section at: \($0.at) to: \($0.to)" })
+        operations.append(contentsOf: moveSections.map { "Move section \($0)" })
         
         operations.append(contentsOf: deleteRows.map { "Delete row at: \($0)" })
         operations.append(contentsOf: insertRows.map { "Insert row at: \($0)" })
         operations.append(contentsOf: reloadRows.map { "Reload row at: \($0)" })
-        operations.append(contentsOf: moveRows.map { "Move row at: \($0.at) to: \($0.to)" })
+        operations.append(contentsOf: moveRows.map { "Move row \($0)" })
         
         return operations.joined(separator: "\n")
     }

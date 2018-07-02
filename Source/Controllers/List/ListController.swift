@@ -34,6 +34,11 @@ open class ListController: StateController<ListViewState> {
         self.listUpdate = { [weak view, weak self] update in
             assert(Thread.isMainThread)
             let list = self?.objects as? [View.ListViewObject] ?? []
+
+            if self?.state.isEmpty != list.isEmpty {
+                self?.state.isEmpty = list.isEmpty
+            }
+
             view?.update(list: list, batch: update)
         }
     }
@@ -46,6 +51,7 @@ open class ListController: StateController<ListViewState> {
 
         let state = ListViewState()
         super.init(state: state)
+
     }
 
     // MARK: - Loading
@@ -54,7 +60,6 @@ open class ListController: StateController<ListViewState> {
         self.state.canLoadMore = true
         self.currentPage = firstPage
         self.update(objects: [])
-
     }
     
     public func loadFirstPage() {
@@ -63,11 +68,6 @@ open class ListController: StateController<ListViewState> {
         let page = ListPage(size: pageSize, number: firstPage,  lastID: nil)
         self.loadPage(page) { [weak self] objects in
             self?.appendNewPage(page, with: objects)
-            
-            let isEmpty = objects.isEmpty
-            if self?.state.isEmpty != isEmpty {
-                self?.state.isEmpty = isEmpty
-            }
         }
     }
     
@@ -106,8 +106,6 @@ open class ListController: StateController<ListViewState> {
                 completion(objects)
             case .error(let error):
                 self?.showError(error)
-                // ? depends from error?
-                // self?.state.canLoadMore = false
             }
         }
     }
@@ -151,7 +149,6 @@ open class ListController: StateController<ListViewState> {
         }
 
         self.appendObjects(objects)
-
     }
     
 }
@@ -180,6 +177,7 @@ public extension ListController {
 
         return index
     }
+
     // MARK: Insert
     func appendObjects(_ newObjects: [ListObject]) {
         
@@ -215,7 +213,7 @@ public extension ListController {
         self.listUpdate?(update)
     }
 
-    // MARK: - Remove
+    // MARK: Remove
     func removeObject(at index: Int) {
         let indexPath = IndexPath(row: index, section: section)
         let update = BatchUpdate(deleteRows: [indexPath])
@@ -249,7 +247,7 @@ public extension ListController {
         self.listUpdate?(update)
     }
 
-    // MARK: - MOVE
+    // MARK: Move
     func moveObject(_ object: ListObject, to index: Int) {
         guard let row = objects.index(where: { $0.listID == object.listID }) else { return }
         move(from: row, to: index)

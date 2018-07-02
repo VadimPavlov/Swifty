@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Progress {
+public extension Progress {
     func progressHandler(_ handler: @escaping (Double) -> Void) -> NSKeyValueObservation {
         return self.observe(\.fractionCompleted) { progress, _ in
             handler(progress.fractionCompleted)

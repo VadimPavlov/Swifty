@@ -17,11 +17,7 @@ public extension Array where Element: Equatable {
     }
     
     mutating func remove(_ objects: [Element]) {
-        for object in objects {
-            if let index = index(of: object) {
-                remove(at: index)
-            }
-        }
+        objects.forEach { self.remove($0) }
     }
 
     func dictionary<Key: Hashable>(key: (Element) -> Key) -> [Key: Element] {
