@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 
-let AssetsScheme = "assets-library"
+public let AssetsScheme = "assets-library"
 
 public struct PickedMedia {
 
