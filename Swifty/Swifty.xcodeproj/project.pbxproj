@@ -57,6 +57,7 @@
 		149AEAB21EC5F8CD00F16858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB01EC5F8CD00F16858 /* Main.storyboard */; };
 		149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB31EC5F8CD00F16858 /* Assets.xcassets */; };
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
+		14AB735920ED235C00CD6024 /* TestAtomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AB735820ED235C00CD6024 /* TestAtomic.swift */; };
 		14B4469420CBF235007D7091 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469320CBF235007D7091 /* DataProvider.swift */; };
 		14B4469720CBF8A2007D7091 /* LossyArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469620CBF8A2007D7091 /* LossyArray.swift */; };
 		14DC607A2022735800DE6A6C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60792022735800DE6A6C /* Observable.swift */; };
@@ -133,6 +134,7 @@
 		149AEAB31EC5F8CD00F16858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149AEAB61EC5F8CD00F16858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14AB735820ED235C00CD6024 /* TestAtomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAtomic.swift; sourceTree = "<group>"; };
 		14B4469320CBF235007D7091 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		14B4469620CBF8A2007D7091 /* LossyArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LossyArray.swift; sourceTree = "<group>"; };
 		14DC60792022735800DE6A6C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		1495C0AF20E6F7860097A120 /* Dispatch */ = {
 			isa = PBXGroup;
 			children = (
+				1499DB721ECC7BE90080B5AB /* Atomic.swift */,
 				1499DB871ECC7BE90080B5AB /* Dispatch.swift */,
 			);
 			path = Dispatch;
@@ -198,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				1499DB6B1ECC7BE90080B5AB /* MVVM */,
-				1499DB721ECC7BE90080B5AB /* Atomic.swift */,
 				1884F6791F9A2854008BCA93 /* Settings.swift */,
 				14DC60792022735800DE6A6C /* Observable.swift */,
 				14B4469520CBF887007D7091 /* Codable */,
@@ -368,6 +370,14 @@
 			path = Swifty;
 			sourceTree = "<group>";
 		};
+		14AB735720ED233300CD6024 /* Dispatch */ = {
+			isa = PBXGroup;
+			children = (
+				14AB735820ED235C00CD6024 /* TestAtomic.swift */,
+			);
+			path = Dispatch;
+			sourceTree = "<group>";
+		};
 		14B4469520CBF887007D7091 /* Codable */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +395,7 @@
 				146636F32082482F00D68EB4 /* TestSettings.swift */,
 				14276D662072D7C900952C27 /* Mocks */,
 				147CEE962072C8BA00CD6D2D /* Controllers */,
+				14AB735720ED233300CD6024 /* Dispatch */,
 				14DC60832022794300DE6A6C /* Info.plist */,
 			);
 			path = SwiftyTests;
@@ -564,6 +575,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				146636F42082482F00D68EB4 /* TestSettings.swift in Sources */,
+				14AB735920ED235C00CD6024 /* TestAtomic.swift in Sources */,
 				147CEE912072C5C900CD6D2D /* TestTableController.swift in Sources */,
 				147CEE8B2072B55400CD6D2D /* Swifty.xcdatamodeld in Sources */,
 				14DC608A2022795D00DE6A6C /* TestObservable.swift in Sources */,

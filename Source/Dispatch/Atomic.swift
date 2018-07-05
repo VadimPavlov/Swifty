@@ -10,7 +10,7 @@ import Foundation
 
 public class Atomic<A> {
     private var _value: A
-    private let queue = DispatchQueue(label: "atomic." + String(describing: A.self).lowercased())
+    private let queue = DispatchQueue(label: "atomic." + String(describing: A.self).lowercased(), attributes: .concurrent)
 
     public init(_ value: A) {
         _value = value
@@ -21,13 +21,13 @@ public class Atomic<A> {
             return queue.sync { _value }
         }
         set {
-            queue.sync { _value = newValue }
+            queue.async(flags: .barrier) { _value = newValue }
         }
     }
 
-    public func perform(block: (inout A) -> Void) {
-        queue.sync {
-            block(&_value)
+    public func mutate(block: @escaping (inout A) -> Void) {
+        queue.async(flags: .barrier) {
+            block(&self._value)
         }
     }
 }

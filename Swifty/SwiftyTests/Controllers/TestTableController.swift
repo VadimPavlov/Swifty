@@ -38,7 +38,7 @@ class TestTableController: XCTestCase {
         XCTAssertEqual(tableView.numberOfSections, 1)
         XCTAssertEqual(tableView.numberOfRows(inSection: 0), 0)
 
-        controller.update(dataSource: ["one", "two", "three"])
+        controller.update(provider: ["one", "two", "three"])
         XCTAssertEqual(tableView.numberOfSections, 1)
         XCTAssertEqual(tableView.numberOfRows(inSection: 0), 3)
     }
@@ -52,7 +52,7 @@ class TestTableController: XCTestCase {
             expect.fulfill()
         }
 
-        controller.update(dataSource: ["test"])
+        controller.update(provider: ["test"])
 
         waitForExpectations(timeout: 1) { error in
             XCTAssertNil(error)
@@ -68,7 +68,7 @@ class TestTableController: XCTestCase {
             expect.fulfill()
         }
 
-        controller.update(dataSource: ["test"])
+        controller.update(provider: ["test"])
 
         waitForExpectations(timeout: 1) { error in
             XCTAssertNil(error)
@@ -84,7 +84,7 @@ class TestTableController: XCTestCase {
             expect.fulfill()
         }
 
-        controller.update(dataSource: ["test"])
+        controller.update(provider: ["test"])
 
         waitForExpectations(timeout: 1) { error in
             XCTAssertNil(error)
