@@ -39,12 +39,12 @@ final public class Observable<Value> {
         }
 
         let id = UUID()
-        self.observers.perform { observers in
+        self.observers.mutate { observers in
             observers[id] = observer
         }
 
         return Disposable {
-            self.observers.perform { observers in
+            self.observers.mutate { observers in
                 observers[id] = nil
             }
         }
@@ -53,12 +53,12 @@ final public class Observable<Value> {
     public func observeOld(observer: @escaping ObserverOld) -> Disposable {
 
         let id = UUID()
-        self.observersOld.perform { observers in
+        self.observersOld.mutate { observers in
             observers[id] = observer
         }
 
         return Disposable {
-            self.observersOld.perform { observers in
+            self.observersOld.mutate { observers in
                 observers[id] = nil
             }
         }

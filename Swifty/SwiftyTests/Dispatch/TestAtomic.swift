@@ -21,18 +21,26 @@ class TestAtomic: XCTestCase {
         super.tearDown()
     }
     
-    func testPerform() {
-        let array = Atomic<[Int]>([])
+    func testMutate() {
+        let atomicArray = Atomic<[Int]>([])
         let iterations = 10_000
         DispatchQueue.concurrentPerform(iterations: iterations) { index in
-            array.perform { safeArray in
-                let last = safeArray.last ?? 0
-                safeArray.append(last + 1)
+            atomicArray.mutate { array in
+                let last = array.last ?? 0
+                array.append(last + 1)
             }
         }
 
-        XCTAssertEqual(array.value.count, iterations)
+        XCTAssertEqual(atomicArray.value.count, iterations)
     }
 
-
+    func testRead() {
+        let count = 10_000
+        let array = Array(repeating: "test", count: count)
+        let atomic = Atomic(array)
+        DispatchQueue.concurrentPerform(iterations: count) { index in
+            let value = atomic.value[index]
+            XCTAssertNotNil(value) // assert not crash
+        }
+    }
 }

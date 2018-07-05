@@ -23,7 +23,7 @@ open class ListController: StateController<ListViewState> {
     public var lastID: String?
     public var section: Int = 0
 
-    public private(set) var objects: [ListObject]
+    public let objects = Atomic<[ListObject]>([])
     public weak var dataSource: ListControllerDataSource?
     
     private typealias ListUpdateAction = (BatchUpdate?) -> Void
@@ -33,7 +33,7 @@ open class ListController: StateController<ListViewState> {
         super.setView(view)
         self.listUpdate = { [weak view, weak self] update in
             assert(Thread.isMainThread)
-            let list = self?.objects as? [View.ListViewObject] ?? []
+            let list = self?.objects.value as? [View.ListViewObject] ?? []
 
             if self?.state.isEmpty != list.isEmpty {
                 self?.state.isEmpty = list.isEmpty
@@ -47,7 +47,7 @@ open class ListController: StateController<ListViewState> {
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.currentPage = currentPage ?? firstPage
-        self.objects = objects
+        self.objects.value = objects
 
         let state = ListViewState()
         super.init(state: state)
@@ -87,7 +87,7 @@ open class ListController: StateController<ListViewState> {
     
     public func refresh(onGap: RefreshGapStrategy) {
         let page = ListPage(size: pageSize, number: firstPage,  lastID: nil)
-        if let firstID = self.objects.first?.listID {
+        if let firstID = self.objects.value.first?.listID {
             self.refreshPage(page, firstID: firstID, onGap: onGap)
         } else {
             self.loadFirstPage()
@@ -160,18 +160,18 @@ public extension ListController {
     }
 
     func update(objects: [ListObject]) {
-        self.objects = objects
+        self.objects.value = objects
         updateList()
     }
     
     func updateObject(_ object: ListObject) -> Int? {
-        let index = self.objects.index { $0.listID == object.listID }
+        let index = self.objects.value.index { $0.listID == object.listID }
         if let item = index {
             
             let ip = IndexPath(item: item, section: section)
             let update = BatchUpdate(reloadRows: [ip])
             
-            self.objects[item] = object
+            self.objects.value[item] = object
             self.listUpdate?(update)
         }
 
@@ -181,13 +181,16 @@ public extension ListController {
     // MARK: Insert
     func appendObjects(_ newObjects: [ListObject]) {
         
-        let lower = self.objects.count
+        let lower = self.objects.value.count
         let upper = lower + newObjects.count
         let range = lower..<upper
         
         let inserted = range.map { IndexPath(row: $0, section: section) }
         let update = BatchUpdate(insertRows: inserted)
-        
+
+        self.objects.mutate { objects in
+            <#code#>
+        }
         self.objects.append(contentsOf: newObjects)
         self.listUpdate?(update)
     }

@@ -21,13 +21,15 @@ public class Atomic<A> {
             return queue.sync { _value }
         }
         set {
-            queue.async(flags: .barrier) { _value = newValue }
+            queue.async(flags: .barrier) { self._value = newValue }
         }
     }
 
-    public func mutate(block: @escaping (inout A) -> Void) {
-        queue.async(flags: .barrier) {
-            block(&self._value)
+    public func mutate(sync: Bool = true, block: @escaping (inout A) -> Void) {
+        if sync {
+            queue.sync(flags: .barrier) { block(&self._value) }
+        } else {
+            queue.async(flags: .barrier) { block(&self._value) }
         }
     }
 }
