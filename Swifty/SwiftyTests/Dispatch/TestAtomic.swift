@@ -20,7 +20,17 @@ class TestAtomic: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
+    func testRead() {
+        let count = 10_000
+        let array = Array(repeating: "test", count: count)
+        let atomic = Atomic(array)
+        DispatchQueue.concurrentPerform(iterations: count) { index in
+            let value = atomic.value[index]
+            XCTAssertNotNil(value) // assert not crash
+        }
+    }
+
     func testMutate() {
         let atomicArray = Atomic<[Int]>([])
         let iterations = 10_000
@@ -34,13 +44,4 @@ class TestAtomic: XCTestCase {
         XCTAssertEqual(atomicArray.value.count, iterations)
     }
 
-    func testRead() {
-        let count = 10_000
-        let array = Array(repeating: "test", count: count)
-        let atomic = Atomic(array)
-        DispatchQueue.concurrentPerform(iterations: count) { index in
-            let value = atomic.value[index]
-            XCTAssertNotNil(value) // assert not crash
-        }
-    }
 }

@@ -189,9 +189,8 @@ public extension ListController {
         let update = BatchUpdate(insertRows: inserted)
 
         self.objects.mutate { objects in
-            <#code#>
+            objects.append(contentsOf: newObjects)
         }
-        self.objects.append(contentsOf: newObjects)
         self.listUpdate?(update)
     }
     
@@ -199,13 +198,17 @@ public extension ListController {
         let indexPath = IndexPath(row: index, section: section)
         let update = BatchUpdate(insertRows: [indexPath])
 
-        self.objects.insert(object, at: index)
+        self.objects.mutate { objects in
+            objects.insert(object, at: index)
+        }
         self.listUpdate?(update)
     }
     
     func insertObjects(_ newObjects: [ListObject], at index: Int = 0) {
-        self.objects.insert(contentsOf: newObjects, at: index)
-        
+        self.objects.mutate { objects in
+            objects.insert(contentsOf: newObjects, at: index)
+        }
+
         let lower = index
         let upper = lower + newObjects.count
         let range = lower..<upper
@@ -220,12 +223,14 @@ public extension ListController {
     func removeObject(at index: Int) {
         let indexPath = IndexPath(row: index, section: section)
         let update = BatchUpdate(deleteRows: [indexPath])
-        self.objects.remove(at: index)
+        self.objects.mutate { objects in
+            objects.remove(at: index)
+        }
         self.listUpdate?(update)
     }
     
     func removeObject(_ object: ListObject) -> Int? {
-        let index = self.objects.index { $0.listID == object.listID }
+        let index = self.objects.value.index { $0.listID == object.listID }
         if let index = index {
             self.removeObject(at: index)
         }
@@ -237,12 +242,14 @@ public extension ListController {
         
         // reverse arrays, so we can remove current idx in loop
         let reversedObjects = objects.reversed()
-        for (idx, object) in self.objects.enumerated().reversed() {
-            let contains = reversedObjects.contains { $0.listID == object.listID }
-            if contains {
-                self.objects.remove(at: idx)
-                let ip = IndexPath(row: idx, section: section)
-                indexPaths.insert(ip, at: 0)
+        self.objects.mutate { objects in
+            objects.enumerated().reversed().forEach { index, object in
+                let contains = reversedObjects.contains { $0.listID == object.listID }
+                if contains {
+                    objects.remove(at: index)
+                    let ip = IndexPath(row: index, section: self.section)
+                    indexPaths.insert(ip, at: 0)
+                }
             }
         }
         
@@ -252,7 +259,7 @@ public extension ListController {
 
     // MARK: Move
     func moveObject(_ object: ListObject, to index: Int) {
-        guard let row = objects.index(where: { $0.listID == object.listID }) else { return }
+        guard let row = objects.value.index(where: { $0.listID == object.listID }) else { return }
         move(from: row, to: index)
     }
 
@@ -263,8 +270,10 @@ public extension ListController {
         let move = Move<IndexPath>(at: at, to: to)
         let update = BatchUpdate(moveRows: [move])
 
-        let object = self.objects.remove(at: from)
-        self.objects.insert(object, at: index)
-        self.listUpdate?(update)
+        self.objects.mutate { objects in
+            let object = objects.remove(at: from)
+            objects.insert(object, at: index)
+            self.listUpdate?(update)
+        }
     }
 }
