@@ -17,12 +17,8 @@ public class Atomic<A> {
     }
     
     public var value: A {
-        get {
-            return queue.sync { _value }
-        }
-        set {
-            queue.async(flags: .barrier) { self._value = newValue }
-        }
+        get { return queue.sync { _value } }
+        set { queue.async(flags: .barrier) { self._value = newValue } }
     }
 
     public func mutate(sync: Bool = true, block: @escaping (inout A) -> Void) {
