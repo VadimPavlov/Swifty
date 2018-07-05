@@ -26,3 +26,9 @@ public enum Result<Value> {
         }
     }
 }
+
+public extension Result where Value == Void {
+    public var success: Result {
+        return Result.success(())
+    }
+}
