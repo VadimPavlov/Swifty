@@ -8,6 +8,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     private var dataProvider: DataProvider<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
+
     private var registeredCells: Set<String> = []
     private var registeredElements: Set<String> = []
 
@@ -143,15 +144,16 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 
     private func register(supplementary descriptor: SupplementaryDescriptor) {
         let identifier = descriptor.identifier
-        guard let register = descriptor.register,
-            !registeredElements.contains(identifier) else { return }
+
+        guard !registeredElements.contains(identifier) else { return }
+        guard let register = descriptor.register else { return }
 
         switch register {
         case .cls:
-            let cls = descriptor.elementCls
+            let cls = descriptor.elementClass
             collectionView.register(cls, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
         case .nib:
-            let name = String(describing: descriptor.elementCls)
+            let name = String(describing: descriptor.elementClass)
             let nib = UINib(nibName: name, bundle: nil)
             collectionView.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
         case .nibName(let name):
@@ -164,7 +166,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
-    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, provider: provider) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

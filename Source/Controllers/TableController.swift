@@ -8,8 +8,10 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
 
     private var dataProvider: DataProvider<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
+
     private var registeredCells: Set<String> = []
-    
+    private var registeredViews: Set<String> = []
+
     public var tableView: UITableView
 
     public init(tableView: UITableView, provider: DataProvider<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
@@ -108,17 +110,16 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
 
     private func register(cell descriptor: CellDescriptor) {
         let identifier = descriptor.identifier
-
-        guard let register = descriptor.register,
-            !registeredCells.contains(identifier) else { return }
+        guard let register = descriptor.register else { return }
+        guard !registeredCells.contains(identifier) else { return }
 
         switch register {
         case .cls:
             let cls = descriptor.cellClass as! UITableViewCell.Type
             tableView.register(cls, forCellReuseIdentifier: identifier)
         case .nib:
-            let nibName = String(describing: descriptor.cellClass)
-            let nib = UINib(nibName: nibName, bundle: nil)
+            let name = String(describing: descriptor.cellClass)
+            let nib = UINib(nibName: name, bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: identifier)
         case .nibName(let name):
             let nib = UINib(nibName: name, bundle: nil)
@@ -126,11 +127,32 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         }
         registeredCells.insert(identifier)
     }
+
+    /* ### Call for header-footer view is happens in delegate ###
+    public func register<View: UITableViewHeaderFooterView>(view descriptor: HeaderFooterDescriptor<View>) {
+        let identifier = descriptor.identifier
+        guard let register = descriptor.register else { return }
+        guard !registeredViews.contains(identifier) else { return }
+
+        switch register {
+        case .cls:
+            tableView.register(View.self, forHeaderFooterViewReuseIdentifier: identifier)
+        case .nib:
+            let name = String(describing: View.self)
+            let nib = UINib(nibName: name, bundle: nil)
+            tableView.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
+        case .nibName(let name):
+            let nib = UINib(nibName: name, bundle: nil)
+            tableView.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
+        }
+        registeredViews.insert(identifier)
+    }
+    */
 }
 
 open class TableController <Object, Cell: UITableViewCell>: CellsTableController<Object> {
     
-    public init(tableView: UITableView, provider: DataProvider<Object> = [], identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(tableView: UITableView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, provider: provider) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)

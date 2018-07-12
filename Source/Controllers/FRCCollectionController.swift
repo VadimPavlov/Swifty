@@ -60,7 +60,7 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
 }
 
 open class FRCCollectionController<Object: NSFetchRequestResult, Cell: UICollectionViewCell>: FRCCellsCollectionController<Object>  {
-    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, identifier: String? = nil, register: CellDescriptor.Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(collectionView: collectionView, frc: frc, observePredicate: observePredicate) { object in
             let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
                 configure(cell, object)
