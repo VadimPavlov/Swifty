@@ -70,6 +70,8 @@
 		1884F6781F9A2811008BCA93 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6771F9A2811008BCA93 /* Primitives.swift */; };
 		1884F67A1F9A2854008BCA93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884F6791F9A2854008BCA93 /* Settings.swift */; };
 		188510431F9F2D84001B46E0 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188510421F9F2D84001B46E0 /* CoreData.swift */; };
+		18CEEE7220F4E43400ECA10D /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEEE7120F4E43400ECA10D /* Throttle.swift */; };
+		18CEEE7620F4E48300ECA10D /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEEE7520F4E48300ECA10D /* Container.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,8 @@
 		1884F6771F9A2811008BCA93 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
 		1884F6791F9A2854008BCA93 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		188510421F9F2D84001B46E0 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		18CEEE7120F4E43400ECA10D /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
+		18CEEE7520F4E48300ECA10D /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,13 +206,12 @@
 			children = (
 				1499DB6B1ECC7BE90080B5AB /* MVVM */,
 				1884F6791F9A2854008BCA93 /* Settings.swift */,
-				14DC60792022735800DE6A6C /* Observable.swift */,
+				18CEEE7420F4E44600ECA10D /* Reactive */,
 				14B4469520CBF887007D7091 /* Codable */,
 				1499DB731ECC7BE90080B5AB /* Controllers */,
 				1499DB821ECC7BE90080B5AB /* CoreData */,
 				1499DB841ECC7BE90080B5AB /* Foundation */,
 				1495C0AF20E6F7860097A120 /* Dispatch */,
-				1499DB8A1ECC7BE90080B5AB /* Future */,
 				1499DB8D1ECC7BE90080B5AB /* IBDesignable */,
 				1499DB901ECC7BE90080B5AB /* Notifications */,
 				1499DB941ECC7BE90080B5AB /* SortDescriptors */,
@@ -381,6 +384,7 @@
 		14B4469520CBF887007D7091 /* Codable */ = {
 			isa = PBXGroup;
 			children = (
+				18CEEE7520F4E48300ECA10D /* Container.swift */,
 				14B4469620CBF8A2007D7091 /* LossyArray.swift */,
 			);
 			path = Codable;
@@ -408,6 +412,16 @@
 				1838FE6C20613E1A00629F64 /* MediaPickerDelegate.swift */,
 			);
 			path = MediaPicker;
+			sourceTree = "<group>";
+		};
+		18CEEE7420F4E44600ECA10D /* Reactive */ = {
+			isa = PBXGroup;
+			children = (
+				1499DB8A1ECC7BE90080B5AB /* Future */,
+				14DC60792022735800DE6A6C /* Observable.swift */,
+				18CEEE7120F4E43400ECA10D /* Throttle.swift */,
+			);
+			path = Reactive;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -543,6 +557,7 @@
 				1499DBAD1ECC7BE90080B5AB /* ListViewType.swift in Sources */,
 				14B4469720CBF8A2007D7091 /* LossyArray.swift in Sources */,
 				1499DBBD1ECC7BE90080B5AB /* UIAlertController.swift in Sources */,
+				18CEEE7620F4E48300ECA10D /* Container.swift in Sources */,
 				1499DBB21ECC7BE90080B5AB /* Dispatch.swift in Sources */,
 				1499DBB51ECC7BE90080B5AB /* Future.swift in Sources */,
 				1499DBC21ECC7BE90080B5AB /* UIViewController.swift in Sources */,
@@ -555,6 +570,7 @@
 				147CEE8D2072BE5F00CD6D2D /* Swifty.xcdatamodeld in Sources */,
 				1499DBB41ECC7BE90080B5AB /* String.swift in Sources */,
 				1499DBA21ECC7BE90080B5AB /* Atomic.swift in Sources */,
+				18CEEE7220F4E43400ECA10D /* Throttle.swift in Sources */,
 				1499DBC01ECC7BE90080B5AB /* UITextField.swift in Sources */,
 				188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */,
 				1499DBB91ECC7BE90080B5AB /* Keyboard.swift in Sources */,

@@ -11,7 +11,9 @@ import Foundation
 struct AnyCodable: Codable {}
 
 public struct LossyArray<Element: Decodable>: Decodable {
+
     public let array: [Element]
+
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         var elements: [Element] = []

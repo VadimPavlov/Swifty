@@ -44,7 +44,23 @@ class TestObservable: XCTestCase {
         property.value = "Ignored"
         XCTAssertEqual(count, 2)
         print(disposable ?? "")
-
     }
 
+    func testDistinct() {
+
+        let property = Observable("Initial")
+
+        var count = 0
+        let disposable = property.distinct { value in
+            count += 1
+        }
+        XCTAssertEqual(count, 0)
+
+        property.value = "Updated"
+        XCTAssertEqual(count, 1)
+
+        property.value = "Updated"
+        XCTAssertEqual(count, 1)
+        print(disposable)
+    }
 }

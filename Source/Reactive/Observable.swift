@@ -65,6 +65,17 @@ final public class Observable<Value> {
     }
 }
 
+extension Observable where Value: Equatable {
+
+    public func distinct(observer: @escaping Observer) -> Disposable {
+        return self.observeOld { newValue, oldValue in
+            if newValue != oldValue {
+                observer(newValue)
+            }
+        }
+    }
+}
+
 
 final public class Disposable {
     public typealias Dispose = () -> Void

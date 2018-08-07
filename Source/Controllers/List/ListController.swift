@@ -264,6 +264,8 @@ public extension ListController {
     }
 
     func move(from: Int, to index: Int) {
+        guard from != index else { return }
+
         let at = IndexPath(row: from, section: section)
         let to = IndexPath(row: index, section: section)
 
@@ -273,7 +275,7 @@ public extension ListController {
         self.objects.mutate { objects in
             let object = objects.remove(at: from)
             objects.insert(object, at: index)
-            self.listUpdate?(update)
         }
+        self.listUpdate?(update)
     }
 }
