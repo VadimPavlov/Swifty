@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(iOS 10.0, *)
 public final class Throttle {
 
     public let delay: TimeInterval

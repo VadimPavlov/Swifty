@@ -7,6 +7,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/VadimPavlov/Swifty.git", :branch => "master" }
   s.source_files  = "Source/**/*.swift"  
-  s.author       = { "Pavlov Vadim" => "vadym.pavlov@icloud.com" }
+  s.author       = { "Vadym Pavlov" => "vadym.pavlov@icloud.com" }
   s.social_media_url   = "https://www.facebook.com/vadim.pavlov.792"
 end
