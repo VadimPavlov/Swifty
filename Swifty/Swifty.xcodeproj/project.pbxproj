@@ -60,6 +60,8 @@
 		14AB735920ED235C00CD6024 /* TestAtomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AB735820ED235C00CD6024 /* TestAtomic.swift */; };
 		14B4469420CBF235007D7091 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469320CBF235007D7091 /* DataProvider.swift */; };
 		14B4469720CBF8A2007D7091 /* LossyArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469620CBF8A2007D7091 /* LossyArray.swift */; };
+		14B66BA220F7E3100067DBE5 /* HeaderFooterDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B66BA120F7E3100067DBE5 /* HeaderFooterDescriptor.swift */; };
+		14B66BA420F7E4E50067DBE5 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B66BA320F7E4E50067DBE5 /* Register.swift */; };
 		14DC607A2022735800DE6A6C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60792022735800DE6A6C /* Observable.swift */; };
 		14DC608A2022795D00DE6A6C /* TestObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DC60892022795D00DE6A6C /* TestObservable.swift */; };
 		183691181FA8913E007EC646 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183691171FA8913E007EC646 /* Application.swift */; };
@@ -139,6 +141,8 @@
 		14AB735820ED235C00CD6024 /* TestAtomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAtomic.swift; sourceTree = "<group>"; };
 		14B4469320CBF235007D7091 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		14B4469620CBF8A2007D7091 /* LossyArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LossyArray.swift; sourceTree = "<group>"; };
+		14B66BA120F7E3100067DBE5 /* HeaderFooterDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFooterDescriptor.swift; sourceTree = "<group>"; };
+		14B66BA320F7E4E50067DBE5 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		14DC60792022735800DE6A6C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		14DC607F2022794300DE6A6C /* SwiftyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14DC60832022794300DE6A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 				1499DB761ECC7BE90080B5AB /* BatchUpdate.swift */,
 				14B4469320CBF235007D7091 /* DataProvider.swift */,
 				1499DB771ECC7BE90080B5AB /* CellDescriptor.swift */,
+				14B66BA320F7E4E50067DBE5 /* Register.swift */,
+				14B66BA120F7E3100067DBE5 /* HeaderFooterDescriptor.swift */,
 				148677C81FAC94E0009B6270 /* SupplementaryDescriptor.swift */,
 			);
 			path = Entities;
@@ -536,6 +542,7 @@
 				1499DBAE1ECC7BE90080B5AB /* TableController.swift in Sources */,
 				188510431F9F2D84001B46E0 /* CoreData.swift in Sources */,
 				1499DBA81ECC7BE90080B5AB /* FRCTableController.swift in Sources */,
+				14B66BA220F7E3100067DBE5 /* HeaderFooterDescriptor.swift in Sources */,
 				1499DBAB1ECC7BE90080B5AB /* ListPage.swift in Sources */,
 				1499DBAC1ECC7BE90080B5AB /* ListViewState.swift in Sources */,
 				1499DBA11ECC7BE90080B5AB /* ViewType.swift in Sources */,
@@ -564,6 +571,7 @@
 				1499DBAA1ECC7BE90080B5AB /* ListObject.swift in Sources */,
 				1499DBA31ECC7BE90080B5AB /* CollectionController.swift in Sources */,
 				1499DBB11ECC7BE90080B5AB /* Dictionary.swift in Sources */,
+				14B66BA420F7E4E50067DBE5 /* Register.swift in Sources */,
 				183691181FA8913E007EC646 /* Application.swift in Sources */,
 				188347E11FE81C3D00CB783F /* Progress.swift in Sources */,
 				14B4469420CBF235007D7091 /* DataProvider.swift in Sources */,

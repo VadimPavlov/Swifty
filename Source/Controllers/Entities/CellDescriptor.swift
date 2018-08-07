@@ -14,14 +14,8 @@ extension UICollectionViewCell: AnyCell {}
 
 public struct CellDescriptor {
 
-    public enum Register {
-        case cls // class name
-        case nib // nib name from class name
-        case nibName(String)
-    }
-
     public let identifier: String
-    public let register: CellDescriptor.Register?
+    public let register: Register?
     public let cellClass: AnyCell.Type
     public let configure: (AnyCell) -> ()
     
