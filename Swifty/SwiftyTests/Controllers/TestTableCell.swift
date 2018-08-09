@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-class TestTableCell: UITableViewCell {
+final class TestTableCell: UITableViewCell {
 
     @IBOutlet weak var outletLabel: UILabel!
 

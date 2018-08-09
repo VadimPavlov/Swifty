@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MockTableView: UITableView {
+final class MockTableView: UITableView {
     var registeredNib: UINib?
     var registeredClass: AnyClass?
 

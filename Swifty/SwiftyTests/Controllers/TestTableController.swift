@@ -10,7 +10,7 @@ import XCTest
 import UIKit
 @testable import Swifty
 
-class TestTableController: XCTestCase {
+final class TestTableController: XCTestCase {
 
     var tableView: MockTableView!
 
@@ -29,25 +29,13 @@ class TestTableController: XCTestCase {
         tableView = nil
     }
 
-    func testUpdate() {
-        let controller = TableController<String, UITableViewCell>(tableView: self.tableView) { cell, object in
-            cell.textLabel?.text = object
-        }
-
-        XCTAssertTrue(tableView.dataSource === controller)
-        XCTAssertEqual(tableView.numberOfSections, 1)
-        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 0)
-
-        controller.update(provider: ["one", "two", "three"])
-        XCTAssertEqual(tableView.numberOfSections, 1)
-        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 3)
-    }
+    // MARK: - Registration
 
     func testRegisterClass() {
 
         let expect = expectation(description: "Class registered")
         let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .cls) { cell, object in
-            precondition(cell.outletLabel == nil)
+            XCTAssertNil(cell.outletLabel)
             cell.textLabel?.text = object
             expect.fulfill()
         }
@@ -63,7 +51,7 @@ class TestTableController: XCTestCase {
     func testRegisteredNib() {
         let expect = expectation(description: "Nib registered")
         let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nib) { cell, object in
-            precondition(cell.outletLabel != nil)
+            XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
         }
@@ -79,7 +67,7 @@ class TestTableController: XCTestCase {
     func testRegisteredNibname() {
         let expect = expectation(description: "Custom Nib registered")
         let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nibName("TestTableAnotherCell")) { cell, object in
-            precondition(cell.outletLabel != nil)
+            XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
         }
@@ -90,6 +78,38 @@ class TestTableController: XCTestCase {
             XCTAssertNil(error)
         }
         XCTAssertNotNil(tableView.registeredNib)
+    }
+
+    // MARK: - Updates
+
+    func testUpdate() {
+        let controller = TableController<String, UITableViewCell>(tableView: self.tableView) { cell, object in
+            cell.textLabel?.text = object
+        }
+
+        XCTAssertTrue(tableView.dataSource === controller)
+        XCTAssertEqual(tableView.numberOfSections, 1)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 0)
+
+        controller.update(provider: ["one", "two", "three"])
+        XCTAssertEqual(tableView.numberOfSections, 1)
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), 3)
+    }
+
+    func testBatch() {
+        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nib) { cell, object in
+            cell.outletLabel.text = object
+        }
+
+        let ip0 = IndexPath(item: 0, section: 0)
+        let ip1 = IndexPath(item: 1, section: 0)
+        let ip2 = IndexPath(item: 2, section: 0)
+
+        let update = BatchUpdate(insertRows: [ip0, ip1, ip2])
+        controller.update(provider: ["0", "1", "2"], batch: update)
+
+        XCTAssertEqual(self.tableView.numberOfSections, 1)
+        XCTAssertEqual(self.tableView.numberOfRows(inSection: 0), 3)
     }
 
 }

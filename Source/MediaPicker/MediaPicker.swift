@@ -13,17 +13,22 @@ public typealias MediaPickerConfig = (UIImagePickerController) -> Void
 
 public enum MediaPicker {
  
-    public static func present(in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
+    public static func present(in viewController: MediaPickerDelegate,
+                               cameraTitle: String = NSLocalizedString("Camera", comment: ""),
+                               libraryTitle: String = NSLocalizedString("Library", comment: ""),
+                               cancelTitle: String = NSLocalizedString("Cancel", comment: ""),
+                               config: MediaPickerConfig? = nil,
+                               completion: @escaping MediaPickCompletion) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let camera = UIAlertAction(title: NSLocalizedString("Camera", comment: ""), style: .default) { _ in
+        let camera = UIAlertAction(title: cameraTitle, style: .default) { _ in
             presentPicker(sourceType: .camera, in: viewController, config: config, completion: completion)
         }
         
-        let library = UIAlertAction(title: NSLocalizedString("Library", comment: ""), style: .default) { _ in
+        let library = UIAlertAction(title: libraryTitle, style: .default) { _ in
             presentPicker(sourceType: .photoLibrary, in: viewController, config: config, completion: completion)
         }
-        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: cancelTitle, style: .cancel, handler: nil)
         
         sheet.addAction(camera)
         sheet.addAction(library)

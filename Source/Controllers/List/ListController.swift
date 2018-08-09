@@ -39,7 +39,9 @@ open class ListController: StateController<ListViewState> {
                 self?.state.isEmpty = list.isEmpty
             }
 
-            view?.update(list: list, batch: update)
+            if view?.isViewLoaded == true {
+                view?.update(list: list, batch: update)
+            }
         }
     }
 

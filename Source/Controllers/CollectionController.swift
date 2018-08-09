@@ -19,12 +19,15 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     public var collectionView: UICollectionView
 
+    private var isLoaded = false
+
     public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.collectionView = collectionView
         self.dataProvider = provider
         self.cellDescriptor = cellDescriptor
         super.init()
         collectionView.dataSource = self
+        collectionView.performBatchUpdates(nil) { _ in } // this line will reload data and delay next batch update
     }
 
     // MARK: - DataSource
@@ -81,6 +84,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     public func update(provider: DataProvider<Object>, batch: BatchUpdate? = nil, completion: UpdateCompletion? = nil) {
         guard self.dataProvider !== provider else { return }
         self.dataProvider = provider
+
         if let batch = batch {
             self.performBatch(batch, completion: completion)
         } else {
