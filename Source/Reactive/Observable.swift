@@ -34,9 +34,7 @@ final public class Observable<Value> {
     }
 
     public func observe(onlyNew: Bool = false, observer: @escaping Observer) -> Disposable {
-        if !onlyNew {
-            observer(self.value)
-        }
+        if !onlyNew { observer(self.value) }
 
         let id = UUID()
         self.observers.mutate { observers in
@@ -67,7 +65,9 @@ final public class Observable<Value> {
 
 extension Observable where Value: Equatable {
 
-    public func distinct(observer: @escaping Observer) -> Disposable {
+    public func distinct(onlyNew: Bool = false, observer: @escaping Observer) -> Disposable {
+        if !onlyNew { observer(self.value) }
+
         return self.observeOld { newValue, oldValue in
             if newValue != oldValue {
                 observer(newValue)
