@@ -182,7 +182,8 @@ public extension ListController {
 
     // MARK: Insert
     func appendObjects(_ newObjects: [ListObject]) {
-        
+        guard !newObjects.isEmpty else { return }
+
         let lower = self.objects.value.count
         let upper = lower + newObjects.count
         let range = lower..<upper
@@ -207,6 +208,8 @@ public extension ListController {
     }
     
     func insertObjects(_ newObjects: [ListObject], at index: Int = 0) {
+        guard !newObjects.isEmpty else { return }
+
         self.objects.mutate { objects in
             objects.insert(contentsOf: newObjects, at: index)
         }
@@ -240,6 +243,8 @@ public extension ListController {
     }
     
     func removeObjects(_ objects: [ListObject]) {
+        guard !objects.isEmpty else { return }
+
         var indexPaths: [IndexPath] = []
         
         // reverse arrays, so we can remove current idx in loop
