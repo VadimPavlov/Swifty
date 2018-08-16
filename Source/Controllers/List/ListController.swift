@@ -182,7 +182,6 @@ public extension ListController {
 
     // MARK: Insert
     func appendObjects(_ newObjects: [ListObject]) {
-        guard !newObjects.isEmpty else { return }
 
         let lower = self.objects.value.count
         let upper = lower + newObjects.count
