@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(*, deprecated, message: "Use R.swift for strong typed segues")
 public struct ViewEvents {
     
     public typealias DidLoadAction = () -> Void
@@ -22,6 +23,7 @@ public struct ViewEvents {
     }
 }
 
+@available(*, deprecated, message: "Use R.swift for strong typed segues")
 open class EventsViewController: UIViewController {
     public var viewEvents: ViewEvents?
     
@@ -36,6 +38,7 @@ open class EventsViewController: UIViewController {
     }
 }
 
+@available(*, deprecated, message: "Use R.swift for strong typed segues")
 open class EventsTableViewController: UITableViewController {
     public var viewEvents: ViewEvents?
 
@@ -50,6 +53,7 @@ open class EventsTableViewController: UITableViewController {
     }
 }
 
+@available(*, deprecated, message: "Use R.swift for strong typed segues")
 open class EventsCollectionViewController: UICollectionViewController {
     public var viewEvents: ViewEvents?
 
