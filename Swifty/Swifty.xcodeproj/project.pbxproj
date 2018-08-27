@@ -81,10 +81,6 @@
 		188510431F9F2D84001B46E0 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188510421F9F2D84001B46E0 /* CoreData.swift */; };
 		18CEEE7220F4E43400ECA10D /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEEE7120F4E43400ECA10D /* Throttle.swift */; };
 		18CEEE7620F4E48300ECA10D /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEEE7520F4E48300ECA10D /* Container.swift */; };
-		18E4B16F212705380019AA63 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E4B16E212705380019AA63 /* Permissions.swift */; };
-		18E4B17521270D5F0019AA63 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E4B17421270D5F0019AA63 /* Location.swift */; };
-		18E4B17721270D970019AA63 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E4B17621270D970019AA63 /* Notifications.swift */; };
-		18E4B17921270EEA0019AA63 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E4B17821270EEA0019AA63 /* Photos.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,10 +171,6 @@
 		188510421F9F2D84001B46E0 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		18CEEE7120F4E43400ECA10D /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		18CEEE7520F4E48300ECA10D /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		18E4B16E212705380019AA63 /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
-		18E4B17421270D5F0019AA63 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		18E4B17621270D970019AA63 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		18E4B17821270EEA0019AA63 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,7 +240,6 @@
 				1499DB941ECC7BE90080B5AB /* SortDescriptors */,
 				1499DB961ECC7BE90080B5AB /* UIKit */,
 				1838FE6A20613E1A00629F64 /* MediaPicker */,
-				18E4B16D2127051D0019AA63 /* Permissions */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -460,17 +451,6 @@
 			path = Reactive;
 			sourceTree = "<group>";
 		};
-		18E4B16D2127051D0019AA63 /* Permissions */ = {
-			isa = PBXGroup;
-			children = (
-				18E4B16E212705380019AA63 /* Permissions.swift */,
-				18E4B17421270D5F0019AA63 /* Location.swift */,
-				18E4B17621270D970019AA63 /* Notifications.swift */,
-				18E4B17821270EEA0019AA63 /* Photos.swift */,
-			);
-			path = Permissions;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -585,7 +565,6 @@
 				1499DBAE1ECC7BE90080B5AB /* TableController.swift in Sources */,
 				188510431F9F2D84001B46E0 /* CoreData.swift in Sources */,
 				1499DBA81ECC7BE90080B5AB /* FRCTableController.swift in Sources */,
-				18E4B17521270D5F0019AA63 /* Location.swift in Sources */,
 				14B66BA220F7E3100067DBE5 /* HeaderFooterDescriptor.swift in Sources */,
 				1499DBAB1ECC7BE90080B5AB /* ListPage.swift in Sources */,
 				1499DBAC1ECC7BE90080B5AB /* ListViewState.swift in Sources */,
@@ -611,7 +590,6 @@
 				1499DBBD1ECC7BE90080B5AB /* UIAlertController.swift in Sources */,
 				18CEEE7620F4E48300ECA10D /* Container.swift in Sources */,
 				1499DBB21ECC7BE90080B5AB /* Dispatch.swift in Sources */,
-				18E4B16F212705380019AA63 /* Permissions.swift in Sources */,
 				1499DBB51ECC7BE90080B5AB /* Future.swift in Sources */,
 				1499DBC21ECC7BE90080B5AB /* UIViewController.swift in Sources */,
 				1499DBAA1ECC7BE90080B5AB /* ListObject.swift in Sources */,
@@ -627,7 +605,6 @@
 				18CEEE7220F4E43400ECA10D /* Throttle.swift in Sources */,
 				1499DBC01ECC7BE90080B5AB /* UITextField.swift in Sources */,
 				188347DF1FE8184B00CB783F /* BatchFuture.swift in Sources */,
-				18E4B17921270EEA0019AA63 /* Photos.swift in Sources */,
 				1499DBB91ECC7BE90080B5AB /* Keyboard.swift in Sources */,
 				1499DBB71ECC7BE90080B5AB /* UIGradientView.swift in Sources */,
 				1499DBBB1ECC7BE90080B5AB /* NotificationToken.swift in Sources */,
@@ -638,7 +615,6 @@
 				148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */,
 				1499DBA71ECC7BE90080B5AB /* FRCCollectionController.swift in Sources */,
 				1499DBA91ECC7BE90080B5AB /* ListController.swift in Sources */,
-				18E4B17721270D970019AA63 /* Notifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

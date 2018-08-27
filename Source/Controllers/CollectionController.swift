@@ -8,19 +8,16 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     private var dataProvider: DataProvider<Object>
     private let cellDescriptor: (Object) -> CellDescriptor
-
+    
     private var registeredCells: Set<String> = []
-    private var registeredElements: Set<String> = []
-
+    private var registeredSupplementaries: [String: SupplementaryDescriptor] = [:]
+    
     private var update: BatchUpdate?
     
-    public typealias Supplementary = (IndexPath) -> SupplementaryDescriptor
-    public var supplementaryDescriptor: Supplementary?
-    
     public var collectionView: UICollectionView
-
+    
     private var isLoaded = false
-
+    
     public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.collectionView = collectionView
         self.dataProvider = provider
@@ -29,12 +26,12 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         collectionView.dataSource = self
         collectionView.performBatchUpdates(nil) { _ in } // this line will reload data and delay next batch update
     }
-
+    
     // MARK: - DataSource
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return dataProvider.numberOfSection()
     }
-
+    
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataProvider.numberOfObjectsInSection(section)
     }
@@ -46,17 +43,17 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         let identifier = descriptor.identifier
         
         self.register(cell: descriptor)
-
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         descriptor.configure(cell)
         return cell
     }
     
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let descriptor = self.supplementaryDescriptor?(indexPath) else { fatalError() }
-        self.register(supplementary: descriptor)
+        guard let descriptor = self.registeredSupplementaries[kind] else { fatalError() }
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: descriptor.kind.value, withReuseIdentifier: descriptor.identifier, for: indexPath)
-        descriptor.configure(view)
+        let title = dataProvider.titleInSection(indexPath.section)
+        descriptor.configure(view, title)
         return view
     }
     
@@ -64,7 +61,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     open func title(for section: Int) -> String? {
         return dataProvider.titleInSection(section)
     }
-
+    
     open func object(at indexPath: IndexPath) -> Object {
         return dataProvider.objectAtIndexPath(indexPath)
     }
@@ -84,7 +81,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     public func update(provider: DataProvider<Object>, batch: BatchUpdate? = nil, completion: UpdateCompletion? = nil) {
         guard self.dataProvider !== provider else { return }
         self.dataProvider = provider
-
+        
         if let batch = batch {
             self.performBatch(batch, completion: completion)
         } else {
@@ -102,7 +99,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
             update.moveSections.forEach { move in
                 self.collectionView.moveSection(move.at, toSection: move.to)
             }
-
+            
             self.collectionView.deleteItems(at: update.deleteRows)
             self.collectionView.insertItems(at: update.insertRows)
             
@@ -113,24 +110,24 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
             update.moveRows.forEach { move in
                 self.collectionView.moveItem(at: move.at, to: move.to)
             }
-
+            
         }, completion: completion)
     }
-
+    
     private func reloadCell(at indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let object = self.object(at: indexPath)
         let descriptor = self.cellDescriptor(object)
         descriptor.configure(cell)
     }
-
+    
     
     private func register(cell descriptor: CellDescriptor) {
         let identifier = descriptor.identifier
-
+        
         guard let register = descriptor.register,
             !registeredCells.contains(identifier) else { return }
-
+        
         switch register {
         case .cls:
             let cls = descriptor.cellClass as! UICollectionViewCell.Type
@@ -145,26 +142,33 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         }
         registeredCells.insert(identifier)
     }
-
-    private func register(supplementary descriptor: SupplementaryDescriptor) {
+    
+    // TODO: - Register for IndexPath
+    public func register(supplementary descriptor: SupplementaryDescriptor) {
         let identifier = descriptor.identifier
-
-        guard !registeredElements.contains(identifier) else { return }
+        let kind = descriptor.kind.value
+        
+        guard registeredSupplementaries[kind] == nil else { return }
         guard let register = descriptor.register else { return }
-
+        
         switch register {
         case .cls:
             let cls = descriptor.elementClass
-            collectionView.register(cls, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+            collectionView.register(cls, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         case .nib:
             let name = String(describing: descriptor.elementClass)
             let nib = UINib(nibName: name, bundle: nil)
-            collectionView.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+            collectionView.register(nib, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         case .nibName(let name):
             let nib = UINib(nibName: name, bundle: nil)
-            collectionView.register(nib, forSupplementaryViewOfKind: descriptor.kind.value, withReuseIdentifier: identifier)
+            collectionView.register(nib, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }
-        registeredElements.insert(identifier)
+        registeredSupplementaries[kind] = descriptor
+    }
+    
+    public func register(supplementary descriptor: SupplementaryDescriptor, for indexPath: IndexPath) {
+        // TODO: - Todo
+        
     }
 }
 
