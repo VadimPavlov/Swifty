@@ -13,7 +13,6 @@ public protocol ViewType: class {
     var isViewLoaded: Bool { get }
     func update(state: State, oldState: State?)
     func showError(_ error: Error)
-    
 }
 
 public extension ViewType where Self: UIViewController {

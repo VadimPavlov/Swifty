@@ -12,7 +12,7 @@ open class StateController<State> {
     private var update: UpdateAction?
     private var showError: ShowErrorAction?
     
-    public var state: State {
+    open var state: State {
         didSet {
             self.update?(state, oldValue)
         }

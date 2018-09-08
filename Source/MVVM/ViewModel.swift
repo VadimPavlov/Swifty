@@ -13,7 +13,7 @@ open class ViewModel<View: ViewType> {
     public typealias State = View.State
 
     public weak var view: View?
-    public var state: State {
+    open var state: State {
         didSet {
             self.update(state: state, oldState: oldValue)
         }
