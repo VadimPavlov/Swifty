@@ -6,8 +6,8 @@ import Foundation
 
 open class StateController<State> {
     
-    private typealias UpdateAction = (State, State?) -> Void
-    private typealias ShowErrorAction = (Error) -> Void
+    public typealias UpdateAction = (State, State?) -> Void
+    public typealias ShowErrorAction = (Error) -> Void
     
     private var update: UpdateAction?
     private var showError: ShowErrorAction?
@@ -33,8 +33,10 @@ open class StateController<State> {
         }
     }
     
-    public init(state: State) {
+    public init(state: State, update: UpdateAction? = nil, showError: ShowErrorAction? = nil) {
         self.state = state
+        self.update = update
+        self.showError = showError
     }
     
     public func updateState() {
