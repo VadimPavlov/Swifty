@@ -18,6 +18,7 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
         let provider = DataProvider(frc: frc)
         super.init(collectionView: collectionView, provider: provider, cellDescriptor: cellDescriptor)
         frc.delegate = self
+        collectionView.reloadData()
         
         if observePredicate {
             predicateToken = frc.fetchRequest.observe(\.predicate) { request, change in

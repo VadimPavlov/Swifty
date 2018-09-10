@@ -19,6 +19,7 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
 
         super.init(tableView: tableView, provider: provider, cellDescriptor: cellDescriptor)
         frc.delegate = self
+        tableView.reloadData()
         
         if observePredicate {
             predicateToken = frc.fetchRequest.observe(\.predicate) { request, change in
