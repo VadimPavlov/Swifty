@@ -174,11 +174,11 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 }
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
-    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
-        super.init(collectionView: collectionView, provider: provider) { object in
-            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, reload: Bool = true, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, provider: provider, reload: reload) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register) { cell in
                 configure(cell, object)
-            })
+            }
             return descriptor
         }
     }
