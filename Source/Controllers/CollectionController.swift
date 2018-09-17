@@ -18,13 +18,15 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
     
     private var isLoaded = false
     
-    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], cellDescriptor: @escaping (Object) -> CellDescriptor) {
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], reload: Bool = true, cellDescriptor: @escaping (Object) -> CellDescriptor) {
         self.collectionView = collectionView
         self.dataProvider = provider
         self.cellDescriptor = cellDescriptor
         super.init()
         collectionView.dataSource = self
-        collectionView.performBatchUpdates(nil) { _ in } // this line will reload data and delay next batch update
+        if reload {
+            collectionView.performBatchUpdates(nil) { _ in } // this line will reload data and delay next batch update
+        }
     }
     
     // MARK: - DataSource
@@ -120,8 +122,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         let descriptor = self.cellDescriptor(object)
         descriptor.configure(cell)
     }
-    
-    
+
     private func register(cell descriptor: CellDescriptor) {
         let identifier = descriptor.identifier
         
@@ -149,8 +150,9 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         let kind = descriptor.kind.value
         
         guard registeredSupplementaries[kind] == nil else { return }
+        registeredSupplementaries[kind] = descriptor
+
         guard let register = descriptor.register else { return }
-        
         switch register {
         case .cls:
             let cls = descriptor.elementClass
@@ -163,7 +165,6 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
             let nib = UINib(nibName: name, bundle: nil)
             collectionView.register(nib, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }
-        registeredSupplementaries[kind] = descriptor
     }
     
     public func register(supplementary descriptor: SupplementaryDescriptor, for indexPath: IndexPath) {
@@ -171,7 +172,6 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         
     }
 }
-
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
     public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {

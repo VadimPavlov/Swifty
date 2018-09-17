@@ -24,4 +24,26 @@ public extension UICollectionView {
         
         return floor(width / count)
     }
+
+    func itemHeightThatFits(count: CGFloat) -> CGFloat {
+        let inset = contentInset.top + contentInset.bottom
+
+        let height: CGFloat
+        if let flow = collectionViewLayout as? UICollectionViewFlowLayout {
+            let sectionInset = flow.sectionInset.top + flow.sectionInset.bottom
+            let spacing = flow.minimumLineSpacing * (count - 1)
+            height = frame.height - inset - sectionInset - spacing
+
+        } else {
+            height = frame.height - inset
+        }
+
+        return floor(height / count)
+    }
+
+    func itemSizeThatFits(count: CGFloat) -> CGSize {
+        let width = self.itemWidthThatFits(count: count)
+        let height = self.itemHeightThatFits(count: count)
+        return CGSize(width: width, height: height)
+    }
 }

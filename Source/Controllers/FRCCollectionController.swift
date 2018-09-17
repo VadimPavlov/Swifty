@@ -16,7 +16,7 @@ open class FRCCellsCollectionController<Object: NSFetchRequestResult>: CellsColl
 
         self.frc = frc
         let provider = DataProvider(frc: frc)
-        super.init(collectionView: collectionView, provider: provider, cellDescriptor: cellDescriptor)
+        super.init(collectionView: collectionView, provider: provider, reload: false, cellDescriptor: cellDescriptor)
         frc.delegate = self
         collectionView.reloadData()
         
