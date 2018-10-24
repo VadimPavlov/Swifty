@@ -58,6 +58,7 @@
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
 		14A0D37B2180E8B200B20FAE /* MetaArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A0D37A2180E8B200B20FAE /* MetaArray.swift */; };
 		14A0D37D2180E92600B20FAE /* Strint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A0D37C2180E92600B20FAE /* Strint.swift */; };
+		14A0D3D02180EA6A00B20FAE /* SwiftyOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A0D3CE2180EA6A00B20FAE /* SwiftyOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		14AB735920ED235C00CD6024 /* TestAtomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AB735820ED235C00CD6024 /* TestAtomic.swift */; };
 		14B4469420CBF235007D7091 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469320CBF235007D7091 /* DataProvider.swift */; };
 		14B4469720CBF8A2007D7091 /* LossyArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469620CBF8A2007D7091 /* LossyArray.swift */; };
@@ -147,6 +148,10 @@
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A0D37A2180E8B200B20FAE /* MetaArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaArray.swift; sourceTree = "<group>"; };
 		14A0D37C2180E92600B20FAE /* Strint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strint.swift; sourceTree = "<group>"; };
+		14A0D3C62180E9F100B20FAE /* Swifty copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Swifty copy-Info.plist"; path = "/Users/pavlov/Projects/Swifty/Swifty/Swifty copy-Info.plist"; sourceTree = "<absolute>"; };
+		14A0D3CC2180EA6A00B20FAE /* SwiftyOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A0D3CE2180EA6A00B20FAE /* SwiftyOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyOSX.h; sourceTree = "<group>"; };
+		14A0D3CF2180EA6A00B20FAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14AB735820ED235C00CD6024 /* TestAtomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAtomic.swift; sourceTree = "<group>"; };
 		14B4469320CBF235007D7091 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		14B4469620CBF8A2007D7091 /* LossyArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LossyArray.swift; sourceTree = "<group>"; };
@@ -177,6 +182,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		149AEAA61EC5F8CD00F16858 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14A0D3C92180EA6A00B20FAE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -373,7 +385,9 @@
 			children = (
 				149AEAAB1EC5F8CD00F16858 /* Swifty */,
 				14DC60802022794300DE6A6C /* SwiftyTests */,
+				14A0D3CD2180EA6A00B20FAE /* SwiftyOSX */,
 				149AEAAA1EC5F8CD00F16858 /* Products */,
+				14A0D3C62180E9F100B20FAE /* Swifty copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -382,6 +396,7 @@
 			children = (
 				149AEAA91EC5F8CD00F16858 /* Swifty.app */,
 				14DC607F2022794300DE6A6C /* SwiftyTests.xctest */,
+				14A0D3CC2180EA6A00B20FAE /* SwiftyOSX.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -397,6 +412,15 @@
 				149AEAB81EC5F8CD00F16858 /* Info.plist */,
 			);
 			path = Swifty;
+			sourceTree = "<group>";
+		};
+		14A0D3CD2180EA6A00B20FAE /* SwiftyOSX */ = {
+			isa = PBXGroup;
+			children = (
+				14A0D3CE2180EA6A00B20FAE /* SwiftyOSX.h */,
+				14A0D3CF2180EA6A00B20FAE /* Info.plist */,
+			);
+			path = SwiftyOSX;
 			sourceTree = "<group>";
 		};
 		14AB735720ED233300CD6024 /* Dispatch */ = {
@@ -456,6 +480,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		14A0D3C72180EA6A00B20FAE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14A0D3D02180EA6A00B20FAE /* SwiftyOSX.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		149AEAA81EC5F8CD00F16858 /* Swifty */ = {
 			isa = PBXNativeTarget;
@@ -473,6 +508,24 @@
 			productName = Swifty;
 			productReference = 149AEAA91EC5F8CD00F16858 /* Swifty.app */;
 			productType = "com.apple.product-type.application";
+		};
+		14A0D3CB2180EA6A00B20FAE /* SwiftyOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14A0D3D12180EA6A00B20FAE /* Build configuration list for PBXNativeTarget "SwiftyOSX" */;
+			buildPhases = (
+				14A0D3C72180EA6A00B20FAE /* Headers */,
+				14A0D3C82180EA6A00B20FAE /* Sources */,
+				14A0D3C92180EA6A00B20FAE /* Frameworks */,
+				14A0D3CA2180EA6A00B20FAE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyOSX;
+			productName = SwiftyOSX;
+			productReference = 14A0D3CC2180EA6A00B20FAE /* SwiftyOSX.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		14DC607E2022794300DE6A6C /* SwiftyTests */ = {
 			isa = PBXNativeTarget;
@@ -507,6 +560,11 @@
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
+					14A0D3CB2180EA6A00B20FAE = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = WTQFJ264ZG;
+						ProvisioningStyle = Automatic;
+					};
 					14DC607E2022794300DE6A6C = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = WTQFJ264ZG;
@@ -531,6 +589,7 @@
 			targets = (
 				149AEAA81EC5F8CD00F16858 /* Swifty */,
 				14DC607E2022794300DE6A6C /* SwiftyTests */,
+				14A0D3CB2180EA6A00B20FAE /* SwiftyOSX */,
 			);
 		};
 /* End PBXProject section */
@@ -547,6 +606,13 @@
 				180138C5211C4637005E73E9 /* TestCollectionCell.xib in Resources */,
 				14276D652072D55D00952C27 /* TestTableAnotherCell.xib in Resources */,
 				149AEAB21EC5F8CD00F16858 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14A0D3CA2180EA6A00B20FAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +687,13 @@
 				148677C91FAC94E0009B6270 /* SupplementaryDescriptor.swift in Sources */,
 				1499DBA71ECC7BE90080B5AB /* FRCCollectionController.swift in Sources */,
 				1499DBA91ECC7BE90080B5AB /* ListController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14A0D3C82180EA6A00B20FAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +882,71 @@
 			};
 			name = Release;
 		};
+		14A0D3D22180EA6A00B20FAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = WTQFJ264ZG;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SwiftyOSX/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Swifty.SwiftyOSX;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		14A0D3D32180EA6A00B20FAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = WTQFJ264ZG;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SwiftyOSX/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = Swifty.SwiftyOSX;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		14DC60872022794300DE6A6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -868,6 +1006,15 @@
 			buildConfigurations = (
 				149AEABC1EC5F8CD00F16858 /* Debug */,
 				149AEABD1EC5F8CD00F16858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14A0D3D12180EA6A00B20FAE /* Build configuration list for PBXNativeTarget "SwiftyOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14A0D3D22180EA6A00B20FAE /* Debug */,
+				14A0D3D32180EA6A00B20FAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
