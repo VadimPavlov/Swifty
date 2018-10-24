@@ -10,4 +10,7 @@ Pod::Spec.new do |s|
   s.source_files  = "Source/**/*.swift"  
   s.author       = { "Vadym Pavlov" => "vadym.pavlov@icloud.com" }
   s.social_media_url   = "https://www.facebook.com/vadim.pavlov.792"
+
+  s.ios.deployment_target = '9.0'
+  s.osx.deployment_target = '10.10'
 end
