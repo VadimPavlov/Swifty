@@ -11,7 +11,8 @@ import Foundation
 public protocol SettingKey {
     init?(rawValue: String)
     var rawValue: String { get }
-    
+
+    // TODO: make protocol conform to CaseIterable and take allCases
     static var allKeys: [Self] { get }
 }
 
