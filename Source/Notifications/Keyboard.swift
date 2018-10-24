@@ -11,14 +11,14 @@ import UIKit
 public typealias KeyboardAnimation = (KeyboardUserInfo) -> Void
 
 public enum Keyboard {
-    public static let WillShowNotification    = NotificationDescriptor(name: .UIKeyboardWillShow, convert: KeyboardUserInfo.init)
-    public static let DidShowNotification     = NotificationDescriptor(name: .UIKeyboardDidShow,  convert: KeyboardUserInfo.init)
-    public static let WillHideNotification    = NotificationDescriptor(name: .UIKeyboardWillHide, convert: KeyboardUserInfo.init)
-    public static let DidHideNotification     = NotificationDescriptor(name: .UIKeyboardDidHide,  convert: KeyboardUserInfo.init)
+    public static let WillShowNotification    = NotificationDescriptor(name: UIResponder.keyboardWillShowNotification, convert: KeyboardUserInfo.init)
+    public static let DidShowNotification     = NotificationDescriptor(name: UIResponder.keyboardDidShowNotification,  convert: KeyboardUserInfo.init)
+    public static let WillHideNotification    = NotificationDescriptor(name: UIResponder.keyboardWillHideNotification, convert: KeyboardUserInfo.init)
+    public static let DidHideNotification     = NotificationDescriptor(name: UIResponder.keyboardDidHideNotification,  convert: KeyboardUserInfo.init)
 
     public static func animate(with info: KeyboardUserInfo, animation: @escaping KeyboardAnimation) {
 
-        guard let curve = UIViewAnimationCurve(rawValue: info.animationCurve) else { return }
+        guard let curve = UIView.AnimationCurve(rawValue: info.animationCurve) else { return }
         let duration = info.animationDuration
 
         UIView.beginAnimations(nil, context: nil)
@@ -48,13 +48,13 @@ fileprivate extension KeyboardUserInfo {
     init(notification: Notification) {
         let userInfo = notification.userInfo
         
-        isLocalUser = userInfo?[UIKeyboardIsLocalUserInfoKey] as! Bool
+        isLocalUser = userInfo?[UIResponder.keyboardIsLocalUserInfoKey] as! Bool
         
-        frameBeginUser = userInfo?[UIKeyboardFrameBeginUserInfoKey] as! CGRect
-        frameEndUser = userInfo?[UIKeyboardFrameEndUserInfoKey] as! CGRect
+        frameBeginUser = userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as! CGRect
+        frameEndUser = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         
-        animationDuration = userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
-        animationCurve = userInfo?[UIKeyboardAnimationCurveUserInfoKey] as! Int
+        animationDuration = userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
+        animationCurve = userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
     }
 }
 

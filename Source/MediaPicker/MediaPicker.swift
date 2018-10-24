@@ -36,7 +36,7 @@ public enum MediaPicker {
         viewController.present(sheet, animated: true, completion: nil)
     }
     
-    static func presentPicker(sourceType: UIImagePickerControllerSourceType, in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
+    static func presentPicker(sourceType: UIImagePickerController.SourceType, in viewController: MediaPickerDelegate, config: MediaPickerConfig? = nil, completion: @escaping MediaPickCompletion) {
         let picker = MediaPickerController()
         picker.delegate = viewController
         picker.sourceType = sourceType

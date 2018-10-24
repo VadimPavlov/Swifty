@@ -11,11 +11,11 @@ import UIKit
 public enum Application {
     
     // State
-    public static let WillEnterForeground = NotificationDescriptor(name: .UIApplicationWillEnterForeground, convert: NoUserInfo.init)
-    public static let DidEnterBackground = NotificationDescriptor(name: .UIApplicationDidEnterBackground, convert: NoUserInfo.init)
-    public static let WillTerminate = NotificationDescriptor(name: .UIApplicationWillTerminate, convert: NoUserInfo.init)
+    public static let WillEnterForeground = NotificationDescriptor(name: UIApplication.willEnterForegroundNotification, convert: NoUserInfo.init)
+    public static let DidEnterBackground = NotificationDescriptor(name: UIApplication.didEnterBackgroundNotification, convert: NoUserInfo.init)
+    public static let WillTerminate = NotificationDescriptor(name: UIApplication.willTerminateNotification, convert: NoUserInfo.init)
     
     // Focus
-    public static let WillResignActive = NotificationDescriptor(name: .UIApplicationWillResignActive, convert: NoUserInfo.init)
-    public static let DidBecomeActive = NotificationDescriptor(name: .UIApplicationDidBecomeActive, convert: NoUserInfo.init)
+    public static let WillResignActive = NotificationDescriptor(name: UIApplication.willResignActiveNotification, convert: NoUserInfo.init)
+    public static let DidBecomeActive = NotificationDescriptor(name: UIApplication.didBecomeActiveNotification, convert: NoUserInfo.init)
 }

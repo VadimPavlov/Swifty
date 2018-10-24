@@ -56,6 +56,8 @@
 		149AEAB21EC5F8CD00F16858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB01EC5F8CD00F16858 /* Main.storyboard */; };
 		149AEAB41EC5F8CD00F16858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB31EC5F8CD00F16858 /* Assets.xcassets */; };
 		149AEAB71EC5F8CD00F16858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149AEAB51EC5F8CD00F16858 /* LaunchScreen.storyboard */; };
+		14A0D37B2180E8B200B20FAE /* MetaArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A0D37A2180E8B200B20FAE /* MetaArray.swift */; };
+		14A0D37D2180E92600B20FAE /* Strint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A0D37C2180E92600B20FAE /* Strint.swift */; };
 		14AB735920ED235C00CD6024 /* TestAtomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AB735820ED235C00CD6024 /* TestAtomic.swift */; };
 		14B4469420CBF235007D7091 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469320CBF235007D7091 /* DataProvider.swift */; };
 		14B4469720CBF8A2007D7091 /* LossyArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B4469620CBF8A2007D7091 /* LossyArray.swift */; };
@@ -143,6 +145,8 @@
 		149AEAB31EC5F8CD00F16858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149AEAB61EC5F8CD00F16858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		149AEAB81EC5F8CD00F16858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14A0D37A2180E8B200B20FAE /* MetaArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaArray.swift; sourceTree = "<group>"; };
+		14A0D37C2180E92600B20FAE /* Strint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strint.swift; sourceTree = "<group>"; };
 		14AB735820ED235C00CD6024 /* TestAtomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAtomic.swift; sourceTree = "<group>"; };
 		14B4469320CBF235007D7091 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		14B4469620CBF8A2007D7091 /* LossyArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LossyArray.swift; sourceTree = "<group>"; };
@@ -407,7 +411,9 @@
 			isa = PBXGroup;
 			children = (
 				18CEEE7520F4E48300ECA10D /* Container.swift */,
+				14A0D37C2180E92600B20FAE /* Strint.swift */,
 				14B4469620CBF8A2007D7091 /* LossyArray.swift */,
+				14A0D37A2180E8B200B20FAE /* MetaArray.swift */,
 			);
 			path = Codable;
 			sourceTree = "<group>";
@@ -498,11 +504,13 @@
 				TargetAttributes = {
 					149AEAA81EC5F8CD00F16858 = {
 						CreatedOnToolsVersion = 8.3.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					14DC607E2022794300DE6A6C = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = WTQFJ264ZG;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 149AEAA81EC5F8CD00F16858;
 					};
@@ -556,6 +564,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14A0D37D2180E92600B20FAE /* Strint.swift in Sources */,
+				14A0D37B2180E8B200B20FAE /* MetaArray.swift in Sources */,
 				1838FE6D20613E1A00629F64 /* MediaPicker.swift in Sources */,
 				1499DBB61ECC7BE90080B5AB /* Result.swift in Sources */,
 				1499DBA51ECC7BE90080B5AB /* CellDescriptor.swift in Sources */,
@@ -782,7 +792,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.Swifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -795,7 +805,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.Swifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -814,7 +824,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.SwiftyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swifty.app/Swifty";
 			};
@@ -835,7 +845,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.SwiftyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swifty.app/Swifty";
 			};

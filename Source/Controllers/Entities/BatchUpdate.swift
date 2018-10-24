@@ -27,7 +27,7 @@ extension Move: Equatable {
 
 public struct BatchUpdate: CustomStringConvertible {
 
-    public var animation: UITableViewRowAnimation = .automatic
+    public var animation: UITableView.RowAnimation = .automatic
 
     public var deleteSections: IndexSet
     public var insertSections: IndexSet

@@ -9,7 +9,7 @@ open class FRCCellsTableController<Object: NSFetchRequestResult>: CellsTableCont
     
     public let frc: NSFetchedResultsController<Object>
     public var frcUpdate: BatchUpdate?
-    public var animation: UITableViewRowAnimation = .automatic
+    public var animation: UITableView.RowAnimation = .automatic
 
     private var predicateToken: NSKeyValueObservation?
     

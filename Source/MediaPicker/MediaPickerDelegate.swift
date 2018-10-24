@@ -20,19 +20,19 @@ public struct PickedMedia {
     public let cropRect: CGRect?
     public let metadata: [String: Any]?
 
-    init(info: [String: Any]) {
-        type = info[UIImagePickerControllerMediaType] as? String
-        edited = info[UIImagePickerControllerEditedImage] as? UIImage
-        original = info[UIImagePickerControllerOriginalImage] as? UIImage
-        cropRect = info[UIImagePickerControllerCropRect] as? CGRect
-        metadata = info[UIImagePickerControllerMediaMetadata] as? [String: Any]
+    init(info: [UIImagePickerController.InfoKey: Any]) {
+        type = info[.mediaType] as? String
+        edited = info[.editedImage] as? UIImage
+        original = info[.originalImage] as? UIImage
+        cropRect = info[.cropRect] as? CGRect
+        metadata = info[.mediaMetadata] as? [String: Any]
 
         if type == String(kUTTypeMovie) {
-            url = info[UIImagePickerControllerMediaURL] as? URL
+            url = info[.mediaURL] as? URL
         } else if #available(iOS 11.0, *) {
-            url = info[UIImagePickerControllerImageURL] as? URL
+            url = info[.imageURL] as? URL
         } else {
-            url = info[UIImagePickerControllerReferenceURL] as? URL
+            url = info[.referenceURL] as? URL
         }
 
         // TODO: Find out when this keys appear
@@ -54,7 +54,8 @@ extension UIViewController: MediaPickerDelegate {
         picker.dismiss(animated: true, completion: nil)
     }
 
-    open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+    open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
         if let picker = picker as? MediaPickerController {
             let photo = PickedMedia(info: info)
             picker.completion?(photo)
