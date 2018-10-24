@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
 
   s.source_files  = "Source/**/*.swift"  
 
-  spec.source_files       = 'Source/common/**/*.swift'
-  spec.ios.source_files   = 'Source/ios/**/*.swift'
-  spec.osx.source_files   = 'Source/osx/**/*.swift'
+  s.source_files       = 'Source/common/**/*.swift'
+  s.ios.source_files   = 'Source/ios/**/*.swift'
+  s.osx.source_files   = 'Source/osx/**/*.swift'
 
 end
