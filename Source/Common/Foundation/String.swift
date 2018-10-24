@@ -2,14 +2,24 @@
 //  String.swift
 //  Created by Vadim Pavlov on 26.07.16.
 
+#if canImport(UIKit)
 import UIKit
+public typealias Color = UIColor
+public typealias Font = UIFont
+#endif
+
+#if canImport(AppKit)
+import AppKit
+public typealias Color = NSColor
+public typealias Font = NSFont
+#endif
 
 public extension String {
-	func foregroundColorString(color: UIColor) -> NSAttributedString {
+	func foregroundColorString(color: Color) -> NSAttributedString {
 		return NSAttributedString(string: self, attributes: [.foregroundColor : color])
 	}
     
-    func asHTML(font: UIFont? = nil, color: UIColor? = nil) -> NSAttributedString? {
+    func asHTML(font: Font? = nil, color: Color? = nil) -> NSAttributedString? {
         guard let data = self.data(using: .utf8) else { return nil }
         
         let type = NSAttributedString.DocumentType.html
