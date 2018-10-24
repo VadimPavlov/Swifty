@@ -5,7 +5,6 @@ Pod::Spec.new do |s|
   s.swift_version = "4.2"
   s.homepage     = "https://github.com/VadimPavlov/Swifty"
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
-  s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/VadimPavlov/Swifty.git", :branch => "master" }
   s.author       = { "Vadym Pavlov" => "vadym.pavlov@icloud.com" }
   s.social_media_url   = "https://www.facebook.com/vadim.pavlov.792"
