@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		14276D682072D7D500952C27 /* MockTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14276D672072D7D500952C27 /* MockTableView.swift */; };
 		146636F42082482F00D68EB4 /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146636F32082482F00D68EB4 /* TestSettings.swift */; };
+		147AE0C72184B1E900CD8019 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147AE0C62184B1E900CD8019 /* BlurView.swift */; };
+		147AE0CB2184B25400CD8019 /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147AE0C92184B24800CD8019 /* NSView.swift */; };
 		147CEE8620729E5500CD6D2D /* TestDataProvder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE8520729E5500CD6D2D /* TestDataProvder.swift */; };
 		147CEE8B2072B55400CD6D2D /* Swifty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */; };
 		147CEE912072C5C900CD6D2D /* TestTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE902072C5C900CD6D2D /* TestTableController.swift */; };
@@ -99,6 +101,8 @@
 		14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestTableAnotherCell.xib; sourceTree = "<group>"; };
 		14276D672072D7D500952C27 /* MockTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTableView.swift; sourceTree = "<group>"; };
 		146636F32082482F00D68EB4 /* TestSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
+		147AE0C62184B1E900CD8019 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		147AE0C92184B24800CD8019 /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		147CEE8520729E5500CD6D2D /* TestDataProvder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataProvder.swift; sourceTree = "<group>"; };
 		147CEE8A2072B55400CD6D2D /* Swifty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swifty.xcdatamodel; sourceTree = "<group>"; };
 		147CEE902072C5C900CD6D2D /* TestTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableController.swift; sourceTree = "<group>"; };
@@ -213,6 +217,14 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		147AE0C82184B23F00CD8019 /* AppKit */ = {
+			isa = PBXGroup;
+			children = (
+				147AE0C92184B24800CD8019 /* NSView.swift */,
+			);
+			path = AppKit;
+			sourceTree = "<group>";
+		};
 		147CEE962072C8BA00CD6D2D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +323,7 @@
 				14A0D43B2180F13C00B20FAE /* UIImage.swift */,
 				14A0D43C2180F13C00B20FAE /* UIViewController.swift */,
 				14A0D43D2180F13C00B20FAE /* UIAlertController.swift */,
+				147AE0C62184B1E900CD8019 /* BlurView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -398,6 +411,7 @@
 		14A0D4872180F14300B20FAE /* osx */ = {
 			isa = PBXGroup;
 			children = (
+				147AE0C82184B23F00CD8019 /* AppKit */,
 			);
 			name = osx;
 			path = ../../Source/osx;
@@ -663,6 +677,7 @@
 				14A0D4AB2180F14900B20FAE /* Observable.swift in Sources */,
 				14A0D4C12180F14900B20FAE /* String.swift in Sources */,
 				14A0D4AF2180F14900B20FAE /* Progress.swift in Sources */,
+				147AE0CB2184B25400CD8019 /* NSView.swift in Sources */,
 				14A0D4A32180F14900B20FAE /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -672,6 +687,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14A0D46A2180F13C00B20FAE /* BatchSizable.swift in Sources */,
+				147AE0C72184B1E900CD8019 /* BlurView.swift in Sources */,
 				14A0D4A82180F14900B20FAE /* Throttle.swift in Sources */,
 				14A0D4742180F13C00B20FAE /* CollectionController.swift in Sources */,
 				14A0D4BA2180F14900B20FAE /* Array.swift in Sources */,
