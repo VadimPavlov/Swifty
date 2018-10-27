@@ -10,7 +10,7 @@
 		14276D682072D7D500952C27 /* MockTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14276D672072D7D500952C27 /* MockTableView.swift */; };
 		146636F42082482F00D68EB4 /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146636F32082482F00D68EB4 /* TestSettings.swift */; };
 		147AE0C72184B1E900CD8019 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147AE0C62184B1E900CD8019 /* BlurView.swift */; };
-		147AE0CB2184B25400CD8019 /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147AE0C92184B24800CD8019 /* NSView.swift */; };
+		147AE0CC2184B32500CD8019 /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147AE0C92184B24800CD8019 /* NSView.swift */; };
 		147CEE8620729E5500CD6D2D /* TestDataProvder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE8520729E5500CD6D2D /* TestDataProvder.swift */; };
 		147CEE8B2072B55400CD6D2D /* Swifty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE892072B55400CD6D2D /* Swifty.xcdatamodeld */; };
 		147CEE912072C5C900CD6D2D /* TestTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE902072C5C900CD6D2D /* TestTableController.swift */; };
@@ -677,7 +677,7 @@
 				14A0D4AB2180F14900B20FAE /* Observable.swift in Sources */,
 				14A0D4C12180F14900B20FAE /* String.swift in Sources */,
 				14A0D4AF2180F14900B20FAE /* Progress.swift in Sources */,
-				147AE0CB2184B25400CD8019 /* NSView.swift in Sources */,
+				147AE0CC2184B32500CD8019 /* NSView.swift in Sources */,
 				14A0D4A32180F14900B20FAE /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 10.0, *)
 open class BlurView: UIVisualEffectView {
 
     private let blurEffect: UIBlurEffect
