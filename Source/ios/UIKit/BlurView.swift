@@ -14,12 +14,12 @@ open class BlurView: UIVisualEffectView {
     private let blurEffect: UIBlurEffect
     private let animator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: nil)
 
-    var depth: CGFloat {
+    public var depth: CGFloat {
         get { return animator.fractionComplete }
         set { animator.fractionComplete = newValue }
     }
 
-    lazy var vibranceView: UIVisualEffectView = {
+    public lazy var vibranceView: UIVisualEffectView = {
         let vibranceView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: blurEffect))
         vibranceView.frame = bounds
         vibranceView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
