@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "14A0D3CB2180EA6A00B20FAE"
-               BuildableName = "SwiftyOSX.framework"
-               BlueprintName = "SwiftyOSX"
+               BlueprintIdentifier = "14A0D3F02180EEF700B20FAE"
+               BuildableName = "Swifty.framework"
+               BlueprintName = "SwiftyIOS"
                ReferencedContainer = "container:Swifty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,15 +26,36 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "14A0D3F02180EEF700B20FAE"
+            BuildableName = "Swifty.framework"
+            BlueprintName = "SwiftyIOS"
+            ReferencedContainer = "container:Swifty.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "187C5C792191CC2200985C96"
+               BuildableName = "SwiftyIOSTests.xctest"
+               BlueprintName = "SwiftyIOSTests"
+               ReferencedContainer = "container:Swifty.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14A0D3CB2180EA6A00B20FAE"
-            BuildableName = "SwiftyOSX.framework"
-            BlueprintName = "SwiftyOSX"
+            BlueprintIdentifier = "14A0D3F02180EEF700B20FAE"
+            BuildableName = "Swifty.framework"
+            BlueprintName = "SwiftyIOS"
             ReferencedContainer = "container:Swifty.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,16 +72,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14A0D3CB2180EA6A00B20FAE"
-            BuildableName = "SwiftyOSX.framework"
-            BlueprintName = "SwiftyOSX"
+            BlueprintIdentifier = "14A0D3F02180EEF700B20FAE"
+            BuildableName = "Swifty.framework"
+            BlueprintName = "SwiftyIOS"
             ReferencedContainer = "container:Swifty.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,16 +90,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14A0D3CB2180EA6A00B20FAE"
-            BuildableName = "SwiftyOSX.framework"
-            BlueprintName = "SwiftyOSX"
+            BlueprintIdentifier = "14A0D3F02180EEF700B20FAE"
+            BuildableName = "Swifty.framework"
+            BlueprintName = "SwiftyIOS"
             ReferencedContainer = "container:Swifty.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

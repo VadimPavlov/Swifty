@@ -1,12 +1,27 @@
 //
-//  MockCollectionView.swift
-//  SwiftyTests
+//  ExampleTableViewController.swift
+//  SwiftyIOS
 //
-//  Created by Vadim Pavlov on 8/9/18.
+//  Created by Vadim Pavlov on 11/6/18.
 //  Copyright © 2018 Vadym Pavlov. All rights reserved.
 //
 
 import UIKit
+
+final class MockTableView: UITableView {
+    var registeredNib: UINib?
+    var registeredClass: AnyClass?
+
+    override func register(_ nib: UINib?, forCellReuseIdentifier identifier: String) {
+        self.registeredNib = nib
+        super.register(nib, forCellReuseIdentifier: identifier)
+    }
+
+    override func register(_ cellClass: AnyClass?, forCellReuseIdentifier identifier: String) {
+        self.registeredClass = cellClass
+        super.register(cellClass, forCellReuseIdentifier: identifier)
+    }
+}
 
 final class MockCollectionView: UICollectionView {
 

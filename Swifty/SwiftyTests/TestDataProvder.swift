@@ -59,7 +59,10 @@ class TestDataProvider: XCTestCase {
         let desc = NSPersistentStoreDescription()
         desc.type = NSInMemoryStoreType
 
-        let container = NSPersistentContainer(name: "Swifty")
+        let url = self.url(for: "Swifty", extension: "momd")!
+        let model = NSManagedObjectModel(contentsOf: url)!
+
+        let container = NSPersistentContainer(name: "TestContainer", managedObjectModel: model)
         container.persistentStoreDescriptions = [desc]
         container.loadPersistentStores { desc, error in
             precondition(error == nil)

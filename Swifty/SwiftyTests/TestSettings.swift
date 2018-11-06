@@ -52,7 +52,7 @@ class SettingsTests: XCTestCase {
         settings = nil
     }
 
-    func testClear() {
+    func testClearAll() {
         settings[.string] = "test"
         settings[.integer] = 123
 
@@ -69,6 +69,24 @@ class SettingsTests: XCTestCase {
         XCTAssertNil(clearedString)
         XCTAssertNil(clearedInteger)
 
+    }
+
+    func testClearKey() {
+        settings[.string] = "test"
+        settings[.integer] = 123
+
+        let string: String? = settings[.string]
+        let integer: Int? = settings[.integer]
+
+        XCTAssertEqual(string, "test")
+        XCTAssertEqual(integer, 123)
+
+        settings.clear(.string)
+
+        let clearedString: String? = settings[.string]
+        let clearedInteger: Int? = settings[.integer]
+        XCTAssertNil(clearedString)
+        XCTAssertNotNil(clearedInteger)
     }
 
     func testStrings() {

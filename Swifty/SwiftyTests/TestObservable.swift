@@ -11,12 +11,14 @@ import XCTest
 
 class TestObservable: XCTestCase {
 
+    var disposable: Disposable?
+
     func testOldValue() {
         let property = Observable("Initial")
 
         var newValue: String?
         var oldValue: String?
-        let disposable = property.observeOld { new, old in
+        disposable = property.observeOld { new, old in
             newValue = new
             oldValue = old
         }
@@ -24,12 +26,10 @@ class TestObservable: XCTestCase {
 
         XCTAssertEqual(newValue, "Updated")
         XCTAssertEqual(oldValue, "Initial")
-        print(disposable)
     }
 
     func testDispose() {
         let property = Observable("Initial")
-        var disposable: Disposable?
 
         var count = 0
         disposable = property.observe { value in
@@ -43,7 +43,18 @@ class TestObservable: XCTestCase {
         disposable = nil
         property.value = "Ignored"
         XCTAssertEqual(count, 2)
-        print(disposable ?? "")
+    }
+
+    func testObserveNew() {
+        let property = Observable("Initial")
+        var count = 0
+        disposable = property.observe(onlyNew: true) { value in
+            count += 1
+        }
+
+        XCTAssertEqual(count, 0)
+        property.value = "Updated"
+        XCTAssertEqual(count, 1)
     }
 
     func testDistinct() {
@@ -51,7 +62,24 @@ class TestObservable: XCTestCase {
         let property = Observable("Initial")
 
         var count = 0
-        let disposable = property.distinct { value in
+        disposable = property.distinct { value in
+            count += 1
+        }
+        XCTAssertEqual(count, 1)
+
+        property.value = "Updated"
+        XCTAssertEqual(count, 2)
+
+        property.value = "Updated"
+        XCTAssertEqual(count, 2)
+    }
+
+    func testDistinctNew() {
+
+        let property = Observable("Initial")
+
+        var count = 0
+        disposable = property.distinct(onlyNew: true) { value in
             count += 1
         }
         XCTAssertEqual(count, 0)
@@ -61,6 +89,5 @@ class TestObservable: XCTestCase {
 
         property.value = "Updated"
         XCTAssertEqual(count, 1)
-        print(disposable)
     }
 }

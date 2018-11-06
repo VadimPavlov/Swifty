@@ -8,6 +8,7 @@
 
 import XCTest
 import UIKit
+@testable import Example
 @testable import Swifty
 
 final class TestTableController: XCTestCase {
@@ -16,9 +17,8 @@ final class TestTableController: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
-        let tableView = MockTableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         let root = UIApplication.shared.keyWindow?.rootViewController
+        let tableView = MockTableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         root?.view.addSubview(tableView)
         self.tableView = tableView
     }

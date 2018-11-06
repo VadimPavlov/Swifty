@@ -12,7 +12,7 @@ public protocol SettingKey {
     init?(rawValue: String)
     var rawValue: String { get }
 
-    // TODO: make protocol conform to CaseIterable and take allCases
+    // Keyses to delete on clearAll() method
     static var allKeys: [Self] { get }
 }
 
@@ -43,6 +43,10 @@ open class Settings<Key: SettingKey> {
         Key.allKeys.forEach {
             self.set(value: nil, forKey: $0)
         }
+    }
+
+    public func clear(_ key: Key) {
+        self.set(value: nil, forKey: key)
     }
     
     public subscript<Value: SettingValue>(key: Key) -> Value? {

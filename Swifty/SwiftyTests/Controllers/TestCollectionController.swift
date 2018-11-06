@@ -8,6 +8,7 @@
 
 import XCTest
 import UIKit
+@testable import Example
 @testable import Swifty
 
 class TestCollectionController: XCTestCase {
