@@ -10,8 +10,12 @@ import UIKit
 
 public extension UICollectionView {
     func itemWidthThatFits(count: CGFloat) -> CGFloat {
-        let inset = contentInset.left + contentInset.right
-        
+        var inset = contentInset.left + contentInset.right
+
+        if #available(iOS 11.0, *) {
+            inset += adjustedContentInset.left + adjustedContentInset.right
+        }
+
         let width: CGFloat
         if let flow = collectionViewLayout as? UICollectionViewFlowLayout {
             let sectionInset = flow.sectionInset.left + flow.sectionInset.right
@@ -26,7 +30,11 @@ public extension UICollectionView {
     }
 
     func itemHeightThatFits(count: CGFloat) -> CGFloat {
-        let inset = contentInset.top + contentInset.bottom
+        var inset = contentInset.top + contentInset.bottom
+
+        if #available(iOS 11.0, *) {
+            inset += adjustedContentInset.top + adjustedContentInset.bottom
+        }
 
         let height: CGFloat
         if let flow = collectionViewLayout as? UICollectionViewFlowLayout {
