@@ -110,6 +110,7 @@
 		187C5CBF2191EB2200985C96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187C5CBD2191EB2200985C96 /* LaunchScreen.storyboard */; };
 		187C5CC72191EBC200985C96 /* Example.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187C5CAB2191E7DE00985C96 /* Example.storyboard */; };
 		187C5CC82191EBC700985C96 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C5CA42191E60000985C96 /* Mocks.swift */; };
+		187E3D72219D946100812A3A /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E3D71219D946100812A3A /* InputAccessoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +223,7 @@
 		187C5CBB2191EB2200985C96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		187C5CBE2191EB2200985C96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		187C5CC02191EB2200985C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		187E3D71219D946100812A3A /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -398,8 +400,9 @@
 		1879C4A62191C83E0013EF2F /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				1879C4A72191C83E0013EF2F /* UIView.swift */,
 				1879C4A82191C83E0013EF2F /* BlurView.swift */,
+				187E3D71219D946100812A3A /* InputAccessoryView.swift */,
+				1879C4A72191C83E0013EF2F /* UIView.swift */,
 				1879C4A92191C83E0013EF2F /* UIColor.swift */,
 				1879C4AA2191C83E0013EF2F /* UICollectionView.swift */,
 				1879C4AB2191C83E0013EF2F /* UITextField.swift */,
@@ -496,8 +499,8 @@
 				1879C4D42191C83E0013EF2F /* Codable */,
 				1879C4D92191C83E0013EF2F /* Reactive */,
 				1879C4E12191C83E0013EF2F /* Dispatch */,
-				1879C4E42191C83E0013EF2F /* SortDescriptor.swift */,
 				1879C4E52191C83E0013EF2F /* Foundation */,
+				1879C4E42191C83E0013EF2F /* SortDescriptor.swift */,
 				1879C4EA2191C83E0013EF2F /* Settings.swift */,
 			);
 			path = common;
@@ -841,6 +844,7 @@
 				1879C50E2191C83E0013EF2F /* EventsViewController.swift in Sources */,
 				1879C5212191C83E0013EF2F /* Dictionary.swift in Sources */,
 				1879C4F42191C83E0013EF2F /* UIAlertController.swift in Sources */,
+				187E3D72219D946100812A3A /* InputAccessoryView.swift in Sources */,
 				1879C4F12191C83E0013EF2F /* UITextField.swift in Sources */,
 				1879C51E2191C83E0013EF2F /* SortDescriptor.swift in Sources */,
 				1879C4FD2191C83E0013EF2F /* ListViewType.swift in Sources */,

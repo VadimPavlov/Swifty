@@ -33,4 +33,3 @@ public extension UIImage {
         return result.withRenderingMode(.alwaysOriginal)
     }
 }
-

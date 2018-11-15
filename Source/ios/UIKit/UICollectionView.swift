@@ -49,9 +49,9 @@ public extension UICollectionView {
         return floor(height / count)
     }
 
-    func itemSizeThatFits(count: CGFloat) -> CGSize {
-        let width = self.itemWidthThatFits(count: count)
-        let height = self.itemHeightThatFits(count: count)
+    func itemSizeThatFits(horizontalCount: CGFloat, verticalCount: CGFloat) -> CGSize {
+        let width = self.itemWidthThatFits(count: horizontalCount)
+        let height = self.itemHeightThatFits(count: verticalCount)
         return CGSize(width: width, height: height)
     }
 }

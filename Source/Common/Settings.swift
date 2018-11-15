@@ -12,7 +12,7 @@ public protocol SettingKey {
     init?(rawValue: String)
     var rawValue: String { get }
 
-    // Keyses to delete on clearAll() method
+    // Keys to delete on clearAll() method
     static var allKeys: [Self] { get }
 }
 
