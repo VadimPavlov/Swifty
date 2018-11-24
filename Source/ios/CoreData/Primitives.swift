@@ -13,14 +13,31 @@ public protocol Primitives: class {
 }
 
 public extension Primitives where Self: NSManagedObject, PrimitiveKey.RawValue == String {
+
+    subscript<O>(key: PrimitiveKey) -> O? {
+        set {
+            let primitiveKey = key.rawValue
+            let primitiveValue = newValue
+            self.willChangeValue(forKey: primitiveKey)
+            self.setPrimitiveValue(primitiveValue ?? nil, forKey: primitiveKey)
+            self.didChangeValue(forKey: primitiveKey)
+        }
+        get {
+            let primitiveKey = key.rawValue
+            self.willAccessValue(forKey: primitiveKey)
+            let primitiveValue = self.primitiveValue(forKey: primitiveKey) as? O
+            self.didAccessValue(forKey: primitiveKey)
+            return primitiveValue
+        }
+    }
+
     subscript<P: RawRepresentable>(key: PrimitiveKey) -> P? {
         set {
-            let primitiKey = key.rawValue
+            let primitiveKey = key.rawValue
             let primitiveValue = newValue?.rawValue
-            self.willChangeValue(forKey: primitiKey)
-            self.setPrimitiveValue(primitiveValue, forKey: primitiKey)
-            self.didChangeValue(forKey: primitiKey)
-            
+            self.willChangeValue(forKey: primitiveKey)
+            self.setPrimitiveValue(primitiveValue, forKey: primitiveKey)
+            self.didChangeValue(forKey: primitiveKey)
         }
         get {
             let primitiveKey = key.rawValue
