@@ -22,6 +22,7 @@ extension Bool: SettingValue {}
 extension String: SettingValue {}
 extension NSString: SettingValue {}
 
+extension URL: SettingValue {}
 extension Data: SettingValue {}
 
 extension Int: SettingValue {}

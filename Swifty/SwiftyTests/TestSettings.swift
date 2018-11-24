@@ -214,4 +214,7 @@ class SettingsTests: XCTestCase {
 
     }
 
+    func testURL() {
+        XCTFail("check URL, NSURL?, NSDATA?")
+    }
 }

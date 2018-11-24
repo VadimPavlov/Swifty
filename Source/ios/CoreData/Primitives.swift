@@ -19,7 +19,11 @@ public extension Primitives where Self: NSManagedObject, PrimitiveKey.RawValue =
             let primitiveKey = key.rawValue
             let primitiveValue = newValue
             self.willChangeValue(forKey: primitiveKey)
-            self.setPrimitiveValue(primitiveValue ?? nil, forKey: primitiveKey)
+            if let value = primitiveValue {
+                self.setPrimitiveValue(value ?? nil, forKey: primitiveKey)
+            } else {
+                self.setPrimitiveValue(nil, forKey: primitiveKey)
+            }
             self.didChangeValue(forKey: primitiveKey)
         }
         get {
