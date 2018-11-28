@@ -9,11 +9,12 @@
 import XCTest
 @testable import Swifty
 
-enum TestKeys: String, SettingKey {
+enum TestKeys: String, SettingKey, CaseIterable {
 
     case bool
     case string
     case data
+    case url
 
     case integer
     case float
@@ -28,11 +29,13 @@ enum TestKeys: String, SettingKey {
 
     case object
 
-    static var allKeys: [TestKeys] = [.bool, .string, .data, .integer, .float, .double, .number, .intEnum, .stringEnum, .object]
+    static var allKeys: [TestKeys] {
+        return allCases
+    }
+
 }
 
-class TestSettings: Settings<TestKeys> {
-}
+class TestSettings: Settings<TestKeys> {}
 
 class SettingsTests: XCTestCase {
 
@@ -89,6 +92,14 @@ class SettingsTests: XCTestCase {
         XCTAssertNotNil(clearedInteger)
     }
 
+    func testBool() {
+        let boolValue: Bool = false
+        settings[.bool] = boolValue
+
+        let bool: Bool? = settings[.bool]
+        XCTAssertEqual(bool, boolValue)
+    }
+
     func testStrings() {
 
         let stringValue: String = "test"
@@ -101,12 +112,15 @@ class SettingsTests: XCTestCase {
         XCTAssertEqual(nsstring, stringValue as NSString)
     }
 
-    func testBool() {
-        let boolValue: Bool = false
-        settings[.bool] = boolValue
+    func testURL() {
+        let urlValue = URL(string: "https://appple.com")!
+        settings[.url] = urlValue
 
-        let bool: Bool? = settings[.bool]
-        XCTAssertEqual(bool, boolValue)
+        let url: URL? = settings[.url]
+        let nsurl: NSURL? = settings[.url]
+
+        XCTAssertEqual(url, urlValue)
+        XCTAssertEqual(nsurl?.absoluteURL, urlValue)
     }
 
     func testNumbers() {
@@ -214,7 +228,4 @@ class SettingsTests: XCTestCase {
 
     }
 
-    func testURL() {
-        XCTFail("check URL, NSURL?, NSDATA?")
-    }
 }

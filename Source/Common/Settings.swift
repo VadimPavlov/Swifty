@@ -12,17 +12,24 @@ public protocol SettingKey {
     init?(rawValue: String)
     var rawValue: String { get }
 
-    // Keys to delete on clearAll() method
+    @available(*, deprecated, renamed: "clearKeys")
     static var allKeys: [Self] { get }
+    static var clearKeys: [Self] { get }
+}
+
+extension SettingKey {
+    static var clearKeys: [Self] {
+        return allKeys
+    }
 }
 
 public protocol SettingValue {}
+public protocol URLValue {}
 
 extension Bool: SettingValue {}
 extension String: SettingValue {}
 extension NSString: SettingValue {}
 
-extension URL: SettingValue {}
 extension Data: SettingValue {}
 
 extension Int: SettingValue {}
@@ -33,15 +40,18 @@ extension NSNumber: SettingValue {}
 extension Array: SettingValue where Element: SettingValue {}
 extension Dictionary: SettingValue where Value: SettingValue {}
 
+extension URL: URLValue {}
+extension NSURL: URLValue {}
+
 open class Settings<Key: SettingKey> {
     
     public let defaults: UserDefaults
     public init(defaults: UserDefaults) {
         self.defaults = defaults
     }
-    
+
     public func clearAll() {
-        Key.allKeys.forEach {
+        Key.clearKeys.forEach {
             self.set(value: nil, forKey: $0)
         }
     }
@@ -53,6 +63,11 @@ open class Settings<Key: SettingKey> {
     public subscript<Value: SettingValue>(key: Key) -> Value? {
         set { self.set(value: newValue, forKey: key) }
         get { return self.get(key: key) as? Value }
+    }
+
+    public subscript<U: URLValue>(key: Key) -> U? {
+        set { defaults.set(newValue as? URL, forKey: key.rawValue) }
+        get { return defaults.url(forKey: key.rawValue) as? U }
     }
 
     public subscript<E: RawRepresentable>(key: Key) -> E? {
@@ -73,12 +88,13 @@ open class Settings<Key: SettingKey> {
         }
     }
 
-    public func object<Object: Codable>(_ key: Key) -> Object? {
+    public func object<Object: Codable>(key: Key) -> Object? {
         let decoder = PropertyListDecoder()
         let data = self.get(key: key) as? Data
         let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
         return object
     }
+
 
     /*
     public subscript<Object: Codable>(key: Key) -> Object? {
@@ -101,14 +117,11 @@ open class Settings<Key: SettingKey> {
         }
     }
     */
-
-    public func object<Object: Codable>(key: Key) -> Object? {
-        let decoder = PropertyListDecoder()
-        let data = self.get(key: key) as? Data
-        let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
-        return object
-    }
 }
+
+//extension Settings {
+//
+//}
 
 private extension Settings {
     func set(value: Any?, forKey settingKey: Key) {
