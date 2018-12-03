@@ -111,6 +111,7 @@
 		18CDBA35219DACF200FB2FCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CDBA33219DACF200FB2FCF /* Main.storyboard */; };
 		18CDBA38219DAD2300FB2FCF /* ExampleKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CDBA37219DAD2300FB2FCF /* ExampleKeyboardViewController.swift */; };
 		18CDBA39219DB78A00FB2FCF /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E3D71219D946100812A3A /* InputAccessoryView.swift */; };
+		18E5BB8D21B58D4000A0D92A /* TestCodables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E5BB8C21B58D4000A0D92A /* TestCodables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 		18CDBA32219DACF200FB2FCF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18CDBA33219DACF200FB2FCF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		18CDBA37219DAD2300FB2FCF /* ExampleKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleKeyboardViewController.swift; sourceTree = "<group>"; };
+		18E5BB8C21B58D4000A0D92A /* TestCodables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCodables.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 				146636F32082482F00D68EB4 /* TestSettings.swift */,
 				180138B5211C3C05005E73E9 /* TestStateController.swift */,
 				180138B3211C3B8F005E73E9 /* TestListController.swift */,
+				18E5BB8C21B58D4000A0D92A /* TestCodables.swift */,
 				147CEE962072C8BA00CD6D2D /* Controllers */,
 				14AB735720ED233300CD6024 /* Dispatch */,
 				14DC60832022794300DE6A6C /* Info.plist */,
@@ -902,6 +905,7 @@
 			files = (
 				187C5CA12191E22700985C96 /* TestTableController.swift in Sources */,
 				187C5C932191CC5700985C96 /* TestStateController.swift in Sources */,
+				18E5BB8D21B58D4000A0D92A /* TestCodables.swift in Sources */,
 				187C5C852191CC3600985C96 /* TestAtomic.swift in Sources */,
 				187C5C982191DD3100985C96 /* TestDataProvder.swift in Sources */,
 				187C5C902191CC5700985C96 /* TestObservable.swift in Sources */,

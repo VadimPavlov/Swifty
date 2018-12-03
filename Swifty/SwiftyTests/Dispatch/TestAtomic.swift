@@ -31,7 +31,7 @@ class TestAtomic: XCTestCase {
         }
     }
 
-    func testMutate() {
+    func testMutateSync() {
         let atomicArray = Atomic<[Int]>([])
         let iterations = 10_000
         DispatchQueue.concurrentPerform(iterations: iterations) { index in
@@ -44,4 +44,16 @@ class TestAtomic: XCTestCase {
         XCTAssertEqual(atomicArray.value.count, iterations)
     }
 
+    func testMutateAsync() {
+        let atomicArray = Atomic<[Int]>([])
+        let iterations = 10_000
+        DispatchQueue.concurrentPerform(iterations: iterations) { index in
+            atomicArray.mutate(sync: false) { array in
+                let last = array.last ?? 0
+                array.append(last + 1)
+            }
+        }
+
+        XCTAssertEqual(atomicArray.value.count, iterations)
+    }
 }
