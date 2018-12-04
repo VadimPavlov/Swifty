@@ -17,8 +17,8 @@ public protocol SettingKey {
     static var clearKeys: [Self] { get }
 }
 
-extension SettingKey {
-    static var clearKeys: [Self] {
+public extension SettingKey {
+    public static var clearKeys: [Self] {
         return allKeys
     }
 }
