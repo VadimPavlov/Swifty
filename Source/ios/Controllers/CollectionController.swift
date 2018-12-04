@@ -182,4 +182,13 @@ open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollec
             return descriptor
         }
     }
+    
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, reload: Bool = true, configure: @escaping (Cell, Object) -> Void) {
+        super.init(collectionView: collectionView, provider: provider, reload: reload) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register) { cell , indexPath in
+                configure(cell, object)
+            }
+            return descriptor
+        }
+    }
 }

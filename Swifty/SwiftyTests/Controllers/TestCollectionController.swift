@@ -50,7 +50,7 @@ class TestCollectionController: XCTestCase {
 
     func testRegisteredCellNib() {
         let expect = expectation(description: "Nib registered")
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object, indexPath in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object in
             XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
@@ -66,7 +66,7 @@ class TestCollectionController: XCTestCase {
 
     func testRegisteredCellNibname() {
         let expect = expectation(description: "Custom Nib registered")
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nibName("TestCollectionAnotherCell")) { cell, object, indexPath in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nibName("TestCollectionAnotherCell")) { cell, object in
             XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
@@ -84,7 +84,7 @@ class TestCollectionController: XCTestCase {
     // MARK: - Updates
 
     func testUpdate() {
-        let controller = CollectionController<UIColor, UICollectionViewCell>(collectionView: self.collectionView) { cell, color, indexPath in
+        let controller = CollectionController<UIColor, UICollectionViewCell>(collectionView: self.collectionView) { cell, color in
             cell.contentView.backgroundColor = color
         }
 
@@ -99,7 +99,7 @@ class TestCollectionController: XCTestCase {
 
     func testBatch() {
 
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object, indexPath in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object in
             cell.outletLabel.text = object
         }
 

@@ -160,4 +160,13 @@ open class TableController <Object, Cell: UITableViewCell>: CellsTableController
             return descriptor
         }
     }
+    
+    public init(tableView: UITableView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(tableView: tableView, provider: provider) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell, indexPath  in
+                configure(cell, object)
+            })
+            return descriptor
+        }
+    }
 }
