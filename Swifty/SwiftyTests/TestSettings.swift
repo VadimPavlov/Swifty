@@ -13,13 +13,15 @@ enum TestKeys: String, SettingKey, CaseIterable {
 
     case bool
     case string
-    case data
-    case url
 
     case integer
     case float
     case double
     case number
+
+    case date
+    case data
+    case url
 
     case intEnum
     case stringEnum
@@ -27,6 +29,7 @@ enum TestKeys: String, SettingKey, CaseIterable {
     case array
     case dict
 
+    
     case object
 
     static var allKeys: [TestKeys] {
@@ -162,6 +165,18 @@ class SettingsTests: XCTestCase {
 
         let number: NSNumber? = settings[.number]
         XCTAssertEqual(number, 123)
+    }
+
+    func testDates() {
+
+        let dateValue: Date = Date()
+        settings[.date] = dateValue
+
+        let date: Date? = settings[.date]
+        let nsdate: NSDate? = settings[.date]
+
+        XCTAssertEqual(date, dateValue)
+        XCTAssertEqual(nsdate, dateValue as NSDate)
     }
 
     func testEnums() {

@@ -31,6 +31,9 @@ extension String: SettingValue {}
 extension NSString: SettingValue {}
 
 extension Data: SettingValue {}
+extension NSData: SettingValue {}
+extension Date: SettingValue {}
+extension NSDate: SettingValue {}
 
 extension Int: SettingValue {}
 extension Float: SettingValue {}
