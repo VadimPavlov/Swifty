@@ -35,7 +35,7 @@ class TestCollectionController: XCTestCase {
     func testRegisterCellClass() {
 
         let expect = expectation(description: "Class registered")
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .cls) { cell, object in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .cls) { cell, object, indexPath in
             XCTAssertNil(cell.outletLabel)
             expect.fulfill()
         }
@@ -50,7 +50,7 @@ class TestCollectionController: XCTestCase {
 
     func testRegisteredCellNib() {
         let expect = expectation(description: "Nib registered")
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object, indexPath in
             XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
@@ -66,7 +66,7 @@ class TestCollectionController: XCTestCase {
 
     func testRegisteredCellNibname() {
         let expect = expectation(description: "Custom Nib registered")
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nibName("TestCollectionAnotherCell")) { cell, object in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nibName("TestCollectionAnotherCell")) { cell, object, indexPath in
             XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
@@ -84,7 +84,7 @@ class TestCollectionController: XCTestCase {
     // MARK: - Updates
 
     func testUpdate() {
-        let controller = CollectionController<UIColor, UICollectionViewCell>(collectionView: self.collectionView) { cell, color in
+        let controller = CollectionController<UIColor, UICollectionViewCell>(collectionView: self.collectionView) { cell, color, indexPath in
             cell.contentView.backgroundColor = color
         }
 
@@ -99,7 +99,7 @@ class TestCollectionController: XCTestCase {
 
     func testBatch() {
 
-        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object in
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object, indexPath in
             cell.outletLabel.text = object
         }
 
@@ -112,5 +112,23 @@ class TestCollectionController: XCTestCase {
 
         XCTAssertEqual(self.collectionView.numberOfSections, 1)
         XCTAssertEqual(self.collectionView.numberOfItems(inSection: 0), 3)
+    }
+    
+    func testIndexPath() {
+        let ip0 = IndexPath(item: 0, section: 0)
+        let ip1 = IndexPath(item: 1, section: 0)
+        let ip2 = IndexPath(item: 2, section: 0)
+        
+        let dict = [ "0": ip0,
+                     "1": ip1,
+                     "2": ip2]
+        
+        let controller = CollectionController<String, TestCollectionCell>(collectionView: self.collectionView, register: .nib) { cell, object, indexPath in
+            cell.outletLabel.text = object
+            XCTAssertEqual(dict[object], indexPath)
+        }
+        
+        let update = BatchUpdate(insertRows: [ip0, ip1, ip2])
+        controller.update(provider: ["0", "1", "2"], batch: update)
     }
 }

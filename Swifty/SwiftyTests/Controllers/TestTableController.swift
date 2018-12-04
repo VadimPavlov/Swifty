@@ -34,7 +34,7 @@ final class TestTableController: XCTestCase {
     func testRegisterClass() {
 
         let expect = expectation(description: "Class registered")
-        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .cls) { cell, object in
+        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .cls) { cell, object, indexPath  in
             XCTAssertNil(cell.outletLabel)
             cell.textLabel?.text = object
             expect.fulfill()
@@ -50,7 +50,7 @@ final class TestTableController: XCTestCase {
 
     func testRegisteredNib() {
         let expect = expectation(description: "Nib registered")
-        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nib) { cell, object in
+        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nib) { cell, object, indexPath  in
             XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
@@ -66,7 +66,7 @@ final class TestTableController: XCTestCase {
 
     func testRegisteredNibname() {
         let expect = expectation(description: "Custom Nib registered")
-        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nibName("TestTableAnotherCell")) { cell, object in
+        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nibName("TestTableAnotherCell")) { cell, object, indexPath in
             XCTAssertNotNil(cell.outletLabel)
             cell.outletLabel.text = object
             expect.fulfill()
@@ -83,7 +83,7 @@ final class TestTableController: XCTestCase {
     // MARK: - Updates
 
     func testUpdate() {
-        let controller = TableController<String, UITableViewCell>(tableView: self.tableView) { cell, object in
+        let controller = TableController<String, UITableViewCell>(tableView: self.tableView) { cell, object, indexPath in
             cell.textLabel?.text = object
         }
 
@@ -97,7 +97,7 @@ final class TestTableController: XCTestCase {
     }
 
     func testBatch() {
-        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nib) { cell, object in
+        let controller = TableController<String, TestTableCell>(tableView: self.tableView, register: .nib) { cell, object, indexPath in
             cell.outletLabel.text = object
         }
 

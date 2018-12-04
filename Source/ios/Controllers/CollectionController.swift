@@ -47,7 +47,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         self.register(cell: descriptor)
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        descriptor.configure(cell)
+        descriptor.configure(cell, indexPath)
         return cell
     }
     
@@ -120,7 +120,7 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let object = self.object(at: indexPath)
         let descriptor = self.cellDescriptor(object)
-        descriptor.configure(cell)
+        descriptor.configure(cell, indexPath)
     }
 
     private func register(cell descriptor: CellDescriptor) {
@@ -174,10 +174,10 @@ open class CellsCollectionController<Object>: NSObject, UICollectionViewDataSour
 }
 
 open class CollectionController<Object, Cell: UICollectionViewCell>: CellsCollectionController<Object> {
-    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, reload: Bool = true, configure: @escaping (Cell, Object) -> Void) {
+    public init(collectionView: UICollectionView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, reload: Bool = true, configure: @escaping (Cell, Object, IndexPath) -> Void) {
         super.init(collectionView: collectionView, provider: provider, reload: reload) { object in
-            let descriptor = CellDescriptor(identifier: identifier, register: register) { cell in
-                configure(cell, object)
+            let descriptor = CellDescriptor(identifier: identifier, register: register) { cell , indexPath in
+                configure(cell, object, indexPath)
             }
             return descriptor
         }
