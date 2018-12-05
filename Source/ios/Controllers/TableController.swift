@@ -38,7 +38,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         
         self.register(cell: descriptor)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        descriptor.configure(cell)
+        descriptor.configure(cell, indexPath)
         return cell
     }
     
@@ -105,7 +105,7 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let object = self.object(at: indexPath)
         let descriptor = self.cellDescriptor(object)
-        descriptor.configure(cell)
+        descriptor.configure(cell, indexPath)
     }
 
     private func register(cell descriptor: CellDescriptor) {
@@ -152,9 +152,18 @@ open class CellsTableController<Object>: NSObject, UITableViewDataSource {
 
 open class TableController <Object, Cell: UITableViewCell>: CellsTableController<Object> {
     
+    public init(tableView: UITableView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object, IndexPath) -> Void) {
+        super.init(tableView: tableView, provider: provider) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell, indexPath  in
+                configure(cell, object, indexPath)
+            })
+            return descriptor
+        }
+    }
+    
     public init(tableView: UITableView, provider: DataProvider<Object> = [], identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
         super.init(tableView: tableView, provider: provider) { object in
-            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell, indexPath  in
                 configure(cell, object)
             })
             return descriptor

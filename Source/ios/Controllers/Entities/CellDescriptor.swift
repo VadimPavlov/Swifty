@@ -17,14 +17,14 @@ public struct CellDescriptor {
     public let identifier: String
     public let register: Register?
     public let cellClass: AnyCell.Type
-    public let configure: (AnyCell) -> ()
+    public let configure: (AnyCell, IndexPath) -> ()
     
-    public init<Cell: AnyCell>(identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell) -> ()) {
+    public init<Cell: AnyCell>(identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, IndexPath) -> ()) {
         self.identifier = identifier ?? String(describing: Cell.self)
         self.register = register
         self.cellClass = Cell.self
-        self.configure = { cell in
-            configure(cell as! Cell)
+        self.configure = { cell, indexPath  in
+            configure(cell as! Cell, indexPath)
         }
     }
 }
