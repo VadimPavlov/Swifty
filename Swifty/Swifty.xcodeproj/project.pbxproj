@@ -436,10 +436,10 @@
 		1879C4B52191C83E0013EF2F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1879C4B62191C83E0013EF2F /* FRCTableController.swift */,
 				1879C4B72191C83E0013EF2F /* List */,
 				1879C4BD2191C83E0013EF2F /* CollectionController.swift */,
 				1879C4BE2191C83E0013EF2F /* TableController.swift */,
+				1879C4B62191C83E0013EF2F /* FRCTableController.swift */,
 				1879C4BF2191C83E0013EF2F /* FRCCollectionController.swift */,
 				1879C4C02191C83E0013EF2F /* Entities */,
 			);
