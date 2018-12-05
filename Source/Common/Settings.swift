@@ -91,7 +91,7 @@ open class Settings<Key: SettingKey> {
         }
     }
 
-    public func object<Object: Codable>(key: Key) -> Object? {
+    public func object<Object: Codable>(_ key: Key) -> Object? {
         let decoder = PropertyListDecoder()
         let data = self.get(key: key) as? Data
         let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
