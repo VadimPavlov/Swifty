@@ -72,4 +72,13 @@ open class FRCTableController<Object: NSFetchRequestResult, Cell: UITableViewCel
             return descriptor
         }
     }
+    
+    public init(tableView: UITableView, frc: NSFetchedResultsController<Object>, observePredicate: Bool = true, identifier: String? = nil, register: Register? = nil, configure: @escaping (Cell, Object) -> Void) {
+        super.init(tableView: tableView, frc: frc, observePredicate: observePredicate) { object in
+            let descriptor = CellDescriptor(identifier: identifier, register: register, configure: { cell, indexPath  in
+                configure(cell, object)
+            })
+            return descriptor
+        }
+    }
 }
