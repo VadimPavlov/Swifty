@@ -8,8 +8,8 @@
 
 import UIKit
 
-final class InputAccesoryView: UIView {
-    override func didMoveToWindow() {
+final public class InputAccesoryView: UIView {
+    override public func didMoveToWindow() {
         super.didMoveToWindow()
 
         // Fix for iPhones with bottom safe area
