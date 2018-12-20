@@ -12,6 +12,8 @@
 		181252472191F18B0064222F /* TestCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180138C1211C44FC005E73E9 /* TestCollectionCell.swift */; };
 		181252482191F1930064222F /* TestCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180138C2211C44FC005E73E9 /* TestCollectionCell.xib */; };
 		181252492191F1960064222F /* TestCollectionAnotherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180138C6211C463E005E73E9 /* TestCollectionAnotherCell.xib */; };
+		183001DE21CBCCD4001373AA /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183001DD21CBCCD4001373AA /* Configs.swift */; };
+		183001DF21CBCCD4001373AA /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183001DD21CBCCD4001373AA /* Configs.swift */; };
 		18734A852191EEB30055B2FF /* TestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE942072C8AD00CD6D2D /* TestTableCell.swift */; };
 		18734A862191EEC50055B2FF /* TestTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147CEE922072C88900CD6D2D /* TestTableCell.xib */; };
 		18734A872191EEC80055B2FF /* TestTableAnotherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */; };
@@ -107,6 +109,7 @@
 		187C5CBC2191EB2200985C96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 187C5CBB2191EB2200985C96 /* Assets.xcassets */; };
 		187C5CC82191EBC700985C96 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C5CA42191E60000985C96 /* Mocks.swift */; };
 		187E3D72219D946100812A3A /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E3D71219D946100812A3A /* InputAccessoryView.swift */; };
+		18AD5C8121CACA0B00F6999F /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD5C8021CACA0B00F6999F /* LocalizedString.swift */; };
 		18CDBA34219DACF200FB2FCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CDBA32219DACF200FB2FCF /* LaunchScreen.storyboard */; };
 		18CDBA35219DACF200FB2FCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CDBA33219DACF200FB2FCF /* Main.storyboard */; };
 		18CDBA38219DAD2300FB2FCF /* ExampleKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CDBA37219DAD2300FB2FCF /* ExampleKeyboardViewController.swift */; };
@@ -154,6 +157,7 @@
 		180138C1211C44FC005E73E9 /* TestCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionCell.swift; sourceTree = "<group>"; };
 		180138C2211C44FC005E73E9 /* TestCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionCell.xib; sourceTree = "<group>"; };
 		180138C6211C463E005E73E9 /* TestCollectionAnotherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionAnotherCell.xib; sourceTree = "<group>"; };
+		183001DD21CBCCD4001373AA /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		1879C4A22191C83E0013EF2F /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		1879C4A52191C83E0013EF2F /* UIGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGradientView.swift; sourceTree = "<group>"; };
 		1879C4A72191C83E0013EF2F /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 		187C5CBB2191EB2200985C96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		187C5CC02191EB2200985C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		187E3D71219D946100812A3A /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
+		18AD5C8021CACA0B00F6999F /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		18CDBA32219DACF200FB2FCF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18CDBA33219DACF200FB2FCF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		18CDBA37219DAD2300FB2FCF /* ExampleKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleKeyboardViewController.swift; sourceTree = "<group>"; };
@@ -403,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				1879C4A82191C83E0013EF2F /* BlurView.swift */,
+				18AD5C8021CACA0B00F6999F /* LocalizedString.swift */,
 				187E3D71219D946100812A3A /* InputAccessoryView.swift */,
 				1879C4A72191C83E0013EF2F /* UIView.swift */,
 				1879C4A92191C83E0013EF2F /* UIColor.swift */,
@@ -515,6 +521,7 @@
 				1879C4D62191C83E0013EF2F /* Container.swift */,
 				1879C4D72191C83E0013EF2F /* MetaArray.swift */,
 				1879C4D82191C83E0013EF2F /* LossyArray.swift */,
+				183001DD21CBCCD4001373AA /* Configs.swift */,
 			);
 			path = Codable;
 			sourceTree = "<group>";
@@ -817,6 +824,7 @@
 				1879C5242191C8440013EF2F /* NSView.swift in Sources */,
 				1879C52D2191C8640013EF2F /* BatchFuture.swift in Sources */,
 				1879C5302191C86E0013EF2F /* Atomic.swift in Sources */,
+				183001DF21CBCCD4001373AA /* Configs.swift in Sources */,
 				1879C52A2191C8550013EF2F /* Observable.swift in Sources */,
 				1879C5322191C87E0013EF2F /* Array.swift in Sources */,
 				1879C5332191C87E0013EF2F /* CoreGraphics.swift in Sources */,
@@ -843,6 +851,7 @@
 				1879C4F02191C83E0013EF2F /* UICollectionView.swift in Sources */,
 				1879C4F22191C83E0013EF2F /* UIImage.swift in Sources */,
 				1879C51D2191C83E0013EF2F /* Atomic.swift in Sources */,
+				183001DE21CBCCD4001373AA /* Configs.swift in Sources */,
 				1879C5002191C83E0013EF2F /* TableController.swift in Sources */,
 				1879C4FB2191C83E0013EF2F /* ListPage.swift in Sources */,
 				1879C51F2191C83E0013EF2F /* Array.swift in Sources */,
@@ -878,6 +887,7 @@
 				1879C4F62191C83E0013EF2F /* Primitives.swift in Sources */,
 				1879C5092191C83E0013EF2F /* NotificationToken.swift in Sources */,
 				1879C5192191C83E0013EF2F /* Progress.swift in Sources */,
+				18AD5C8121CACA0B00F6999F /* LocalizedString.swift in Sources */,
 				1879C5122191C83E0013EF2F /* Strint.swift in Sources */,
 				1879C4EE2191C83E0013EF2F /* BlurView.swift in Sources */,
 				1879C50B2191C83E0013EF2F /* Application.swift in Sources */,
