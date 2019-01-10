@@ -82,7 +82,9 @@
                             <outlet property="delegate" destination="S52-Fh-7V2" id="p9y-Ga-GlA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Swifty" id="MSv-2S-DEh"/>
+                    <navigationItem key="navigationItem" title="Swifty" id="MSv-2S-DEh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="rewind" id="bpG-fy-kVv"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AU3-i9-xXS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

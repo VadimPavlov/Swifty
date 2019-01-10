@@ -18,6 +18,10 @@ public enum LocalizedString {
     public static var save: String { return string(for: .save) }
     public static var delete: String { return string(for: .delete) }
 
+    public static var all: [String] {
+        return Keys.allCases.map { string(for: $0) }
+    }
+
     // MARK: - Plurals
     public static func items(_ count: Int) -> String {
         let items = string(for: .items)
@@ -34,14 +38,27 @@ private extension LocalizedString {
 
     static let bundle = Bundle(for: UIApplication.self)
 
-    enum Keys: String {
+    enum Keys: String, CaseIterable {
         case yes
         case no
 
         case ok
+        case back
+
+        case delete
+
+        case add
+        case edit
+        case done
         case cancel
         case save
-        case delete
+        case undo
+        case redo
+
+        case bookmarks
+        case search
+        case refresh
+        case stop
 
         // plurals
         case items
@@ -49,7 +66,7 @@ private extension LocalizedString {
     }
 
     static func string(for key: Keys) -> String {
-        return bundle.localizedString(forKey: key.rawValue.capitalized, value: nil, table: nil)
+        return bundle.localizedString(forKey: key.rawValue, value: nil, table: nil)
     }
 
 }
