@@ -7,9 +7,9 @@
 //
 
 import UserNotifications
-import Swifty
 
 public extension Permissions {
+    @available(iOS 10.0, *)
     final class Notifications {
 
         let status = Observable<UNAuthorizationStatus?>(nil)

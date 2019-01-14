@@ -7,7 +7,6 @@
 //
 
 import Photos
-import Swifty
 
 public extension Permissions {
 

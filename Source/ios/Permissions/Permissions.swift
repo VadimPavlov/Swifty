@@ -14,6 +14,8 @@ public enum Permissions {
 
     public static let photos = Photos()
     public static let location = Location()
+
+    @available(iOS 10.0, *)
     public static let notifications = Notifications()
 }
 
@@ -39,7 +41,11 @@ public extension Permission {
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let settings = UIAlertAction(title: "Settings", style: .default) { _ in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
 
         alert.addAction(cancel)

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Swifty
 import CoreLocation
 
 public extension Permissions {
@@ -53,7 +52,7 @@ public extension Permissions {
             }
         }
 
-        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        private func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             if status == .notDetermined { return }
             self.status.value = status
             completion?()
