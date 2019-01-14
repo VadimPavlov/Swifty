@@ -13,7 +13,7 @@ public extension Permissions {
 
     final class Location: NSObject, CLLocationManagerDelegate, Permission {
 
-        let status = Observable<CLAuthorizationStatus>(CLLocationManager.authorizationStatus())
+        public let status = Observable<CLAuthorizationStatus>(CLLocationManager.authorizationStatus())
 
         private let manager = CLLocationManager()
         private var completion: RequestCompletion?
@@ -23,7 +23,7 @@ public extension Permissions {
             manager.delegate = self
         }
 
-        func requestAlways(from vc: UIViewController, completion: RequestCompletion? = nil) {
+        public func requestAlways(from vc: UIViewController, completion: RequestCompletion? = nil) {
             guard validate(usageKey: "NSLocationAlwaysUsageDescription") else { return }
 
             switch status.value {
@@ -37,7 +37,7 @@ public extension Permissions {
             }
         }
 
-        func requestWhenInUse(from vc: UIViewController, completion: RequestCompletion? = nil) {
+        public func requestWhenInUse(from vc: UIViewController, completion: RequestCompletion? = nil) {
             guard validate(usageKey: "NSLocationWhenInUseUsageDescription") else { return }
 
             switch status.value {

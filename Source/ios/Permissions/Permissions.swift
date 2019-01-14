@@ -19,11 +19,11 @@ public enum Permissions {
     public static let notifications = Notifications()
 }
 
-public protocol Permission {
+protocol Permission {
     func showSettingsAlert(permission: String, in vc: UIViewController)
 }
 
-public extension Permission {
+extension Permission {
 
     func validate(usageKey: String) -> Bool {
         let object = Bundle.main.object(forInfoDictionaryKey: usageKey)

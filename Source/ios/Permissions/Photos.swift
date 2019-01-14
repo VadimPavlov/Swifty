@@ -12,9 +12,9 @@ public extension Permissions {
 
     final class Photos: Permission {
 
-        let status = Observable<PHAuthorizationStatus>(PHPhotoLibrary.authorizationStatus())
+        public let status = Observable<PHAuthorizationStatus>(PHPhotoLibrary.authorizationStatus())
 
-        func request(from vc: UIViewController, completion: RequestCompletion? = nil) {
+        public func request(from vc: UIViewController, completion: RequestCompletion? = nil) {
             guard validate(usageKey: "NSLocationAlwaysUsageDescription") else { return }
 
             switch status.value {

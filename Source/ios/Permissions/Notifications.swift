@@ -12,7 +12,7 @@ public extension Permissions {
     @available(iOS 10.0, *)
     final class Notifications {
 
-        let status = Observable<UNAuthorizationStatus?>(nil)
+        public let status = Observable<UNAuthorizationStatus?>(nil)
         private let center = UNUserNotificationCenter.current()
 
         init() {
@@ -21,7 +21,7 @@ public extension Permissions {
             }
         }
 
-        func request(options: UNAuthorizationOptions, completion: RequestCompletion? = nil) {
+        public func request(options: UNAuthorizationOptions, completion: RequestCompletion? = nil) {
             center.requestAuthorization(options: options) { granded, error in
                 error.map { print($0) }
                 DispatchQueue.main.async {
