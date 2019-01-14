@@ -16,6 +16,10 @@
 		183001DF21CBCCD4001373AA /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183001DD21CBCCD4001373AA /* Configs.swift */; };
 		183001EE21CBEC5D001373AA /* Swifty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A0D3F12180EEF700B20FAE /* Swifty.framework */; };
 		183001EF21CBEC5D001373AA /* Swifty.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14A0D3F12180EEF700B20FAE /* Swifty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		18428CD221ECF1AC008C5D1F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CCE21ECF1AC008C5D1F /* Location.swift */; };
+		18428CD321ECF1AC008C5D1F /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CCF21ECF1AC008C5D1F /* Permissions.swift */; };
+		18428CD421ECF1AC008C5D1F /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CD021ECF1AC008C5D1F /* Photos.swift */; };
+		18428CD521ECF1AC008C5D1F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CD121ECF1AC008C5D1F /* Notifications.swift */; };
 		18734A852191EEB30055B2FF /* TestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE942072C8AD00CD6D2D /* TestTableCell.swift */; };
 		18734A862191EEC50055B2FF /* TestTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147CEE922072C88900CD6D2D /* TestTableCell.xib */; };
 		18734A872191EEC80055B2FF /* TestTableAnotherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */; };
@@ -182,6 +186,10 @@
 		183001DD21CBCCD4001373AA /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		183001F121CBECB4001373AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
 		183001F321CBECBF001373AA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ru; path = ru.lproj/Info.plist; sourceTree = "<group>"; };
+		18428CCE21ECF1AC008C5D1F /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		18428CCF21ECF1AC008C5D1F /* Permissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		18428CD021ECF1AC008C5D1F /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
+		18428CD121ECF1AC008C5D1F /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		1879C4A22191C83E0013EF2F /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		1879C4A52191C83E0013EF2F /* UIGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGradientView.swift; sourceTree = "<group>"; };
 		1879C4A72191C83E0013EF2F /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -370,6 +378,17 @@
 			path = SwiftyTests;
 			sourceTree = "<group>";
 		};
+		18428CCD21ECF1AC008C5D1F /* Permissions */ = {
+			isa = PBXGroup;
+			children = (
+				18428CCF21ECF1AC008C5D1F /* Permissions.swift */,
+				18428CCE21ECF1AC008C5D1F /* Location.swift */,
+				18428CD021ECF1AC008C5D1F /* Photos.swift */,
+				18428CD121ECF1AC008C5D1F /* Notifications.swift */,
+			);
+			path = Permissions;
+			sourceTree = "<group>";
+		};
 		18734A822191EC960055B2FF /* Collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +429,7 @@
 		1879C4A32191C83E0013EF2F /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				18428CCD21ECF1AC008C5D1F /* Permissions */,
 				1879C4A42191C83E0013EF2F /* IBDesignable */,
 				1879C4A62191C83E0013EF2F /* UIKit */,
 				1879C4AF2191C83E0013EF2F /* CoreData */,
@@ -884,14 +904,17 @@
 				183001DE21CBCCD4001373AA /* Configs.swift in Sources */,
 				1879C5002191C83E0013EF2F /* TableController.swift in Sources */,
 				1879C4FB2191C83E0013EF2F /* ListPage.swift in Sources */,
+				18428CD521ECF1AC008C5D1F /* Notifications.swift in Sources */,
 				1879C51F2191C83E0013EF2F /* Array.swift in Sources */,
 				1879C51A2191C83E0013EF2F /* Result.swift in Sources */,
 				1879C5042191C83E0013EF2F /* Register.swift in Sources */,
 				1879C5102191C83E0013EF2F /* Router.swift in Sources */,
 				1879C5182191C83E0013EF2F /* Future.swift in Sources */,
 				1879C5052191C83E0013EF2F /* BatchUpdate.swift in Sources */,
+				18428CD321ECF1AC008C5D1F /* Permissions.swift in Sources */,
 				1879C5202191C83E0013EF2F /* CoreGraphics.swift in Sources */,
 				1879C50D2191C83E0013EF2F /* ViewType.swift in Sources */,
+				18428CD221ECF1AC008C5D1F /* Location.swift in Sources */,
 				1879C5072191C83E0013EF2F /* CellDescriptor.swift in Sources */,
 				187C5C9A2191DDA600985C96 /* Swifty.xcdatamodeld in Sources */,
 				1879C51B2191C83E0013EF2F /* BatchFuture.swift in Sources */,
@@ -901,6 +924,7 @@
 				1879C4F52191C83E0013EF2F /* BatchSizable.swift in Sources */,
 				1879C4EC2191C83E0013EF2F /* UIGradientView.swift in Sources */,
 				1879C50A2191C83E0013EF2F /* CoreData.swift in Sources */,
+				18428CD421ECF1AC008C5D1F /* Photos.swift in Sources */,
 				1879C4FE2191C83E0013EF2F /* ListViewState.swift in Sources */,
 				1879C5082191C83E0013EF2F /* NotificationDescriptor.swift in Sources */,
 				1879C4F82191C83E0013EF2F /* MediaPickerDelegate.swift in Sources */,
