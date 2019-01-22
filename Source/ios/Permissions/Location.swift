@@ -13,7 +13,7 @@ public extension Permissions {
 
     final class Location: NSObject, CLLocationManagerDelegate, Permission {
 
-        public let status = Observable<CLAuthorizationStatus>(CLLocationManager.authorizationStatus())
+        public lazy var status = Observable<CLAuthorizationStatus>(CLLocationManager.authorizationStatus())
 
         private let manager = CLLocationManager()
         private var completion: RequestCompletion?
@@ -41,7 +41,7 @@ public extension Permissions {
             guard validate(usageKey: "NSLocationWhenInUseUsageDescription") else { return }
 
             switch status.value {
-            case .authorizedWhenInUse:
+            case .authorizedWhenInUse, .authorizedAlways:
                 completion?()
             case .notDetermined:
                 self.completion = completion
