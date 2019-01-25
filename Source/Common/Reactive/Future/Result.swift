@@ -25,10 +25,9 @@ public enum Result<Value> {
         case .success(let value): return transform(value)
         }
     }
-}
 
-public extension Result where Value == Void {
-    public var success: Result {
-        return Result.success(())
+    public static var success: Result<Void> {
+        return Result<Void>.success(())
     }
+
 }
