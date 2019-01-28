@@ -8,25 +8,22 @@
 
 import Foundation
 
-final public class Observable<Value> {
+final public class Observable<Value>: Listenable<Value> {
 
-    public typealias Observer    = (Value) -> Void
+    public typealias Observer = Listener
     public typealias ObserverOld = (Value, Value) -> Void
 
-    private var observers:    Atomic<[UUID: Observer]>
     private var observersOld: Atomic<[UUID: ObserverOld]>
 
     public init(_ value: Value) {
         self.value = value
-        self.observers    = Atomic([:])
         self.observersOld = Atomic([:])
+        super.init()
     }
 
     public var value: Value {
         didSet {
-            observers.value.forEach { (_, observer) in
-                observer(self.value)
-            }
+            write(value: self.value)
             observersOld.value.forEach { (_, observer) in
                 observer(self.value, oldValue)
             }
@@ -35,17 +32,7 @@ final public class Observable<Value> {
 
     public func observe(onlyNew: Bool = false, observer: @escaping Observer) -> Disposable {
         if !onlyNew { observer(self.value) }
-
-        let id = UUID()
-        self.observers.mutate { observers in
-            observers[id] = observer
-        }
-
-        return Disposable {
-            self.observers.mutate { observers in
-                observers[id] = nil
-            }
-        }
+        return self.listen(listener: observer)
     }
 
     public func observeOld(observer: @escaping ObserverOld) -> Disposable {
@@ -73,19 +60,5 @@ extension Observable where Value: Equatable {
                 observer(newValue)
             }
         }
-    }
-}
-
-
-final public class Disposable {
-    public typealias Dispose = () -> Void
-    private let dispose: Dispose
-
-    init(_ dispose: @escaping Dispose) {
-        self.dispose = dispose
-    }
-
-    deinit {
-        dispose()
     }
 }

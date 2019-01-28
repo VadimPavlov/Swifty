@@ -225,22 +225,21 @@ class SettingsTests: XCTestCase {
 
     }
 
-    func testCodable() {
-
-        struct TestObject: Codable {
-            let id: Int
-            let name: String
-        }
-
-        let value = TestObject(id: 1, name: "test")
-
-        settings.set(value, key: .object)
-
-        let object: TestObject? = settings.object(key: .object)
-
-        XCTAssertEqual(object?.id, value.id)
-        XCTAssertEqual(object?.name, value.name)
-
-    }
-
+//    func testCodable() {
+//
+//        struct TestObject: Codable {
+//            let id: Int
+//            let name: String
+//        }
+//
+//        let value = TestObject(id: 1, name: "test")
+//
+//        settings.set(value, key: .object)
+//
+//        let object: TestObject? = settings?.object(key: .object)
+//
+//        XCTAssertEqual(object?.id, value.id)
+//        XCTAssertEqual(object?.name, value.name)
+//
+//    }
 }

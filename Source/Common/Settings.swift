@@ -47,9 +47,12 @@ extension URL: URLValue {}
 extension NSURL: URLValue {}
 
 open class Settings<Key: SettingKey> {
-    
+
+    public let prefix: String
     public let defaults: UserDefaults
-    public init(defaults: UserDefaults) {
+
+    public init(prefix: String = "", defaults: UserDefaults) {
+        self.prefix = prefix
         self.defaults = defaults
     }
 
@@ -69,8 +72,8 @@ open class Settings<Key: SettingKey> {
     }
 
     public subscript<U: URLValue>(key: Key) -> U? {
-        set { defaults.set(newValue as? URL, forKey: key.rawValue) }
-        get { return defaults.url(forKey: key.rawValue) as? U }
+        set { defaults.set(newValue as? URL, forKey: prefix + key.rawValue) }
+        get { return defaults.url(forKey: prefix + key.rawValue) as? U }
     }
 
     public subscript<E: RawRepresentable>(key: Key) -> E? {
@@ -122,13 +125,9 @@ open class Settings<Key: SettingKey> {
     */
 }
 
-//extension Settings {
-//
-//}
-
 private extension Settings {
     func set(value: Any?, forKey settingKey: Key) {
-        let key = settingKey.rawValue
+        let key = prefix + settingKey.rawValue
         if let newValue = value {
             defaults.set(newValue, forKey: key)
         } else {
@@ -137,7 +136,7 @@ private extension Settings {
     }
     
     func get(key settingKey: Key) -> Any? {
-        let key = settingKey.rawValue
+        let key = prefix + settingKey.rawValue
         return defaults.object(forKey: key)
     }
 }

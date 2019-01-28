@@ -20,6 +20,8 @@
 		18428CD321ECF1AC008C5D1F /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CCF21ECF1AC008C5D1F /* Permissions.swift */; };
 		18428CD421ECF1AC008C5D1F /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CD021ECF1AC008C5D1F /* Photos.swift */; };
 		18428CD521ECF1AC008C5D1F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18428CD121ECF1AC008C5D1F /* Notifications.swift */; };
+		184A125421FF1807002BAD17 /* Listenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184A125321FF1807002BAD17 /* Listenable.swift */; };
+		184A125521FF1807002BAD17 /* Listenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184A125321FF1807002BAD17 /* Listenable.swift */; };
 		18734A852191EEB30055B2FF /* TestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CEE942072C8AD00CD6D2D /* TestTableCell.swift */; };
 		18734A862191EEC50055B2FF /* TestTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147CEE922072C88900CD6D2D /* TestTableCell.xib */; };
 		18734A872191EEC80055B2FF /* TestTableAnotherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14276D632072D4EC00952C27 /* TestTableAnotherCell.xib */; };
@@ -190,6 +192,7 @@
 		18428CCF21ECF1AC008C5D1F /* Permissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		18428CD021ECF1AC008C5D1F /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		18428CD121ECF1AC008C5D1F /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		184A125321FF1807002BAD17 /* Listenable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Listenable.swift; path = ../../Common/Reactive/Listenable.swift; sourceTree = "<group>"; };
 		1879C4A22191C83E0013EF2F /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		1879C4A52191C83E0013EF2F /* UIGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGradientView.swift; sourceTree = "<group>"; };
 		1879C4A72191C83E0013EF2F /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -575,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				1879C4DA2191C83E0013EF2F /* Throttle.swift */,
+				184A125321FF1807002BAD17 /* Listenable.swift */,
 				1879C4DB2191C83E0013EF2F /* Observable.swift */,
 				1879C4DC2191C83E0013EF2F /* Future */,
 			);
@@ -876,6 +880,7 @@
 				1879C5302191C86E0013EF2F /* Atomic.swift in Sources */,
 				183001DF21CBCCD4001373AA /* Configs.swift in Sources */,
 				1879C52A2191C8550013EF2F /* Observable.swift in Sources */,
+				184A125521FF1807002BAD17 /* Listenable.swift in Sources */,
 				1879C5322191C87E0013EF2F /* Array.swift in Sources */,
 				1879C5332191C87E0013EF2F /* CoreGraphics.swift in Sources */,
 				1879C5262191C8520013EF2F /* Container.swift in Sources */,
@@ -957,6 +962,7 @@
 				1879C5152191C83E0013EF2F /* LossyArray.swift in Sources */,
 				1879C4EF2191C83E0013EF2F /* UIColor.swift in Sources */,
 				1879C4FA2191C83E0013EF2F /* ListController.swift in Sources */,
+				184A125421FF1807002BAD17 /* Listenable.swift in Sources */,
 				1879C51C2191C83E0013EF2F /* Dispatch.swift in Sources */,
 				1879C5012191C83E0013EF2F /* FRCCollectionController.swift in Sources */,
 				1879C5132191C83E0013EF2F /* Container.swift in Sources */,
