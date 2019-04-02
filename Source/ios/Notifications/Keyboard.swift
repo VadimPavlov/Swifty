@@ -70,7 +70,7 @@ public struct KeyboardNotificationToken {
 
 public extension UIScrollView {
     
-    public struct OriginalInsets {
+    struct OriginalInsets {
         let contentBottom: CGFloat
         let indicatorsBottom: CGFloat
     }

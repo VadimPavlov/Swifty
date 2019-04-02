@@ -12,19 +12,19 @@ public extension Dictionary {
         }
     }
     
-    public func mapPairs<OutKey: Hashable, OutValue>(_ transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
+    func mapPairs<OutKey: Hashable, OutValue>(_ transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
         return Dictionary<OutKey, OutValue>(try map(transform))
     }
 
-    public func mapKeys<OutKey: Hashable>(_ transform: @escaping (Key) -> OutKey) -> [OutKey : Value] {
+    func mapKeys<OutKey: Hashable>(_ transform: @escaping (Key) -> OutKey) -> [OutKey : Value] {
         return self.mapPairs { (transform($0), $1) }
     }
     
-    public func mapValues<OutValue>(_ transform: (Value) -> OutValue) -> [Key : OutValue] {
+    func mapValues<OutValue>(_ transform: (Value) -> OutValue) -> [Key : OutValue] {
         return self.mapPairs { ($0, transform($1)) }
     }
 
-    public func filterPairs(_ includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
+    func filterPairs(_ includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
         return Dictionary(try filter(includeElement))
     }
 
@@ -38,11 +38,11 @@ public extension Dictionary where Value: Equatable {
 
 // MARK: - Combining operators
 public extension Dictionary {
-    public static func +=(lhs: inout [Key: Value], rhs: [Key: Value]) {
+    static func +=(lhs: inout [Key: Value], rhs: [Key: Value]) {
         rhs.forEach({ lhs[$0] = $1})
     }
     
-    public static func +(lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
+    static func +(lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
         var combined = lhs
         combined += rhs
         return combined

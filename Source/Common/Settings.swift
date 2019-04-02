@@ -18,7 +18,7 @@ public protocol SettingKey {
 }
 
 public extension SettingKey {
-    public static var clearKeys: [Self] {
+    static var clearKeys: [Self] {
         return allKeys
     }
 }
@@ -84,21 +84,40 @@ open class Settings<Key: SettingKey> {
         }
     }
 
-    public func set<Object: Codable>(_ object: Object?, key: Key) {
+    // MARK: - Objects
+    public enum CodingType {
+        case json
+        case plist
+    }
+
+    public func set<Object: Codable>(_ object: Object?, key: Key, type: CodingType = .plist) {
         if let object = object {
-            let encoder = PropertyListEncoder()
-            let data = try? encoder.encode(object)
+            let data: Data?
+            switch type {
+            case .json:
+                let encoder = JSONEncoder()
+                data = try? encoder.encode(object)
+            case .plist:
+                let encoder = PropertyListEncoder()
+                data = try? encoder.encode(object)
+            }
             self.set(value: data, forKey: key)
         } else {
             self.set(value: nil, forKey: key)
         }
     }
 
-    public func object<Object: Codable>(_ key: Key) -> Object? {
-        let decoder = PropertyListDecoder()
-        let data = self.get(key: key) as? Data
-        let object = data.flatMap { try? decoder.decode(Object.self, from: $0) }
-        return object
+    public func object<Object: Codable>(_ key: Key, type: CodingType = .plist) -> Object? {
+
+        guard let data = self.get(key: key) as? Data else { return nil }
+        switch type {
+        case .json:
+            let decoder = JSONDecoder()
+            return try? decoder.decode(Object.self, from: data)
+        case .plist:
+            let decoder = PropertyListDecoder()
+            return try? decoder.decode(Object.self, from: data)
+        }
     }
 
 

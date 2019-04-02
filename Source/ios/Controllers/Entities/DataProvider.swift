@@ -58,7 +58,7 @@ public final class DataProvider<Object>: ExpressibleByArrayLiteral {
 }
 
 public extension DataProvider where Object: AnyObject {
-    public convenience init(result: PHFetchResult<Object>) {
+    convenience init(result: PHFetchResult<Object>) {
         self.init(numberOfSection: { 1 },
                   numberOfObjectsInSection: { _ in return result.count },
                   objectAtIndexPath: { return result.object(at: $0.row) },
@@ -68,7 +68,7 @@ public extension DataProvider where Object: AnyObject {
 
 public extension DataProvider where Object: NSFetchRequestResult {
 
-    public convenience init(frc: NSFetchedResultsController<Object>, emptySectionsCount: Int = 0) {
+    convenience init(frc: NSFetchedResultsController<Object>, emptySectionsCount: Int = 0) {
         self.init(numberOfSection: { frc.sections?.count ?? emptySectionsCount },
                   numberOfObjectsInSection: { frc.sections?[$0].numberOfObjects ?? 0 },
                   objectAtIndexPath: { frc.sections?[$0.section].objects?[$0.row] as! Object },

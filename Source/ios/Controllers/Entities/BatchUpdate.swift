@@ -131,7 +131,7 @@ public struct BatchUpdate: CustomStringConvertible {
 
 // FRC Helpers
 public extension BatchUpdate {
-    public mutating func addSection(type: NSFetchedResultsChangeType, index: Int) {
+    mutating func addSection(type: NSFetchedResultsChangeType, index: Int) {
         switch type {
         case .insert: insertSections.insert(index)
         case .delete: deleteSections.insert(index)
@@ -139,7 +139,7 @@ public extension BatchUpdate {
         }
     }
     
-    public mutating func addRow(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
+    mutating func addRow(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
         guard let ip = newIndexPath ?? indexPath else { return }
         
         switch type {
