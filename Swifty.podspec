@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Swifty"
-  s.version      = "3.2.1"
+  s.version      = "3.2.2"
   s.summary      = "Awesome Swift helpers"
   s.swift_version = "4.2"
   s.homepage     = "https://github.com/VadimPavlov/Swifty"

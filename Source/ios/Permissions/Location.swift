@@ -52,7 +52,7 @@ public extension Permissions {
             }
         }
 
-        private func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             if status == .notDetermined { return }
             self.status.value = status
             completion?()
