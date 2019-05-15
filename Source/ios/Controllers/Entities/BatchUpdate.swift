@@ -27,8 +27,6 @@ extension Move: Equatable {
 
 public struct BatchUpdate: CustomStringConvertible {
 
-    public var animation: UITableView.RowAnimation = .automatic
-
     public var deleteSections: IndexSet
     public var insertSections: IndexSet
     public var reloadSections: IndexSet
@@ -39,6 +37,7 @@ public struct BatchUpdate: CustomStringConvertible {
     public var reloadRows: [IndexPath]
     public var moveRows: [Move<IndexPath>]
 
+    public var animation: UITableView.RowAnimation
 
     public init(deleteSections: IndexSet = IndexSet(),
                 insertSections: IndexSet = IndexSet(),
@@ -47,7 +46,8 @@ public struct BatchUpdate: CustomStringConvertible {
                 deleteRows: [IndexPath] = [],
                 insertRows: [IndexPath] = [],
                 reloadRows: [IndexPath] = [],
-                moveRows: [Move<IndexPath>] = []) {
+                moveRows: [Move<IndexPath>] = [],
+                animation: UITableView.RowAnimation = .automatic) {
         
         self.deleteSections = deleteSections
         self.insertSections = insertSections
@@ -57,6 +57,7 @@ public struct BatchUpdate: CustomStringConvertible {
         self.insertRows = insertRows
         self.reloadRows = reloadRows
         self.moveRows = moveRows
+        self.animation = animation
     }
     
     public var description: String {
