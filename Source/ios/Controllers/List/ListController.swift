@@ -59,13 +59,16 @@ open class ListController: StateController<ListViewState> {
     // MARK: - Loading
     public func clear() {
         self.lastID = nil
+        self.state.isEmpty = nil
         self.state.canLoadMore = true
         self.currentPage = firstPage
         self.update(objects: [])
     }
     
     public func loadFirstPage() {
-        self.clear()
+        if lastID != nil {
+            self.clear()
+        }
 
         let page = ListPage(size: pageSize, number: firstPage,  lastID: nil)
         self.loadPage(page) { [weak self] objects in
