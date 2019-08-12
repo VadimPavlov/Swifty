@@ -66,7 +66,7 @@ private extension LocalizedString {
     }
 
     static func string(for key: Keys) -> String {
-        return bundle.localizedString(forKey: key.rawValue, value: nil, table: nil)
+        return bundle.localizedString(forKey: key.rawValue.capitalized, value: nil, table: nil)
     }
 
 }
