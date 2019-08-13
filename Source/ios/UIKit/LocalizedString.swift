@@ -14,9 +14,22 @@ public enum LocalizedString {
     public static var yes: String { return string(for: .yes) }
 
     public static var ok: String { return string(for: .ok) }
-    public static var cancel: String { return string(for: .cancel) }
+    public static var done: String { return string(for: .done) }
     public static var save: String { return string(for: .save) }
+    public static var cancel: String { return string(for: .cancel) }
     public static var delete: String { return string(for: .delete) }
+
+    public static var add: String { return string(for: .add) }
+    public static var edit: String { return string(for: .edit) }
+    public static var back: String { return string(for: .back) }
+
+    public static var undo: String { return string(for: .undo) }
+    public static var redo: String { return string(for: .redo) }
+
+    public static var bookmarks: String { return string(for: .bookmarks) }
+    public static var search: String { return string(for: .search) }
+    public static var refresh: String { return string(for: .refresh) }
+    public static var stop: String { return string(for: .stop) }
 
     public static var all: [String] {
         return Keys.allCases.map { string(for: $0) }
