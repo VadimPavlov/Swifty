@@ -7,6 +7,7 @@
 //
 
 import Photos
+import UIKit
 
 public extension Permissions {
 

@@ -136,7 +136,7 @@ public extension BatchUpdate {
         switch type {
         case .insert: insertSections.insert(index)
         case .delete: deleteSections.insert(index)
-        case .update, .move: fatalError("Not supported cases")
+        default: fatalError("Not supported cases")
         }
     }
     
@@ -158,6 +158,8 @@ public extension BatchUpdate {
                 let move = Move(at: indexPath, to: newIndexPath)
                 moveRows.append(move)
             }
+        @unknown default:
+            fatalError("Not supported cases")
         }
     }
 }

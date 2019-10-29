@@ -12,15 +12,7 @@ public protocol SettingKey {
     init?(rawValue: String)
     var rawValue: String { get }
 
-    @available(*, deprecated, renamed: "clearKeys")
-    static var allKeys: [Self] { get }
     static var clearKeys: [Self] { get }
-}
-
-public extension SettingKey {
-    static var clearKeys: [Self] {
-        return allKeys
-    }
 }
 
 public protocol SettingValue {}

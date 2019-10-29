@@ -32,7 +32,7 @@ enum TestKeys: String, SettingKey, CaseIterable {
     
     case object
 
-    static var allKeys: [TestKeys] {
+    static var clearKeys: [TestKeys] {
         return allCases
     }
 

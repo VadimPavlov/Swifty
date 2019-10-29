@@ -12,7 +12,7 @@ public extension Array where Element: Equatable {
 
     @discardableResult
     mutating func remove(_ object: Element) -> Element? {
-        if let index = index(of: object) {
+        if let index = firstIndex(of: object) {
             return remove(at: index)
         }
         return nil

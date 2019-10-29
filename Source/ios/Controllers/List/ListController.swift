@@ -170,7 +170,7 @@ public extension ListController {
     }
     
     func updateObject(_ object: ListObject) -> Int? {
-        let index = self.objects.value.index { $0.listID == object.listID }
+        let index = self.objects.value.firstIndex { $0.listID == object.listID }
         if let item = index {
             
             let ip = IndexPath(item: item, section: section)
@@ -237,7 +237,7 @@ public extension ListController {
     }
     
     func removeObject(_ object: ListObject) -> Int? {
-        let index = self.objects.value.index { $0.listID == object.listID }
+        let index = self.objects.value.firstIndex { $0.listID == object.listID }
         if let index = index {
             self.removeObject(at: index)
         }
@@ -268,7 +268,7 @@ public extension ListController {
 
     // MARK: Move
     func moveObject(_ object: ListObject, to index: Int) {
-        guard let row = objects.value.index(where: { $0.listID == object.listID }) else { return }
+        guard let row = objects.value.firstIndex(where: { $0.listID == object.listID }) else { return }
         move(from: row, to: index)
     }
 

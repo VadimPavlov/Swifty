@@ -18,9 +18,11 @@ public struct LossyArray<Element: Decodable>: Decodable {
         var container = try decoder.unkeyedContainer()
         var elements: [Element] = []
         while !container.isAtEnd {
-            if let item = try? container.decode(Element.self) {
+            do {
+                let item = try container.decode(Element.self)
                 elements.append(item)
-            } else {
+            } catch {
+                print("[LossyArray]: \(error)")
                 // increment currentIndex of container, prevent infinit loop
                 let _ = try? container.decode(AnyCodable.self)
             }

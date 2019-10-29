@@ -61,7 +61,6 @@
 		1879C50D2191C83E0013EF2F /* ViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4CE2191C83E0013EF2F /* ViewType.swift */; };
 		1879C50E2191C83E0013EF2F /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4CF2191C83E0013EF2F /* EventsViewController.swift */; };
 		1879C50F2191C83E0013EF2F /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4D02191C83E0013EF2F /* ViewModel.swift */; };
-		1879C5102191C83E0013EF2F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4D12191C83E0013EF2F /* Router.swift */; };
 		1879C5112191C83E0013EF2F /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4D22191C83E0013EF2F /* StateController.swift */; };
 		1879C5122191C83E0013EF2F /* Strint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4D52191C83E0013EF2F /* Strint.swift */; };
 		1879C5132191C83E0013EF2F /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4D62191C83E0013EF2F /* Container.swift */; };
@@ -230,7 +229,6 @@
 		1879C4CE2191C83E0013EF2F /* ViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewType.swift; sourceTree = "<group>"; };
 		1879C4CF2191C83E0013EF2F /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		1879C4D02191C83E0013EF2F /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		1879C4D12191C83E0013EF2F /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		1879C4D22191C83E0013EF2F /* StateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		1879C4D52191C83E0013EF2F /* Strint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strint.swift; sourceTree = "<group>"; };
 		1879C4D62191C83E0013EF2F /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
@@ -543,7 +541,6 @@
 				1879C4CE2191C83E0013EF2F /* ViewType.swift */,
 				1879C4CF2191C83E0013EF2F /* EventsViewController.swift */,
 				1879C4D02191C83E0013EF2F /* ViewModel.swift */,
-				1879C4D12191C83E0013EF2F /* Router.swift */,
 				1879C4D22191C83E0013EF2F /* StateController.swift */,
 			);
 			path = MVVM;
@@ -913,7 +910,6 @@
 				1879C51F2191C83E0013EF2F /* Array.swift in Sources */,
 				1879C51A2191C83E0013EF2F /* Result.swift in Sources */,
 				1879C5042191C83E0013EF2F /* Register.swift in Sources */,
-				1879C5102191C83E0013EF2F /* Router.swift in Sources */,
 				1879C5182191C83E0013EF2F /* Future.swift in Sources */,
 				1879C5052191C83E0013EF2F /* BatchUpdate.swift in Sources */,
 				18428CD321ECF1AC008C5D1F /* Permissions.swift in Sources */,
@@ -1091,6 +1087,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1144,6 +1141,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1176,7 +1174,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1208,7 +1205,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1238,7 +1234,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.SwiftyIOS;
 				PRODUCT_NAME = Swifty;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1269,7 +1264,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Swifty.SwiftyIOS;
 				PRODUCT_NAME = Swifty;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1293,7 +1287,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilestrategy.SwiftyIOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
@@ -1315,7 +1308,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilestrategy.SwiftyIOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
@@ -1341,7 +1333,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilestrategy.generator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1365,7 +1356,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilestrategy.generator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

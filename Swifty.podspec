@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name         = "Swifty"
   s.version      = "3.2.6"
   s.summary      = "Awesome Swift helpers"
-  s.swift_version = "4.2"
+  s.swift_version = "5.0"
   s.homepage     = "https://github.com/VadimPavlov/Swifty"
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
   s.source       = { :git => "https://github.com/VadimPavlov/Swifty.git", :branch => "master" }
