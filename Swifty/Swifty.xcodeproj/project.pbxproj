@@ -248,6 +248,7 @@
 		1879C4E82191C83E0013EF2F /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		1879C4E92191C83E0013EF2F /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		1879C4EA2191C83E0013EF2F /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		187AB661237176BA0029CF27 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		187C5C7A2191CC2200985C96 /* SwiftyIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		187C5C7C2191CC2200985C96 /* SwiftyIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyIOSTests.swift; sourceTree = "<group>"; };
 		187C5C7E2191CC2200985C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -313,6 +314,7 @@
 		149AEAA01EC5F8CD00F16858 = {
 			isa = PBXGroup;
 			children = (
+				187AB661237176BA0029CF27 /* README.md */,
 				187C5CB32191EB2000985C96 /* Example */,
 				1879C49F2191C83E0013EF2F /* Source */,
 				14DC60802022794300DE6A6C /* SwiftyTests */,
