@@ -17,6 +17,12 @@ public enum Permissions {
 
     @available(iOS 10.0, *)
     public static let notifications = Notifications()
+
+    public static var settingsTitle = "Permission for %@ was denied"
+    public static var settingsMessage = "Please enable access for %@ in the Settings app."
+
+    public static var settingsCancel = "Cancel"
+    public static var settingsButton = "Settings"
 }
 
 protocol Permission {
@@ -34,13 +40,13 @@ extension Permission {
     func showSettingsAlert(permission: String, in vc: UIViewController) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 
-        let title = "Permission for \(permission) was denied"
-        let message = "Please enable access to \(permission) in the Settings app."
+        let title = String(format: Permissions.settingsTitle, permission)
+        let message = String(format: Permissions.settingsMessage, permission)
 
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let settings = UIAlertAction(title: "Settings", style: .default) { _ in
+        let cancel = UIAlertAction(title: Permissions.settingsCancel, style: .cancel, handler: nil)
+        let settings = UIAlertAction(title: Permissions.settingsButton, style: .default) { _ in
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {

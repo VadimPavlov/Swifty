@@ -12,7 +12,7 @@ import UIKit
 public extension Permissions {
 
     final class Photos: Permission {
-
+        public var name = "Photos"
         public let status = Observable<PHAuthorizationStatus>(PHPhotoLibrary.authorizationStatus())
 
         public func request(from vc: UIViewController, completion: RequestCompletion? = nil) {
@@ -27,7 +27,7 @@ public extension Permissions {
             case .authorized:
                 completion?()
             default:
-                showSettingsAlert(permission: "Photos", in: vc)
+                showSettingsAlert(permission: name, in: vc)
             }
             
         }

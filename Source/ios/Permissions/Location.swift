@@ -12,6 +12,8 @@ import CoreLocation
 public extension Permissions {
 
     final class Location: NSObject, CLLocationManagerDelegate, Permission {
+        public var nameInUse = "Location In Use"
+        public var nameAlways = "Location Always"
 
         public lazy var status = Observable<CLAuthorizationStatus>(CLLocationManager.authorizationStatus())
 
@@ -33,7 +35,7 @@ public extension Permissions {
                 self.completion = completion
                 self.manager.requestAlwaysAuthorization()
             default:
-                self.showSettingsAlert(permission: "Location Always", in: vc)
+                self.showSettingsAlert(permission: nameAlways, in: vc)
             }
         }
 
@@ -47,7 +49,7 @@ public extension Permissions {
                 self.completion = completion
                 self.manager.requestWhenInUseAuthorization()
             default:
-                self.showSettingsAlert(permission: "Location In Use", in: vc)
+                self.showSettingsAlert(permission: nameInUse, in: vc)
                 completion?()
             }
         }
