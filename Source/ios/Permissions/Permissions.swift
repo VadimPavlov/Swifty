@@ -40,13 +40,15 @@ extension Permission {
     func showSettingsAlert(permission: String, in vc: UIViewController) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 
-        let title = String(format: Permissions.settingsTitle, permission)
-        let message = String(format: Permissions.settingsMessage, permission)
+        let title = String(format: NSLocalizedString(Permissions.settingsTitle, comment: "") , permission)
+        let message = String(format: NSLocalizedString(Permissions.settingsMessage, comment: ""), permission)
 
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let cancel = UIAlertAction(title: Permissions.settingsCancel, style: .cancel, handler: nil)
-        let settings = UIAlertAction(title: Permissions.settingsButton, style: .default) { _ in
+        let cancel = UIAlertAction(title: NSLocalizedString(Permissions.settingsCancel, comment: ""),
+                                   style: .cancel, handler: nil)
+        let settings = UIAlertAction(title: NSLocalizedString(Permissions.settingsButton, comment: ""),
+                                     style: .default) { _ in
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
