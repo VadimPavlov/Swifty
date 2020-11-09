@@ -57,7 +57,7 @@ open class ListController: StateController<ListViewState> {
     }
 
     // MARK: - Loading
-    open public func clear() {
+    open func clear() {
         self.lastID = nil
         self.state.isEmpty = nil
         self.state.canLoadMore = true
