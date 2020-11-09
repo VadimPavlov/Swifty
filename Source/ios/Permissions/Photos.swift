@@ -16,7 +16,7 @@ public extension Permissions {
         public let status = Observable<PHAuthorizationStatus>(PHPhotoLibrary.authorizationStatus())
 
         public func request(from vc: UIViewController, completion: RequestCompletion? = nil) {
-            guard validate(usageKey: "NSLocationAlwaysUsageDescription") else { return }
+            guard validate(usageKey: "NSPhotoLibraryUsageDescription") else { return }
 
             switch status.value {
             case .notDetermined:
