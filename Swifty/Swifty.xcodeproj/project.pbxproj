@@ -264,6 +264,7 @@
 		18CDBA33219DACF200FB2FCF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		18CDBA37219DAD2300FB2FCF /* ExampleKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleKeyboardViewController.swift; sourceTree = "<group>"; };
 		18E5BB8C21B58D4000A0D92A /* TestCodables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCodables.swift; sourceTree = "<group>"; };
+		6335DF78260B89F30058B174 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				187AB661237176BA0029CF27 /* README.md */,
+				6335DF78260B89F30058B174 /* Package.swift */,
 				187C5CB32191EB2000985C96 /* Example */,
 				1879C49F2191C83E0013EF2F /* Source */,
 				14DC60802022794300DE6A6C /* SwiftyTests */,
