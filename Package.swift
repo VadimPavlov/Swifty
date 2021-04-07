@@ -28,9 +28,11 @@ let package = Package(
             path: "Sources/Swifty/Common"),
         .target(
             name: "SwiftyIOS",
+            dependencies: ["SwiftyCommon"],
             path: "Sources/Swifty/ios"),
         .target(
             name: "SwiftyOSX",
+            dependencies: ["SwiftyCommon"],
             path: "Sources/Swifty/osx")
     ]
 )
