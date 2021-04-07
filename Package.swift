@@ -9,8 +9,12 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "Swifty",
-            targets: ["Swifty"]),
+            name: "SwiftyIOS",
+            targets: ["SwiftyIOS"]),
+        .library(
+            name: "SwiftyOSX",
+            targets: ["SwiftyOSX"]),
+
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -20,10 +24,16 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "Swifty",
+            name: "SwiftyCommon",
+            path: "Sources/Swifty/Common",
             dependencies: []),
-        .testTarget(
-            name: "SwiftyTests",
-            dependencies: ["Swifty"]),
+        .target(
+            name: "SwiftyIOS",
+            path: "Sources/Swifty/ios"
+            dependencies: ["SwiftyCommon"]),
+        .target(
+            name: "SwiftyOSX",
+            path: "Sources/Swifty/osx"
+            dependencies: ["SwiftyCommon"]),
     ]
 )
