@@ -25,15 +25,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SwiftyCommon",
-            path: "Sources/Swifty/Common",
-            dependencies: []),
+            path: "Sources/Swifty/Common"),
         .target(
             name: "SwiftyIOS",
-            path: "Sources/Swifty/ios",
-            dependencies: []),
+            path: "Sources/Swifty/ios"),
         .target(
             name: "SwiftyOSX",
-            path: "Sources/Swifty/osx",
-            dependencies: []),
+            path: "Sources/Swifty/osx")
     ]
 )
