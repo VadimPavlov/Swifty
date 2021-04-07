@@ -10,10 +10,10 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "SwiftyIOS",
-            targets: ["SwiftyIOS"]),
+            targets: ["SwiftyIOS", "SwiftyCommon"]),
         .library(
             name: "SwiftyOSX",
-            targets: ["SwiftyOSX"]),
+            targets: ["SwiftyOSX", "SwiftyCommon"]),
 
     ],
     dependencies: [
@@ -30,10 +30,10 @@ let package = Package(
         .target(
             name: "SwiftyIOS",
             path: "Sources/Swifty/ios"
-            dependencies: ["SwiftyCommon"]),
+            dependencies: []),
         .target(
             name: "SwiftyOSX",
             path: "Sources/Swifty/osx"
-            dependencies: ["SwiftyCommon"]),
+            dependencies: []),
     ]
 )
