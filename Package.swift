@@ -13,7 +13,7 @@ let package = Package(
             targets: ["SwiftyIOS", "SwiftyCommon"]),
         .library(
             name: "SwiftyOSX",
-            targets: ["SwiftyOSX", "SwiftyCommon"]),
+            targets: ["SwiftyOSX", "SwiftyCommon"])
 
     ],
     dependencies: [
@@ -29,11 +29,11 @@ let package = Package(
             dependencies: []),
         .target(
             name: "SwiftyIOS",
-            path: "Sources/Swifty/ios"
+            path: "Sources/Swifty/ios",
             dependencies: []),
         .target(
             name: "SwiftyOSX",
-            path: "Sources/Swifty/osx"
+            path: "Sources/Swifty/osx",
             dependencies: []),
     ]
 )
