@@ -6,6 +6,7 @@
 //  Copyright © 2018 Vadym Pavlov. All rights reserved.
 //
 
+#if os(macOS)
 import AppKit
 
 extension NSView {
@@ -18,3 +19,4 @@ extension NSView {
         }
     }
 }
+#endif
