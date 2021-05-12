@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Swifty"
-  s.version      = "3.2.11"
+  s.version      = "3.2.12"
   s.summary      = "Awesome Swift helpers"
   s.swift_version = "5.0"
   s.homepage     = "https://github.com/VadimPavlov/Swifty"
@@ -12,10 +12,10 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.11'
 
-  s.source_files  = "Source/**/*.swift"  
+  s.source_files  = "Sources/**/*.swift"  
 
-  s.source_files       = 'Source/common/**/*.swift'
-  s.ios.source_files   = 'Source/ios/**/*.swift'
-  s.osx.source_files   = 'Source/osx/**/*.swift'
+  s.source_files       = 'Sources/common/**/*.swift'
+  s.ios.source_files   = 'Sources/ios/**/*.swift'
+  s.osx.source_files   = 'Sources/osx/**/*.swift'
 
 end
