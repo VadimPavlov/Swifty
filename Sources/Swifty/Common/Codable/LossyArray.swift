@@ -10,9 +10,17 @@ import Foundation
 
 struct AnyCodable: Codable {}
 
-public struct LossyArray<Element: Decodable>: Decodable {
+public struct LossyArray<Element: Decodable>: Decodable, ExpressibleByArrayLiteral {
 
     public let array: [Element]
+    
+    public init(arrayLiteral elements: Element...) {
+        array = elements
+    }
+    
+    public init(_ array: [Element]) {
+        self.array = array
+    }
 
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
