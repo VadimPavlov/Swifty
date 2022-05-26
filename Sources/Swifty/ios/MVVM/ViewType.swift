@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol ViewType: class {
+public protocol ViewType: AnyObject {
     associatedtype State
     var isViewLoaded: Bool { get }
     func update(state: State, oldState: State?)

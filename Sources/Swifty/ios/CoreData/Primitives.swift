@@ -8,7 +8,7 @@
 
 import CoreData
 
-public protocol Primitives: class {
+public protocol Primitives: AnyObject {
     associatedtype PrimitiveKey: RawRepresentable
 }
 

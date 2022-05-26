@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol ListControllerDataSource: class {
+public protocol ListControllerDataSource: AnyObject {
     func loadPage(_ page: ListPage) -> Future<[ListObject]>
     func canLoadMore(after page: ListPage, loaded objects: [ListObject]) -> Bool
 }
